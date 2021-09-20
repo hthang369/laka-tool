@@ -25,7 +25,7 @@ class CompanyRepository extends CoreRepository
 
     public function formGenerate()
     {
-        $businessPlanRepo = resolve(BusinessPlanRepository::class);
+        $businessPlanRepo = resolve(BusinessPlanRepository::class); 
         return ['listBusinessPlan' => $businessPlanRepo->all()];
     }
 

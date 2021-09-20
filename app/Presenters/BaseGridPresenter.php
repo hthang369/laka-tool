@@ -39,7 +39,7 @@ abstract class BaseGridPresenter extends BaseDataGridPresenter
         }
         if (method_exists($this, 'customItemData')) {
             $itemData['data'] = call_user_func([$this, 'customItemData'], $itemData['data']);
-        }
+        } 
         return $itemData;
     }
 

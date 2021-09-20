@@ -27,11 +27,11 @@ class CheckPermissionByRole
      * @return mixed
      */
     public function handle($request, Closure $next)
-    {
-        if (!Auth::check()) {
+    { 
+        if (!Auth::check()) {  
             return abort(403);
-        }
-
+        } 
+ 
         Schema::defaultStringLength(191);
         $menu = $this->menuRepo->getAllMenus(Auth::id());
         View::share(['TOPMENU' => data_get($menu, 'topMenu'), 'LEFTMENU' => data_get($menu, 'leftMenu')]);

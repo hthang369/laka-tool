@@ -23,7 +23,7 @@ abstract class CoreController extends BaseController
     }
 
     public function create()
-    {    
+    {     
         $data = $this->repository->formGenerate(); 
 
         return WebResponse::success($this->getViewName(__FUNCTION__), $data);
