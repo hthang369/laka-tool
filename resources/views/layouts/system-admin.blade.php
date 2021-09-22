@@ -30,7 +30,7 @@
     </div>
 
     <!-- Toasts notification -->
-    <x-toasts class="abc" id="cbv" />
+    @include('components.system-admin.toasts')
 
     <div id="main-container" class="container-fluid m-0 pl-0">
         <div class="row">

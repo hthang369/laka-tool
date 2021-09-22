@@ -18,13 +18,13 @@ class BusinessPlanController extends CoreController
         'index'     => 'business-plan.list',
         'create'    => 'business-plan.create',
         'edit'      => 'business-plan.update',
-        'show'      => 'business-plan.detail',
-        'store'     => 'business-plan.create',
+        'show'      => 'bussiness-plan.detail',
+        'store'     => 'bussiness-plan.index',
     ];
 
     protected $errorRouteName = [
-        'store'     => 'business-plan.create',
-        'update'    => 'business-plan.edit'
+        'store'     => 'bussiness-plan.create',
+        'update'    => 'bussiness-plan.edit'
     ];
 
     public function __construct(BusinessPlanValidator $validator) {
