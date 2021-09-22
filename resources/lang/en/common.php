@@ -28,7 +28,7 @@ return [
     // caption
     'choose_company'            => 'Choose company',
 
-    // ====================================custom label================================
+    // ==================================== label ================================
     // index
     'index' => 'No.',
     // name
@@ -54,19 +54,13 @@ return [
     'add_all_contacts' => 'Add all contacts',
     'add_to_all_rooms' => 'Add to all rooms',
     'reset_password' => 'Reset password',
-
-    // business plan
-    'business_plan' => 'Business plan',
+    
     // maximum storage file
     'maximum_storage_file' => 'Maximum storage file',
-    // company
-    'company' => 'Company',
+    
     // user
     'user' => 'User',
-    // role
-    'role' => 'Role',
-    'role_rank' => 'Role rank',
-    'permission' => 'Permission',
+    
     // feature api
     'feature' => 'Feature',
     'api' => 'Api',
@@ -75,11 +69,7 @@ return [
     'id' => 'Id',
     'request_approval_status' => 'Request approval status',
     'request_approval_timestamp' => 'Request approval timestamp',
-    // version
-    'socket_version' => 'Socket Version',
-    'backend_version' => 'Backend Version',
-    'frontend_version' => 'Frontend Version',
-    'api_version' => 'Api Version',
+    
     // top menu
     'index_menu' => 'Index',
     'lang' => 'Lang',
@@ -91,4 +81,29 @@ return [
 
     'check_all' => 'Check all',
     'all' => 'All',
+
+    // ===================================== message ===========================
+    
+    'user_not_found' => 'User not found!',
+    'user_has_been_disabled' => 'User has been disabled!',
+    'feature_api_not_found' => 'Feature api not found!',
+    'confirm_delete' => 'Are you sure you want to delete?',
+    'update_password_success' => 'Password updated!',
+    'feature_confirm_sync' => 'Are you sure you want to Sync?',
+    'deleted' => 'Deleted!',
+    'saved' => 'Saved!',
+    'alert_no_feature_api' => 'Do not have Feature api, create Feature api first to create Role has feature api',
+    'inaccurate_data' => 'Inaccurate data!',
+    'no_item_found' => '<strong>Sorry!</strong> No Item Found.',
+    'wrong_password' => 'Wrong password!',
+    'used' => 'The item you delete is in use!',
+    'confirm_disable' => 'Are you sure you want to disable?',
+    'added_all_contacts' => 'Added all contacts',
+    'add_all_contacts_failed' => 'Add all contacts failed',
+    'added_to_all_rooms' => 'Added to all rooms',
+    'add_to_all_rooms_failed' => 'Add to all rooms failed or the user has already been added',
+    'alert_input_version' => 'Please input version',
+    'alert_input_environment_dev' => 'Please input -dev',
+    'alert_input_environment_stg' => 'Please input -stg',
+    'reset_password_success'=>'Submit request reset password successfully',
 ];

@@ -21,9 +21,9 @@
     <table class="table table-bordered table-striped table-hover">
         <thead>
         <tr scope="header">
-            <th scope="col">@lang('custom_label.index')</th>
+            <th scope="col">@lang('common.index')</th>
             <th scope="col">Name</th>
-            <th scope="col">@lang('custom_label.action')</th>
+            <th scope="col">@lang('common.action')</th>
         </tr>
         </thead>
         <tbody>

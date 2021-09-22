@@ -18,7 +18,7 @@
                 </div>
             @else
                 <div class="alert alert-success" role="alert">
-                    <span class="badge badge-success">@lang("custom_label.{$item}_version") </span> {{data_get($data, "versions.{$item}_version")}}
+                    <span class="badge badge-success">@lang("version.{$item}_version") </span> {{data_get($data, "versions.{$item}_version")}}
                 </div>
             @endif
         @endforeach

@@ -29,7 +29,7 @@ class LakaLogController extends CoreController
         's3LogList' => 'laka-log.s3-log-list'
     ];
 
-    public function __construct(LakaLogValidator $validator) {
+    public function __construct(LakaLogValidator $validator) { 
         parent::__construct($validator);
 
         $this->repository = $this->factory->makeRepository(LakaLogRepository::class);

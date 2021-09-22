@@ -33,7 +33,7 @@
             placeholder="{{__('common.address')}}" required autocomplete />
     </x-form-group>
     <x-form-group :inline="true">
-        <x-form-label class="col-sm-2 col-form-label required">@lang('common.business_plan')</x-form-label>
+        <x-form-label class="col-sm-2 col-form-label required">@lang('business_plan.business_plan')</x-form-label>
         <x-form-select name="business_plan_id" :items="$data['listBusinessPlan']->pluck('name', 'id')" placeholder=" "
             groupClass="col-sm-10 form-row" />
     </x-form-group>
