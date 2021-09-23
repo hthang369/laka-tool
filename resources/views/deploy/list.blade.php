@@ -59,7 +59,9 @@
                         </x-form-group>
                         <input type="hidden" class="form-control" name="server" value="{{$value->server}}">
                         <input type="hidden" class="form-control" name="environment" value="{{$data['environment']}}">
-                        <x-button variant="primary" :text="Deploy" />
+                        @can("add_{$sectionCode}")
+                        <x-button variant="primary" :text="Deploy" />    
+                        @endcan
                     </x-form>
                 </div>
             @endforeach
