@@ -8,6 +8,7 @@ use App\Models\LakaLogs\LakaLog;
 use App\Presenters\LakaLogs\LakaLogGridPresenter;
 use App\Repositories\Core\CoreRepository;
 use App\Repositories\Filters\WhereBetweenClause;
+use Illuminate\Support\Facades\Storage;
 use Laka\Core\Traits\BuildPaginator;
 use Lampart\Hito\Core\Repositories\FilterQueryString\Filters\WhereClause;
 
@@ -24,22 +25,19 @@ class LakaLogRepository extends CoreRepository
 
     protected $except = ['date_log'];
     protected $downLoadLogLakaRepository;
+    protected $storage;
 
     public function __construct(DownloadLakaLogRepository $downloadLakaLogRepository)
     {
         parent::__construct();
         $this->downLoadLogLakaRepository = $downloadLakaLogRepository;
+        $this->storage = Storage::disk('s3');
     }
 
     public function formGenerate()
     {
         $data = $this->downLoadLogLakaRepository->paginate($limit = null, $columns = [], $method = "paginate");
         return $data;
-    }
-
-    public function filesPaginate($files, $page)
-    {
-
     }
 
     public function create(array $attributes)
