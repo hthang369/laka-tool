@@ -7,19 +7,21 @@
 @endsection
 
 @section('content')
-    @if(session()->has('status'))
-        @if(session()->get('status') == true)
-            <div class="alert {{session()->get('status') == true ? 'alert-success' : 'alert-danger' }}">
-                Deployed to: <strong>server {{session()->get('server')}}</strong>
+    @if(session()->has('success'))
+        @if(session()->get('success') == true)
+            <div class="alert {{session()->get('success') == true ? 'alert-success' : 'alert-danger' }}">
+                Deployed to: <strong>server {{old('server')}}</strong>
                 <br>
-                Environment: <strong>{{session()->get('environment')}}</strong>
+                Environment: <strong>{{old('environment')}}</strong>
                 <br>
-                Input version: <strong>{{session()->get('version')}}</strong>
+                Input version: <strong>{{old('version')}}</strong>
                 <br>
                 Message: <strong> {{session()->get('message')}}</strong>
                 <br>
             </div>
+            {{session()->forget('_old_input')}}
         @else
+            {{session()->forget('_old_input')}}
             <div class="alert alert-danger }}">
                 <strong>{{session()->get('message')}}</strong>
             </div>
@@ -38,32 +40,27 @@
                         <p>Current version: {{$value->version != null ? $value->version :  'Can\'t get data'}}</p>
                     </div>
 
-                    <form method="post" action="{{ route('version-deploy.deploy') }}">
-                        @csrf
-                        <div class="form-group ">
-                            <label for="redmine-ticket" class="required">Redmine Ticket:</label>
-                            <input class="form-control"
-                                   name="redmine_id"
-                                   placeholder="Input redmine ticket"
-                                   required
-                                   id="redmine-ticket"
-                            >
-                        </div>
-                        <div class="form-group">
-                            <label class="required" for="deploy-version">Deploy version:</label>
-                            <input class="form-control
-                        {{ session()->has('status') != null ? (session()->has('status') == false ? 'is-invalid' : '') : ''}}"
-                                   name="version"
-                                   placeholder="ID commit / Version"
-                                   required
-                            id="deploy-version">
-                        </div>
+                    <x-form method="post" route="version-deploy.deploy">
+                        <x-form-group>
+                            <x-form-label for="redmine-ticket" class="required">Redmine Ticket:</x-form-label>
+                            <x-form-input type="text" 
+                                name="{{$value->server.'_redmine_id'}}" 
+                                id="redmine-ticket" 
+                                placeholder="Input redmine ticket" 
+                                required />
+                        </x-form-group>
+                        <x-form-group>
+                            <x-form-label for="deploy-version" class="required">Deploy version:</x-form-label>
+                            <x-form-input type="text" 
+                                name="{{$value->server.'_version'}}" 
+                                id="deploy-version" 
+                                placeholder="ID commit / Version" 
+                                required />
+                        </x-form-group>
                         <input type="hidden" class="form-control" name="server" value="{{$value->server}}">
-                        <input type="hidden" class="form-control" name="environment" value="{{$environment}}">
-                        <button class="btn btn-primary mt-1">
-                            Deploy
-                        </button>
-                    </form>
+                        <input type="hidden" class="form-control" name="environment" value="{{$data['environment']}}">
+                        <x-button variant="primary" :text="Deploy" />
+                    </x-form>
                 </div>
             @endforeach
         </div>
