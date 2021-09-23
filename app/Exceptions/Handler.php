@@ -12,6 +12,7 @@ use InvalidArgumentException;
 use Laka\Core\Http\Response\WebResponse;
 use Prettus\Validator\Exceptions\ValidatorException;
 use Psy\Exception\FatalErrorException;
+use Symfony\Component\ErrorHandler\Error\FatalError;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
@@ -66,7 +67,7 @@ class Handler extends ExceptionHandler
             $message = __('custom_message.page_not_found');
             return WebResponse::success('errors.common', $data, $message);
 
-        } elseif ($e instanceof FatalErrorException || $e instanceof ConnectionException || $e instanceof InvalidArgumentException) {
+        } elseif ($e instanceof FatalError || $e instanceof ConnectionException || $e instanceof InvalidArgumentException) {
             return WebResponse::success('errors.common', $data, $message);
         }
 
