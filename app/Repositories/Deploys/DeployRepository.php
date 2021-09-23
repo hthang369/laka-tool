@@ -20,7 +20,6 @@ class DeployRepository extends CoreRepository
     public function paginate($limit = null, $columns = [], $method = "paginate")
     {
         $environment = last(request()->segments());
-
         $serverArray = [];
         foreach (config("deploy.list_environment.{$environment}") as $server => $value) {
             $deployServer = new Deploy();
