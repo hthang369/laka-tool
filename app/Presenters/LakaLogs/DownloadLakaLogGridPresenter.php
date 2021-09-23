@@ -18,9 +18,9 @@ class DownloadLakaLogGridPresenter extends BaseGridPresenter
                 'key' => 'status',
                 'cell' => function ($item) {
                     if ($item->status == true) {
-                        return __('laka_log.log-parsed');
+                        return '<span class="badge badge-success">' . __('laka_log.log-parsed') . '</span>';
                     } else {
-                        return __('laka_log.log-not-parsed');
+                        return '<span class="badge badge-danger">' . __('laka_log.log-not-parsed') . '</span>';
                     }
                 }
             ], [
