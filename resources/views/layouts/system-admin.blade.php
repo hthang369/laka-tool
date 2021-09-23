@@ -15,7 +15,7 @@
 {{--    <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/3.2.1/assets/font-awesome/css/font-awesome.css">--}}
     <link rel="stylesheet" href="{{ asset('css/system-admin.css') }}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand:700"  />
     <!-- CSS -->
     @yield('style-css')
 </head>
