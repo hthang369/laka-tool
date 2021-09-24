@@ -6,7 +6,7 @@
     <!-- TITLE -->
     @section('header_page')
         <h2 class="card-header px-0">
-            @lang($headerPage)
+            @lang($headerPage) 
         </h2>
     @show
 

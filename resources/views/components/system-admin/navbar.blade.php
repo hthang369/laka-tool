@@ -30,7 +30,7 @@
                     @csrf
                 </form>
                 <a class="dropdown-item d-flex"
-                   href="/system-admin/user-management/update-password/{{ Auth::user()->id }}">
+                   href="/system-admin/user-management/update-password">
                     Change password
                 </a>
                 {{--                <a class="dropdown-item" href="{{ route('User Management.Update Password.form', Auth::user()->id) }}">Change password</a>--}}

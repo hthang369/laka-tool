@@ -16,7 +16,7 @@
     </div>
     @endforeach
     <div class="form-row">
-        {!! Form::label($key, __("users.fields.{$key}"), ['class' => 'col-2 font-weight-bold']) !!}
+        {!! Form::label('role', 'Role', ['class' => 'col-2 font-weight-bold']) !!}
         <div class="col-10">
         @foreach($data['roles'] as $role)
             <x-badge type="primary" class="mr-2">{{$role}}</x-badge>
