@@ -33,7 +33,7 @@ class AwsS3LogRepository extends CoreRepository
 
     public function getLogFromS3()
     {
-        $listDownloadFile = resolve(DownloadLakaLogRepository::class)->pluck('name');
+        $listDownloadFile = resolve(DownloadLakaLogRepository::class)->pluck('name')->toArray();
         $pattern = '/laravel-[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].log/';
         $files = $this->storage->allFiles(DIRECTORY_SEPARATOR);
 
@@ -45,7 +45,7 @@ class AwsS3LogRepository extends CoreRepository
         return array_map(function($file) use($listDownloadFile) {
             return [
                 'name' => $file,
-                'isDownloaded' => $listDownloadFile->search($file) >= 0
+                'isDownloaded' => in_array($file, $listDownloadFile)
             ];
         }, $fileAfterFilters);
     }
