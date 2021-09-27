@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\DownloadLakaLogs;
+namespace App\Http\Controllers\LakaLogs;
 
 use App\Http\Controllers\Core\CoreController;
-use App\Repositories\DownloadLakaLogs\DownloadLakaLogRepository;
-use App\Validators\DownloadLakaLogs\DownloadLakaLogValidator;
+use App\Repositories\LakaLogs\DownloadLakaLogRepository;
+use App\Validators\LakaLogs\DownloadLakaLogValidator;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\URL;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Laka\Core\Http\Response\WebResponse;
 
 /**
  * Class DownloadLakaLogController
@@ -17,6 +15,10 @@ use Symfony\Component\HttpFoundation\Session\Session;
  */
 class DownloadLakaLogController extends CoreController
 {
+    protected $permissionActions = [
+        'downloadLog' => 'download'
+    ];
+
     protected $listViewName = [];
 
     public function __construct(DownloadLakaLogValidator $validator) {
@@ -44,7 +46,7 @@ class DownloadLakaLogController extends CoreController
         // download file to project folder
         $this->repository->downloadLog(request('name'));
 
-        return redirect()->route('laka-log.s3-log-list');
+        return WebResponse::downloaded(route('laka-log.s3-log-list'));
 
     }
 }

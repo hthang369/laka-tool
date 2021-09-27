@@ -8,5 +8,11 @@ return [
         'email'  => 'Email',
         'phone'  => 'Phone',
         'address'  => 'Address',
-    ]
+        'status' => 'Status'
+    ],
+    'log-parsed' => 'Parsed',
+    'log-not-parsed' => "Not parsed yet",
+    'btn-parse' => "Parse",
+    'btn-parse-all' => "Parse All",
+    'downloaded' => 'Downloaded',
 ];

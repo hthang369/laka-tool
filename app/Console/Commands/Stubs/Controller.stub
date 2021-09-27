@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\$NAME$s;
+namespace App\Http\Controllers\$FOLDERNAME$;
 
 use App\Http\Controllers\Core\CoreController;
-use App\Repositories\$NAME$s\$NAME$Repository;
-use App\Validators\$NAME$s\$NAME$Validator;
+use App\Repositories\$FOLDERNAME$\$NAME$Repository;
+use App\Validators\$FOLDERNAME$\$NAME$Validator;
 
 /**
  * Class $NAME$Controller
- * @package App\Http\Controllers\$NAME$s
+ * @package App\Http\Controllers\$FOLDERNAME$
  * @property $NAME$Repository $LOWER_NAME$Repository
  */
 class $NAME$Controller extends CoreController

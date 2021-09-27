@@ -23,8 +23,6 @@ Route::group(['middleware' => ['log-activity']], function() {
     Auth::routes();
 });
 
-Route::get('research-list', 'ResearchLaravel\ResearchLaravelController@list');
-
 Route::group(['prefix' => 'system-admin', 'middleware' => ['auth:web', 'permission', 'log-activity']], function () {
     Route::get('confirm-dialog/{id}', 'Commons\CommonController@confirmDialog')->name('common.confirm');
     // version route
@@ -68,8 +66,8 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth:web', 'permissi
 
     // laka log route
     Route::group(['prefix' => 'laka-log'], function () {
-        Route::get('/s3-log-list', 'LakaLogs\LakaLogController@s3LogList')->name('laka-log.s3-log-list');
-        Route::post('/download-log', 'DownloadLakaLogs\DownloadLakaLogController@downloadLog')->name('laka-log.download-log');
+        Route::get('/s3-log-list', 'LakaLogs\AwsS3LogController@view')->name('laka-log.s3-log-list');
+        Route::post('/download-log', 'LakaLogs\DownloadLakaLogController@downloadLog')->name('laka-log.download-log');
     });
     Route::resource('laka-log', 'LakaLogs\LakaLogController');
 });

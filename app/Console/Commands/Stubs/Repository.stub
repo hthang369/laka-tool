@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Repositories\$NAME$s;
+namespace App\Repositories\$FOLDERNAME$;
 
 use App\Repositories\Core\CoreRepository;
-use App\Models\$NAME$s\$NAME$;
-use App\Presenters\$NAME$s\$NAME$GridPresenter;
+use App\Models\$FOLDERNAME$\$NAME$;
+use App\Presenters\$FOLDERNAME$\$NAME$GridPresenter;
 use Lampart\Hito\Core\Repositories\FilterQueryString\Filters\WhereClause;
 
 class $NAME$Repository extends CoreRepository

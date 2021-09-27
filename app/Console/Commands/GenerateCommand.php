@@ -11,7 +11,7 @@ class GenerateCommand extends BaseCommand
      *
      * @var string
      */
-    protected $signature = 'make:generate {name}';
+    protected $signature = 'make:generate {name} {folder?}';
 
     /**
      * The console command description.
@@ -64,12 +64,16 @@ class GenerateCommand extends BaseCommand
     public function handle()
     {
         $name = $this->getArgumentName();
+        $folder = $this->argument('folder');
+        if (blank($folder)) {
+            $folder = "{$name}s";
+        }
 
         $this->info($this->description);
 
         foreach ($this->config as $key => $value) {
             $fileName = $name . ucfirst($value['suffix']) . '.php';
-            $path = base_path(sprintf($value['path'], "{$name}s"));
+            $path = base_path(sprintf($value['path'], $folder));
             $filePath = $path . DIRECTORY_SEPARATOR . $fileName;
 
             $this->info('Creating file: ' . $fileName . '');
@@ -84,6 +88,7 @@ class GenerateCommand extends BaseCommand
 
             $templateStub = new Stub($this->getFileStub($key), [
                 'NAME' => $name,
+                'FOLDERNAME' => $folder,
                 'LOWER_NAME' => strtolower($name),
                 'TABLENAME' => strtolower($name),
             ]);

@@ -2,20 +2,19 @@
 
 namespace App\Services\LakaLogs;
 
-use phpDocumentor\Reflection\Types\Collection;
-
 class LakaLogService
 {
-    public function filesFilterByDate($files, $dtFrom, $dtTo) {
+    public function filesFilterByDate($files, $dtFrom, $dtTo)
+    {
+        return $files->filter(function($item) use($dtFrom, $dtTo) {
+            $date = str_replace('.', '-', preg_replace('/.*(\d{4}(.\d{2}){2}).*/', '$1', $item['name']));
+            return !($dtFrom > $date || $date > $dtTo);
+        })->values();
+    }
 
-        foreach ($files->all() as $key => $value) {
-            $temp = explode(".", $value);
-            $date = $temp[1] . '-' . $temp[2] . '-' . $temp[3];
-            if($dtFrom > $date || $date > $dtTo){
-                $files->forget($key);
-            }
-        };
-
-        return $files;
+    public function filesSortByColumn($files, $column, $direction)
+    {
+        $method = str_is($direction, 'asc') ? 'sortBy' : 'sortByDesc';
+        return $files->{$method}($column);
     }
 }

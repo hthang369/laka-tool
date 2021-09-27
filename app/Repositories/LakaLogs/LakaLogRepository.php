@@ -4,22 +4,16 @@ namespace App\Repositories\LakaLogs;
 
 use App\Helpers\HttpLogParser;
 use App\Helpers\LogParser;
-use App\Repositories\Core\CoreRepository;
 use App\Models\LakaLogs\LakaLog;
 use App\Presenters\LakaLogs\LakaLogGridPresenter;
+use App\Repositories\Core\CoreRepository;
 use App\Repositories\Filters\WhereBetweenClause;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use Lampart\Hito\Core\Repositories\FilterQueryString\Filters\WhereClause;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pagination\Paginator;
-use Laka\Core\Pagination\LakaPagination;
 use Laka\Core\Traits\BuildPaginator;
+use Lampart\Hito\Core\Repositories\FilterQueryString\Filters\WhereClause;
 
 class LakaLogRepository extends CoreRepository
 {
-    use BuildPaginator;
-
     protected $modelClass = LakaLog::class;
 
     protected $filters = [
@@ -28,43 +22,40 @@ class LakaLogRepository extends CoreRepository
     ];
 
     protected $presenterClass = LakaLogGridPresenter::class;
-    protected $storage;
-    protected $except = ['date_log'];
 
-    public function __construct()
+    protected $except = ['date_log'];
+    protected $downLoadLogLakaRepository;
+    protected $storage;
+
+    public function __construct(DownloadLakaLogRepository $downloadLakaLogRepository)
     {
         parent::__construct();
-
+        $this->downLoadLogLakaRepository = $downloadLakaLogRepository;
         $this->storage = Storage::disk('s3');
     }
 
     public function formGenerate()
     {
-        $pattern = '/laravel-[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].log/';
-        $files = $this->storage->allFiles(DIRECTORY_SEPARATOR);
-
-        return ['files' => array_filter($files, function($file) use($pattern) {
-            return str_contains($file, 'laravel-') || str_contains($file, 'laka-');
-        })];
-    }
-
-    public function filesPaginate($files, $page)
-    {
-        $onPage = $this->getLimitForPagination();
-        return $this->paginator($files->forPage($page, $onPage), $files->count(), $onPage, $page, []);
+        $data = $this->downLoadLogLakaRepository->paginate($limit = null, $columns = [], $method = "paginate");
+        return $data;
     }
 
     public function create(array $attributes)
     {
         $files = $attributes['files'];
-        $dataFiles = $this->storage->allFiles(DIRECTORY_SEPARATOR);
-        $dataLog = [];
-        foreach ($dataFiles as $file) {
-            if (in_array($file, $files)) {
+        foreach ($files as  $file) {
+
+            // Get data of file from TABLE 'download_laka_log'
+            $fileDownloaded = $this->downLoadLogLakaRepository->findByField('name', $file)[0];
+
+            //Check file exist and file not parse
+            if ($fileDownloaded && $fileDownloaded->status == false) {
+                $dataLog = [];
                 $data = [];
+
                 if (starts_with($file, 'laravel')) {
                     $data = LogParser::parse($this->storage->get($file));
-                    $data = array_map(function($item) {
+                    $data = array_map(function ($item) {
                         $item['date_log'] = LogParser::extractDateTime($item['header']);
                         return [
                             'ip' => request()->ip(),
@@ -78,23 +69,33 @@ class LakaLogRepository extends CoreRepository
                         ];
                     }, $data);
                 } else {
-                    $result = explode('<br />', nl2br($this->storage->get(DIRECTORY_SEPARATOR.$file)));
+                    $result = explode('<br />', nl2br($this->storage->get(DIRECTORY_SEPARATOR . $file)));
                     // $result = file(storage_path('logs'.DIRECTORY_SEPARATOR.$file), FILE_IGNORE_NEW_LINES);
-                    foreach($result as $line) {
+                    foreach ($result as $line) {
                         $envroment = starts_with($file, 'real') ? 'real' : 'stg';
                         $item = array_merge(HttpLogParser::parse(trim($line)), [
-                            'log_level' => 'laka_'.$envroment,
+                            'log_level' => 'laka_' . $envroment,
                             'log_type' => 'apache',
                             'created_at' => now(),
                             'updated_at' => now()
                         ]);
                         array_push($data, $item);
                     }
+                    $dataLog = array_merge($dataLog, $data);
                 }
-                $dataLog = array_merge($dataLog, $data);
             }
-        }
 
-        return $this->model::insert($dataLog);
+            //Change status from not parse to parsed and save to DB of file
+            $fileDownloaded->status = true;
+            $fileDownloaded->save();
+
+            //Save data log to TABLE 'laka-log'
+            if ($dataLog != null) {
+                $this->model::insert($dataLog);
+            }
+        };
+
+        return;
+
     }
 }

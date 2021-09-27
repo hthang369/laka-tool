@@ -32,7 +32,7 @@ return [
         'version'               => ['view', 'add', 'edit', 'delete'],
         'version-deploy'        => ['view', 'add'],
         'permission-role'       => ['view', 'edit'],
-        'laka-log'              => ['view', 'add', 'delete'],
+        'laka-log'              => ['view', 'add', 'delete', 'download'],
     ],
 
     'custom_section_action' => [

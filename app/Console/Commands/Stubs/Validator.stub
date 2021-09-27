@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Validators\$NAME$s;
+namespace App\Validators\$FOLDERNAME$;
 
 use Laka\Core\Validators\BaseValidator;
 

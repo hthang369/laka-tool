@@ -16,6 +16,7 @@ class CreateDownloadLakaLogTable extends Migration
         Schema::create('download_laka_log', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }

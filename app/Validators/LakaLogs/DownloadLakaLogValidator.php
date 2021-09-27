@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Validators\DownloadLakaLogs;
+namespace App\Validators\LakaLogs;
 
 use Laka\Core\Validators\BaseValidator;
 

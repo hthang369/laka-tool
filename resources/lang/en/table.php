@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'index' => 'No.'
+    'index' => 'No.',
+    'action' => 'Action'
 ];

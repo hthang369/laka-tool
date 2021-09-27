@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Repositories\DownloadLakaLogs;
+namespace App\Repositories\LakaLogs;
 
+use App\Models\LakaLogs\DownloadLakaLog;
+use App\Presenters\LakaLogs\DownloadLakaLogGridPresenter;
 use App\Repositories\Core\CoreRepository;
-use App\Models\DownloadLakaLogs\DownloadLakaLog;
-use App\Presenters\DownloadLakaLogs\DownloadLakaLogGridPresenter;
-use Aws\S3\S3Client;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Storage;
 use Lampart\Hito\Core\Repositories\FilterQueryString\Filters\WhereClause;
-use League\Flysystem\AwsS3v3\AwsS3Adapter;
 
 class DownloadLakaLogRepository extends CoreRepository
 {

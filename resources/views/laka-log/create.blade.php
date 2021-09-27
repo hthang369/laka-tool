@@ -1,19 +1,12 @@
-@extends('components.system-admin.form')
+@extends('components.system-admin.list')
 
-@section('body_content')
-<x-form method="POST" route="laka-log.store">
-<div class="row">
-    <div class="col-3">
-        <ul class="list-group">
-            @foreach ($data['files'] as $file)
-            <li class="list-group-item w-100">{{$file}}</li>
-            {!! Form::hidden('files[]', $file) !!}
-            @endforeach
-        </ul>
-    </div>
-    <div class="col-9">
-        <x-button variant="primary" text="Parse" type="submit" />
-    </div>
-</div>
-</x-form>
+@section('caption_page')
+    @parent
+    <x-form method="POST" route="laka-log.store">
+        @foreach(data_get($data,'rows') as $key=> $file)
+            {!! Form::hidden('files[]', data_get($file,'name')) !!}
+        @endforeach
+        <x-button variant="primary" :text="__('laka_log.btn-parse-all')" type="submit" :disabled="$data->status == 1 ? true : false"
+                  class="mb-3"/>
+    </x-form>
 @endsection
