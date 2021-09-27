@@ -16,7 +16,7 @@
     </x-form-group>
 
     <x-form-group :inline="true">
-        <x-form-label class="col-sm-2 col-form-label required">@lang('common.current_password')</x-form-label>
+        <x-form-label class="col-sm-2 col-form-label required">@lang('common.confirm_password')</x-form-label>
         <x-form-input type="password" name="confirm_password" groupClass="col-sm-10 form-row" value="{{request('confirm_password')}}"
             placeholder="{{__('common.confirm_password')}}" required autocomplete />
     </x-form-group>

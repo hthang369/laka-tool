@@ -8,6 +8,8 @@ use App\Validators\Users\UserValidator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\MessageBag;
 
 use Laka\Core\Http\Response\WebResponse;
 
@@ -29,6 +31,10 @@ class UserController extends CoreController
         'updatePassword'      => 'user-management.index',
     ];
 
+    protected $errorRouteName = [
+        'updatePassword' => 'LMT user manage.update-password',
+    ];
+
     public function __construct(UserValidator $validator) {
         parent::__construct($validator);
 
@@ -41,20 +47,30 @@ class UserController extends CoreController
     public function showUpdatePassword() {
         return WebResponse::success($this->getViewName(__FUNCTION__), null);
     }
- 
-    public function updatePassword() {   
-        $currentPassword = request('current_password');
-        $newPassword = request('new_password');
-        $confirmPassword = request('confirm_password');
-        
-        $user = Auth::user();
-        $user->password = Hash::make($newPassword); 
-        $user->save(); 
-         
-        return WebResponse::updated(
-            route($this->getViewName(__FUNCTION__), null), 
-            null, 
-            trans('common.update_password_success')
-        );
+
+    public function updatePassword() {
+
+        $this->validator(request()->all(), UserValidator::RULE_UPDATE_PASSWORD);
+
+        // Old password is correct
+        if (Hash::check(request('current_password'), Auth::user()->password)) {
+            $user = Auth::user();
+            $user->password = Hash::make(request('new_password'));
+            $user->save();
+
+            return WebResponse::updated(
+                route($this->getViewName(__FUNCTION__), null),
+                null,
+                trans('common.update_password_success')
+            );
+
+        }
+        // Old password is incorrect
+        else {
+            $message_bag = new MessageBag();
+            $message_bag->add('current_password', 'Wrong password!');
+
+            return redirect()->route('LMT user manage.update-password')->withErrors($message_bag);
+        }
     }
 }
