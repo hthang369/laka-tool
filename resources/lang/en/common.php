@@ -26,5 +26,11 @@ return [
     'back'                      => 'Back',
     'disable'                   => 'Disable',
     // caption
-    'choose_company'            => 'Choose company'
+    'choose_company'            => 'Choose company',
+
+    // Page not found
+    'page_not_found'=>'Page not found',
+
+    //Error label
+    'error'=>'Error',
 ];
