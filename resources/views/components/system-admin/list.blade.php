@@ -39,12 +39,7 @@
             :sectionCode="$sectionCode"
             :items="data_get($data, 'rows')"
             :fields="data_get($data, 'fields')"
-            :pagination="[
-                'total' => data_get($data, 'total'),
-                'pages' => data_get($data, 'pages'),
-                'currentPage' => data_get($data, 'currentPage'),
-                'except' => data_get($data, 'except')
-            ]">
+            :pagination="data_get($data, 'paginator')">
         </x-table>
     </div>
 

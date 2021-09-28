@@ -54,6 +54,7 @@ class AwsS3LogRepository extends CoreRepository
     {
         $onPage = $this->getLimitForPagination();
         $results = $this->paginator($files->forPage($page, $onPage)->all(), $files->count(), $onPage, $page, []);
+        $results->appends(request()->query());
         return $this->parserResult($results);
     }
 }
