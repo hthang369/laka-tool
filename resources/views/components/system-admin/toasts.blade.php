@@ -1,4 +1,4 @@
-<div class="fixed-top w-25 p-3" style="left: inherit;">
+<div class="fixed-top w-25 mt-3" style="left: inherit;">
     <x-toasts
         class="hide"
         id="liveToast"

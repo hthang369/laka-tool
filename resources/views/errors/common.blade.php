@@ -1,4 +1,4 @@
-@extends('layouts.system-admin')
+@extends('layouts.full-page')
 
 @section('style-css')
     <link rel="stylesheet" href="{{ asset('css/error-page.css') }}"/>

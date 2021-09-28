@@ -59,8 +59,6 @@ class Handler extends ExceptionHandler
         // Set default value for message,statusCode,menuLeft
         $message = "";
         $data['statusCode'] = Response::HTTP_INTERNAL_SERVER_ERROR;
-        View::share(['LEFTMENU' => null]);
-
         //
         if ($e instanceof ValidatorException) {
             $message = $e->getMessageBag();
