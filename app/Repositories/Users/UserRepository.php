@@ -56,4 +56,9 @@ class UserRepository extends CoreRepository
             return $user;
         });
     }
+
+    public function updatePassword($password, $id)
+    {
+        return parent::update(['password' => Hash::make($password)], $id);
+    }
 }

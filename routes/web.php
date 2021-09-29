@@ -37,6 +37,10 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth:web', 'permissi
     Route::put('role/set-permission/{id}', 'RoleHasPermissions\RoleHasPermissionController@update')->name('permission-role.update');
 
     // user management
+    Route::group(['prefix' => 'user-management'], function () {
+        Route::get('update-password', 'Users\UserController@showUpdatePassword')->name('user-management.update-password-form');
+        Route::put('update-password', 'Users\UserController@updatePassword')->name('user-management.update-password');
+    });
     Route::resource('user-management', 'Users\UserController');
 
     // laka-user-management

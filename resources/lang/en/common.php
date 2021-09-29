@@ -54,6 +54,10 @@ return [
     'status' => 'Status',
     // password confirmation
     'password_confirmation' => 'Password confirmation',
+    // password reset
+    'current_password' => 'Current Password',
+    'new_password' => 'New Password',
+    'confirm_password' => 'Confirm Password',
     // add contact option
     'add_contact_option' => 'Add contact option',
     'add_all_contacts' => 'Add all contacts',
