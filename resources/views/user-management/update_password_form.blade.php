@@ -56,7 +56,7 @@
                     @enderror
                 </div>
                 <button type="submit" class="btn btn-primary">Update</button>
-                <a class="btn btn-danger ml-2" href="/system-admin/user-management" role="button">@lang('custom_label.cancel')</a>
+                <a class="btn btn-danger ml-2" href="/system-admin/user-management" role="button">@lang('common.cancel')</a>
             </form>
         </div>
     </div>

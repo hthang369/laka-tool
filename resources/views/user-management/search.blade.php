@@ -38,7 +38,7 @@
             <!-- GET ALL BUTTON -->
             <a class="ml-3  my-2 btn  btn-secondary" href="/system-admin/user-management" role="button">
                 <i class="fa fa-list" aria-hidden="true"></i>
-                @lang('custom_label.get_all')
+                @lang('common.get_all')
             </a>
         </form>
     </div>

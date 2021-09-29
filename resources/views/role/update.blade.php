@@ -6,24 +6,24 @@
 
 @section('form_content')
     <x-form-group :inline="true">
-        <x-form-label class="col-sm-2 col-form-label required">@lang('custom_label.level')</x-form-label>
+        <x-form-label class="col-sm-2 col-form-label required">@lang('role.level')</x-form-label>
         <x-form-input type="text" name="level" groupClass="col-sm-10 form-row" value="{{request('level')}}"
-            placeholder="{{__('custom_label.level')}}" required autocomplete />
+            placeholder="{{__('role.level')}}" required autocomplete />
     </x-form-group>
     <x-form-group :inline="true">
-        <x-form-label class="col-sm-2 col-form-label required">@lang('custom_label.name')</x-form-label>
+        <x-form-label class="col-sm-2 col-form-label required">@lang('common.name')</x-form-label>
         <x-form-input type="text" name="name" groupClass="col-sm-10 form-row" value="{{request('name')}}"
-            placeholder="{{__('custom_label.name')}}" required autocomplete />
+            placeholder="{{__('common.name')}}" required autocomplete />
     </x-form-group>
     <x-form-group :inline="true">
-        <x-form-label class="col-sm-2 col-form-label required">@lang('custom_label.role_rank')</x-form-label>
+        <x-form-label class="col-sm-2 col-form-label required">@lang('role.role_rank')</x-form-label>
         <x-form-input type="text" name="role_rank" groupClass="col-sm-10 form-row" value="{{request('role_rank')}}"
-            placeholder="{{__('custom_label.role_rank')}}" required autocomplete />
+            placeholder="{{__('role.role_rank')}}" required autocomplete />
     </x-form-group>
     <x-form-group :inline="true">
-        <x-form-label class="col-sm-2 col-form-label">@lang('custom_label.description')</x-form-label>
+        <x-form-label class="col-sm-2 col-form-label">@lang('common.description')</x-form-label>
         <x-form-textarea :rows="5" name="description" groupClass="col-sm-10 form-row" value="{{request('description')}}"
-            placeholder="{{__('custom_label.description')}}" autocomplete />
+            placeholder="{{__('common.description')}}" autocomplete />
     </x-form-group>
 
 @endsection
