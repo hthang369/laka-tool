@@ -18,7 +18,7 @@ class BusinessPlanController extends CoreController
         'index'     => 'business-plan.list',
         'create'    => 'business-plan.create',
         'edit'      => 'business-plan.update',
-        'show'      => 'bussiness-plan.detail',
+        'show'      => 'business-plan.detail',
         'store'     => 'bussiness-plan.index',
     ];
 
