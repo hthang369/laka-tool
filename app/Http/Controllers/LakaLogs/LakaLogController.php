@@ -38,7 +38,7 @@ class LakaLogController extends CoreController
 
         $this->repository = $this->factory->makeRepository(LakaLogRepository::class);
 
-        View::share('titlePage', 'laka_log.page_title');
+        View::share('titlePage', __('laka_log.page_title'));
         View::share('headerPage', 'laka_log.page_header');
     }
 
