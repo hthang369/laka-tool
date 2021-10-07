@@ -72,6 +72,7 @@ class LakaLogRepository extends CoreRepository
                     $result = explode('<br />', nl2br($this->storage->get(DIRECTORY_SEPARATOR . $file)));
                     // $result = file(storage_path('logs'.DIRECTORY_SEPARATOR.$file), FILE_IGNORE_NEW_LINES);
                     foreach ($result as $line) {
+                        if (blank(trim($line))) continue;
                         $envroment = starts_with($file, 'real') ? 'real' : 'stg';
                         $item = array_merge(HttpLogParser::parse(trim($line)), [
                             'log_level' => 'laka_' . $envroment,

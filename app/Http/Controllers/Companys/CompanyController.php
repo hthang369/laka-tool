@@ -33,7 +33,7 @@ class CompanyController extends CoreController
 
         $this->repository = $this->factory->makeRepository(CompanyRepository::class);
 
-        View::share('titlePage', 'company.page_title');
+        View::share('titlePage', __('company.page_title'));
         View::share('headerPage', 'company.page_header');
     }
 }
