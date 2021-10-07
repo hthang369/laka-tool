@@ -9,7 +9,7 @@
         <x-alert type="warning">
             <strong>@lang('business_plan.alert_no_business_plan')</strong>
         </x-alert>
-        {!! link_to(route('business-plan.create'),
+        {!! link_to(route('bussiness-plan.create'),
             '+' . __('common.add_new') .' '. __('business_plan.business_plan'),
             ['class' => 'my-2 btn btn-sm btn-primary']) !!}
     @endif
