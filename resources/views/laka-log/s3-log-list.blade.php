@@ -20,13 +20,14 @@
 <script>
     $(document).ready(function() {
         $('.btn-download').click(function() {
-            $api.post('{{route("laka-log.download-log")}}', JSON.stringify({name: $(this).data('name')}), {
+            var btnTarget = $(this);
+            $api.post('{{route("laka-log.download-log")}}', JSON.stringify({name: btnTarget.data('name')}), {
                 contentType: 'application/json',
                 beforeSend: function() {
-                    $(this).html('<i class="fas fa-spinner fa-spin"></i>');
+                    btnTarget.attr('disabled', 'disabled').html('<i class="fas fa-spinner fa-spin"></i>');
                 },
                 onComplete: function() {
-                    $(this).html('<i class="fas fa-download"></i>');
+                    btnTarget.html('<i class="fas fa-download"></i>');
                 },
                 onSuccess: function(data) {
                     _grids.formUtils.renderAlert('success', data.message)
