@@ -15,3 +15,29 @@
         @parent
     </x-form>
 @endsection
+
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        $('.btn-download').click(function() {
+            $api.post('{{route("laka-log.download-log")}}', JSON.stringify({name: $(this).data('name')}), {
+                contentType: 'application/json',
+                beforeSend: function() {
+                    $(this).html('<i class="fas fa-spinner fa-spin"></i>');
+                },
+                onComplete: function() {
+                    $(this).html('<i class="fas fa-download"></i>');
+                },
+                onSuccess: function(data) {
+                    _grids.formUtils.renderAlert('success', data.message)
+                    window.location.href = data.data
+                    setTimeout(function () {
+                        $.pjax.reload({ container: '#gridData' });
+                    }, 500);
+                }
+            })
+        });
+    })
+
+</script>
+@endpush

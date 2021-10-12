@@ -6,6 +6,7 @@ use App\Http\Controllers\Core\CoreController;
 use App\Repositories\LakaLogs\DownloadLakaLogRepository;
 use App\Validators\LakaLogs\DownloadLakaLogValidator;
 use Illuminate\Support\Carbon;
+use Laka\Core\Http\Response\JsonResponse;
 use Laka\Core\Http\Response\WebResponse;
 
 /**
@@ -44,9 +45,9 @@ class DownloadLakaLogController extends CoreController
         }
 
         // download file to project folder
-        $this->repository->downloadLog(request('name'));
+        $data = $this->repository->downloadLog(request('name'));
 
-        return WebResponse::downloaded(route('laka-log.s3-log-list'));
+        return JsonResponse::success($data, translate('response.downloaded'));
 
     }
 }

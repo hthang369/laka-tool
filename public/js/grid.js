@@ -10,6 +10,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var _grids = _grids || {};
+var $api = $api || {};
 
 (function ($) {
 
@@ -33,6 +34,68 @@ var _grids = _grids || {};
     });
     return o;
   };
+
+  $api = {
+    _callApi: function (apiMethod, apiUrl, apiData, options) {
+      let apiContentType = options.contentType || false;
+      $.ajax({
+          method: apiMethod,
+          url: apiUrl,
+          data: apiData,
+          contentType: apiContentType,
+          processData : false,
+          beforeSend: function beforeSend() {
+            if (options.beforeSend) {
+              options.beforeSend.call(this);
+            }
+          },
+          complete: function complete() {
+            if (options.onComplete) {
+              options.onComplete.call(this);
+            }
+          },
+          success: function success(data) {
+            if (options.pjaxContainer) {
+              $.pjax.reload({ container: options.pjaxContainer });
+            }
+            if (options.onSuccess) {
+                options.onSuccess.call(this, data);
+            }
+          },
+          error: function error(data) {
+            if (typeof toastr !== 'undefined') {
+              let listErr = data.responseJSON.validation || {};
+              let err = _grids.formUtils.getValidationErrors(listErr);
+              toastr.showError('Message', '<ul>'+ err +'</ul>');
+            } else {
+              alert('An error occurred');
+            }
+          }
+      });
+    },
+    get: function get(url, params, options) {
+      if (url == '') return;
+      params = params || {};
+      var urlSearch = new URLSearchParams();
+      for (const [key, value] of Object.entries(params)) {
+          urlSearch.append(key, value);
+      }
+      this._callApi('GET', url + '?' + urlSearch.toString(), null, options)
+    },
+    post: function post(url, data, options) {
+      if (url == '') return;
+      this._callApi('POST', url, data, options);
+    },
+    put: function post(url, data, options) {
+      if (url == '') return;
+      options = Object.assign({contentType: 'application/json'}, options);
+      this._callApi('PUT', url, data, options);
+    },
+    delete: function post(url, data, options) {
+      if (url == '') return;
+      this._callApi('DELETE', url, data, options);
+    },
+}
 
   /**
    * Shared utilities

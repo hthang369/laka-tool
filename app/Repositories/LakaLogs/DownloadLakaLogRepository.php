@@ -27,10 +27,13 @@ class DownloadLakaLogRepository extends CoreRepository
 
     protected $presenterClass = DownloadLakaLogGridPresenter::class;
 
-    public function downloadLog($name) : bool {
-        return Storage::disk('local')->put(
+    public function downloadLog($name)
+    {
+        Storage::disk('local')->put(
             'public/files/' . $name,
-            file_get_contents($this->storage->get($name))
+            $this->storage->get($name)
         );
+
+        return Storage::disk('local')->url('public/files/' . $name);
     }
 }

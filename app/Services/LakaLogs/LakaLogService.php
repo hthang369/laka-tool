@@ -15,6 +15,6 @@ class LakaLogService
     public function filesSortByColumn($files, $column, $direction)
     {
         $method = str_is($direction, 'asc') ? 'sortBy' : 'sortByDesc';
-        return $files->{$method}($column);
+        return $files->{$method}($column)->values();
     }
 }
