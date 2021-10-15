@@ -19,6 +19,10 @@ Route::get('/', function () {
     return redirect('system-admin/version');
 });
 
+Route::get('/storage/files/{folder}/{name}', function ($folder, $name) {
+    return Storage::disk('local')->download('public/files/' . $folder.'/'.$name);
+});
+
 Route::group(['middleware' => ['log-activity']], function() {
     Auth::routes();
 });
