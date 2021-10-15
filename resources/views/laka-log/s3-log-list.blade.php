@@ -31,7 +31,9 @@
                 },
                 onSuccess: function(data) {
                     _grids.formUtils.renderAlert('success', data.message)
-                    window.location.href = data.data
+                    $.fileDownload(data.data)
+                        .done(function () { _grids.formUtils.renderAlert('success', 'File download a success!'); })
+                        .fail(function () { _grids.formUtils.renderAlert('error', 'File download failed!'); })
                     setTimeout(function () {
                         $.pjax.reload({ container: '#gridData' });
                     }, 500);

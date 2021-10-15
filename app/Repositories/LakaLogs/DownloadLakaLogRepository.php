@@ -34,6 +34,6 @@ class DownloadLakaLogRepository extends CoreRepository
             $this->storage->get($name)
         );
 
-        return Storage::disk('local')->url('public/files/' . $name);
+        return env('APP_URL').Storage::disk('local')->url('public/files/' . $name);
     }
 }
