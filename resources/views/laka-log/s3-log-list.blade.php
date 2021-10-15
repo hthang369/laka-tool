@@ -30,10 +30,10 @@
                     btnTarget.html('<i class="fas fa-download"></i>');
                 },
                 onSuccess: function(data) {
-                    _grids.formUtils.renderAlert('success', data.message)
+                    _grids.formUtils.showAlert(data.message)
                     $.fileDownload(data.data)
-                        .done(function () { _grids.formUtils.renderAlert('success', 'File download a success!'); })
-                        .fail(function () { _grids.formUtils.renderAlert('error', 'File download failed!'); })
+                        .done(function () { _grids.formUtils.showAlert('File download a success!'); })
+                        .fail(function () { _grids.formUtils.showAlert('File download failed!'); })
                     setTimeout(function () {
                         $.pjax.reload({ container: '#gridData' });
                     }, 500);

@@ -421,7 +421,11 @@ var $api = $api || {};
         return html + response + '</div>';
       }
     },
-
+    showAlert: function showAlert(message) {
+        let toastsAlert = $('#liveToast');
+        toastsAlert.find('.toast-body').html(message);
+        toastsAlert.toast('show');
+    },
 
     /**
      * process validation errors from json to html
