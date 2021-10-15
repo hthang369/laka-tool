@@ -5,6 +5,6 @@
         icon="fas fa-download"
         type="submit"
         class="btn-download"
-        data-name="{{$data['name']}}"/>
-        {{-- :disabled="$data['isDownloaded'] == 1 ? true : false"/> --}}
+        data-name="{{$data['name']}}"
+        :disabled="$data['isDownloaded'] == 1 ? true : false"/>
 @endcan

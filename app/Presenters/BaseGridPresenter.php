@@ -34,7 +34,7 @@ abstract class BaseGridPresenter extends BaseDataGridPresenter
     protected function customizeRowData($itemData)
     {
         $range = range($itemData['from'], $itemData['to']);
-        if (blank($itemData['data']->{$this->indexName})) {
+        if (blank(data_get($itemData['data'], $this->indexName))) {
             data_set($itemData['data'], $this->indexName, $range[$itemData['index']]);
         }
         if (method_exists($this, 'customItemData')) {
