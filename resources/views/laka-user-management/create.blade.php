@@ -27,16 +27,16 @@
         <x-form-select name="company_id" :items="$data['company_list']" placeholder=" "
             groupClass="col-sm-10 form-row" />
     </x-form-group>
-    <div class="form-group row align-items-center">
+    <x-form-group :inline="true">
         {!! Form::label('',__('users.laka.fields.type_of_user'),['class' => 'col-2 col-form-label']) !!}
-        <div class="col-10">
+        <div class="col-10 d-flex align-items-center">
             <div class="custom-control custom-checkbox">
                 {!! Form::checkbox('is_user_bot',1,(bool)$value,['class'=>'custom-control-input','id'=>'is_user_bot']) !!}
                 {!! Form::label('is_user_bot', __("users.laka.is_user_bot"), ['class' => 'custom-control-label']) !!}
             </div>
         </div>
-    </div>
-    <div class="form-group row">
+    </x-form-group>
+    <x-form-group :inline="true">
         {!! Form::label('', __('users.laka.add_contact_option'), ['class' => 'col-2 col-form-label required']) !!}
         <div class="col-10">
             @foreach (['add_all_contacts', 'add_to_all_rooms'] as $item)
@@ -46,5 +46,5 @@
             </div>
             @endforeach
         </div>
-    </div>
+    </x-form-group>
 @endsection

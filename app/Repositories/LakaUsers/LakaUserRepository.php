@@ -12,10 +12,13 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Cache;
 use Laka\Core\Http\Response\WebResponse;
 use Laka\Core\Pagination\LakaPagination;
+use Laka\Core\Traits\BuildPaginator;
 use Lampart\Hito\Core\Repositories\FilterQueryString\Filters\WhereClause;
 
 class LakaUserRepository extends CoreRepository
 {
+    use BuildPaginator;
+
     protected $modelClass = LakaUser::class;
 
     protected $filters = [
@@ -146,9 +149,9 @@ class LakaUserRepository extends CoreRepository
         $perPage = $this->getLimitForPagination();
         if (count($data) > 0) {
             $page = Paginator::resolveCurrentPage('page');
-            return parent::parserResult(new LakaPagination(collect($data)->forPage($page, $perPage)->values(), count($data), $perPage));
+            return parent::parserResult($this->paginator(collect($data)->forPage($page, $perPage)->values(), count($data), $perPage, null, []));
         }
-        return parent::parserResult(new LakaPagination($data, count($data), $perPage));
+        return parent::parserResult($this->paginator($data, count($data), $perPage, null, []));
     }
 
     private function getReponseApiData($result)
