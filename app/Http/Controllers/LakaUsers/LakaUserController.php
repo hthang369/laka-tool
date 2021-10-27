@@ -18,7 +18,9 @@ class LakaUserController extends CoreController
     protected $listViewName = [
         'index'  => 'laka-user-management.list',
         'show'   => 'laka-user-management.add_contact_update',
-        'create' => 'laka-user-management.create'
+        'create' => 'laka-user-management.create',
+        'store'  => 'laka-user-management.add-contact',
+        'update'  => 'laka-user-management.add-contact'
     ];
 
     protected $permissionActions = [
