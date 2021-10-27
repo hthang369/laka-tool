@@ -18,7 +18,10 @@ return [
             'name'  => 'Name',
             'email'  => 'Email',
             'company'  => 'Company',
+            'type_of_user'=>'Type of user',
         ],
+
+        'is_user_bot' =>'User bot',
         'add_contact_option'    => 'Add contact option',
         'add_all_contacts'      => 'Add all contact',
         'add_to_all_rooms'      => 'Add to all rooms',

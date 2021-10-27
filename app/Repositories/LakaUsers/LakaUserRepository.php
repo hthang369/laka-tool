@@ -2,16 +2,15 @@
 
 namespace App\Repositories\LakaUsers;
 
-use Laka\Core\Http\Response\WebResponse;
 use App\Facades\Common;
 use App\Models\Companys\Company;
-use App\Repositories\Core\CoreRepository;
 use App\Models\LakaUsers\LakaUser;
 use App\Presenters\LakaUsers\LakaUserGridPresenter;
 use App\Repositories\Companys\CompanyRepository;
-use Illuminate\Pagination\LengthAwarePaginator;
+use App\Repositories\Core\CoreRepository;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Cache;
+use Laka\Core\Http\Response\WebResponse;
 use Laka\Core\Pagination\LakaPagination;
 use Lampart\Hito\Core\Repositories\FilterQueryString\Filters\WhereClause;
 
@@ -63,6 +62,9 @@ class LakaUserRepository extends CoreRepository
 
     public function create(array $attributes)
     {
+        if (is_null($attributes['is_user_bot'])) {
+            $attributes['is_user_bot'] = 0;
+        }
         $company = Company::find($attributes['company_id']);
         $attributes['company'] = $company->name;
         $data = array_except($attributes, ['_token', 'company_id', 'add_all_contacts', 'add_to_all_rooms']);
