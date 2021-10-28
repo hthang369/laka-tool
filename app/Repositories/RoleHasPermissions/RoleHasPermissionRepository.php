@@ -2,8 +2,8 @@
 
 namespace App\Repositories\RoleHasPermissions;
 
+use App\Models\Permissions\RoleHasPermissions;
 use App\Repositories\Core\CoreRepository;
-use App\Models\RoleHasPermissions\RoleHasPermission;
 use App\Presenters\RoleHasPermissions\RoleHasPermissionGridPresenter;
 use Illuminate\Support\Facades\DB;
 use Lampart\Hito\Core\Repositories\FilterQueryString\Filters\WhereClause;
@@ -12,7 +12,7 @@ use Spatie\Permission\Models\Role;
 
 class RoleHasPermissionRepository extends CoreRepository
 {
-    protected $modelClass = RoleHasPermission::class;
+    protected $modelClass = RoleHasPermissions::class;
 
     protected $filters = [
         'name' => WhereClause::class

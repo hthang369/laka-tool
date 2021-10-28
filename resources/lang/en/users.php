@@ -28,5 +28,8 @@ return [
         'contact_header'        => 'Laka user update contact',
         'list_contact'          => 'Laka user manage',
         'list_approval'          => 'Laka user approval',
+    ],
+    'validator' => [
+        'user_has_been_disabled' => 'User is has been disabled'
     ]
 ];

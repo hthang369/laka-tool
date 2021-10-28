@@ -74,7 +74,7 @@ class LakaUserRepository extends CoreRepository
 
         $dataResponse = Common::callApi('post', '/api/v1/user/register-users', $data);
         if (data_get($dataResponse, 'error_code') != 0) {
-            return WebResponse::error(route('laka-user-management.create'), data_get($dataResponse, 'error_msg'));
+            throw new \Exception(data_get($dataResponse, 'error_msg'));
         }
         $userId = data_get($dataResponse, 'data.id');
         if ($attributes['add_all_contacts'] == 1) {
@@ -83,14 +83,14 @@ class LakaUserRepository extends CoreRepository
         if ($attributes['add_to_all_rooms'] == 1) {
             $this->addToAllRooms(['user_id' => $userId, 'company_id' => $attributes['company_id']]);
         }
-        return WebResponse::created(route('laka-user-management.index'), null);
+        return true;
     }
 
     public function update(array $attributes, $id)
     {
         $user = $this->getUserDetail($id);
         if ($user['disabled'] == 1) {
-            return WebResponse::error(route('laka-user-management.update', $id), ['user_has_been_disabled' => 1]);
+            throw new \Exception(trans('users.validator.user_has_been_disabled'));
         }
         if ($attributes['add_all_contacts'] == 1) {
             $this->addAllContacts(['user_id' => $id, 'company_id' => $attributes['company_id']]);
@@ -98,7 +98,7 @@ class LakaUserRepository extends CoreRepository
         if ($attributes['add_to_all_rooms'] == 1) {
             $this->addToAllRooms(['user_id' => $id, 'company_id' => $attributes['company_id']]);
         }
-        return WebResponse::updated(route('laka-user-management.add-contact'), null);
+        return true;
     }
 
     protected function addAllContacts($data)
