@@ -61,7 +61,7 @@
 @endsection
     <!--    End show notification-->
 @section('body_content')
-    @foreach (['name', 'email', 'company'] as $key)
+    @foreach (['name', 'email', 'company','type_of_user'] as $key)
     <div class="form-group row">
         {!! Form::label($key, __("users.laka.fields.{$key}"), ['class' => 'col-2 font-weight-bold']) !!}
         {!! Form::label($key, $data[$key], ['class' => 'col-10']) !!}

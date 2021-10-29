@@ -11,7 +11,6 @@ use App\Repositories\Core\CoreRepository;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Cache;
 use Laka\Core\Http\Response\WebResponse;
-use Laka\Core\Pagination\LakaPagination;
 use Laka\Core\Traits\BuildPaginator;
 use Lampart\Hito\Core\Repositories\FilterQueryString\Filters\WhereClause;
 
@@ -47,7 +46,7 @@ class LakaUserRepository extends CoreRepository
             return Common::callApi('get', '/api/v1/user/get-list-delete-user')->toArray();
         });
         if (!$allDisable) {
-            $results['data'] = array_filter($results['data'], function($item) {
+            $results['data'] = array_filter($results['data'], function ($item) {
                 return $item['disabled'] === 0;
             });
         }
@@ -57,9 +56,12 @@ class LakaUserRepository extends CoreRepository
     public function show($id, $columns = [])
     {
         $userData = $this->getUserDetail($id);
+        $typeUser = data_get($userData, 'is_user_bot') == 1 ? trans('users.laka.is_user_bot') : trans('users.laka.user_default');
+        data_set($userData, 'type_of_user', $typeUser);
         $companyList = resolve(CompanyRepository::class)->pluck('company.name', 'company.id');
         data_set($userData, 'id', $id);
         data_set($userData, 'company_list', $companyList);
+
         return $userData;
     }
 
