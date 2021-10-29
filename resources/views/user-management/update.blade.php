@@ -11,9 +11,9 @@
             placeholder="{{__('common.name')}}" required autocomplete />
     </x-form-group>
     <x-form-group :inline="true">
-        <x-form-label class="col-sm-2 col-form-label required">@lang('common.password')</x-form-label>
+        <x-form-label class="col-sm-2 col-form-label">@lang('common.password')</x-form-label>
         <x-form-input type="password" name="password" groupClass="col-sm-10 form-row" value="{{request('password')}}"
-            placeholder="{{__('common.password')}}" required autocomplete />
+            placeholder="{{__('common.password')}}" autocomplete />
     </x-form-group>
     <x-form-group :inline="true">
         <x-form-label class="col-sm-2 col-form-label required">@lang('common.email')</x-form-label>
