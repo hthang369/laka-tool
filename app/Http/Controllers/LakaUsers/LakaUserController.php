@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\LakaUsers;
 
-use Laka\Core\Http\Response\WebResponse;
 use App\Http\Controllers\Core\CoreController;
 use App\Repositories\LakaUsers\LakaUserRepository;
 use App\Validators\LakaUsers\LakaUserValidator;
 use Illuminate\Support\Facades\View;
+use Laka\Core\Http\Response\WebResponse;
 
 /**
  * Class LakaUserController
@@ -16,18 +16,26 @@ use Illuminate\Support\Facades\View;
 class LakaUserController extends CoreController
 {
     protected $listViewName = [
-        'index'  => 'laka-user-management.list',
-        'show'   => 'laka-user-management.add_contact_update',
+        'index' => 'laka-user-management.list',
+        'show' => 'laka-user-management.add_contact_update',
         'create' => 'laka-user-management.create',
-        'store'  => 'laka-user-management.add-contact',
-        'update'  => 'laka-user-management.add-contact'
+        'store' => 'laka-user-management.add-contact',
+        'update' => 'laka-user-management.add-contact',
+        'disableUser' => 'laka-user-management.confirm_code'
     ];
 
     protected $permissionActions = [
-        'disableUser' => 'update'
+        'disableUser' => 'edit'
+    ];
+    protected $errorRouteName = [
+        'checkVerificationCode' => 'laka-user-management.disable-user'
+    ];
+    protected $messageResponse = [
+
     ];
 
-    public function __construct(LakaUserValidator $validator) {
+    public function __construct(LakaUserValidator $validator)
+    {
         parent::__construct($validator);
 
         $this->repository = $this->factory->makeRepository(LakaUserRepository::class);
@@ -70,8 +78,26 @@ class LakaUserController extends CoreController
         return parent::create();
     }
 
+    public function checkVerificationCode($id)
+    {
+        View::share('titlePage', __('users.laka.confirm_code'));
+        View::share('headerPage', 'users.laka.confirm_code');
+
+        $routeRedirect = $this->getErrorRouteName(__FUNCTION__, ['id' => $id]);
+        $isSuccess = $this->repository->checkVerificationCode($id, request()->all());
+
+        return $isSuccess ? WebResponse::created(route('laka-user-management.user-disable'), null, __('common.user_has_been_disabled')) :
+            WebResponse::error($routeRedirect, null, __('common.invalid_code'));
+    }
+
     public function disableUser($id)
     {
-        $this->repository->disableUser($id, request()->all());
+        View::share('titlePage', __('users.laka.confirm_code'));
+        View::share('headerPage', 'users.laka.confirm_code');
+
+        $userDisabled = $this->repository->disableUser($id, request()->all());
+        data_set($userDisabled, 'id', $id);
+
+        return WebResponse::success($this->getViewName(__FUNCTION__),$userDisabled,__('common.alert_sent_verification_code',['email'=>auth()->user()->email]));
     }
 }

@@ -27,7 +27,8 @@ class CommonHelper
             $response = Http::withHeaders([
                 'Accept' => 'application/json',
                 // 'Content-Type' => 'application/x-www-form-urlencoded',
-                'token' => config('laka.api_token')
+                'token' => config('laka.api_token'),
+                'userid'=>90,
             ])->{$method}($fullUrl, $params);
 
             if ($response->ok())

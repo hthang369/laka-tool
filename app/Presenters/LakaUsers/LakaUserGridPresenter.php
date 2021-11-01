@@ -21,21 +21,22 @@ class LakaUserGridPresenter extends BaseGridPresenter
                 'cell' => function($item) {
                     if (str_is(last(request()->segments()), 'add-contact')) {
                         return link_to(
-                                route('laka-user-management.edit', $item['id']),
-                                __('common.update'),
-                                ['class' => 'btn btn-sm btn-info']);
+                            route('laka-user-management.edit', $item['id']),
+                            __('common.update'),
+                            ['class' => 'btn btn-sm btn-info']);
                     } else {
                         if ($item['disabled'] === 0) {
-                            return link_to(
-                                    route('laka-user-management.disable-user', ['id' => $item['id'], 'type' => 'sentmail']),
-                                    __('common.disable'),
-                                    ['class' => 'btn btn-sm btn-link']
-                                );
+
+                            return  link_to(
+                                route('laka-user-management.disable-user', ['id' => $item['id'],'type' => 'sent-mail']),
+                                __('common.disable'),
+                                ['class' => 'btn btn-sm btn-danger', 'onclick' => "return window.confirm('Are you sure disable this user ?')"]
+                            );
                         }
-                        return __('users.laka.disable');
+                        return '<span class="badge badge-info">' .  __('users.laka.disable'). '</span>';
                     }
                 }
-            ]
+            ],
         ];
     }
 }

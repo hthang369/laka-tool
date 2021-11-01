@@ -232,6 +232,10 @@
             margin-bottom: 0;
         }
 
+        .ml3 {
+            margin-left: 3px;
+        }
+
         .preheader {
             color: transparent;
             display: none;
@@ -353,10 +357,40 @@
             }
         }
 
+        .label {
+            color: #1d68a7;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .code-disable {
+            color: red;
+            font-size: 2.5em;
+            font-weight: bold;
+            border-radius: 5px;
+            width: 40%;
+            margin: 0 auto;
+            margin-bottom: 20px;
+            border: solid 1px #999999;
+        }
+
+        .warning-time-expired {
+            font-size: small;
+            color: red;
+        }
+
+        .text-danger {
+            color: red;
+        }
+
+        .text-small {
+            font-size: small;
+        }
     </style>
 </head>
 <body class="">
-<span class="preheader">Hi there</span>
+{{--<span class="preheader">Hi there</span>--}}
 <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="body">
     <tr>
         <td>&nbsp;</td>
@@ -373,7 +407,7 @@
                                 <tr>
                                     <td>
                                         <p>Hi there,</p>
-                                        <p>This is code to verify the user from a management tool</p>
+                                        <p>This is code to verify the user from Laka Management Tool</p>
                                         <table role="presentation" border="0" cellpadding="0" cellspacing="0"
                                                class="btn btn-primary">
                                             <tbody>
@@ -392,13 +426,42 @@
                                             </tr>
                                             </tbody>
                                         </table>
-                                        <h3>Code: <b style="color: red">{{$codeDisableUser}}</b></h3>
-                                        <h3>User name: <b>{{$user_name}}</b></h3>
-                                        <h3>Email: <b>{{$email}}</b></h3>
-                                        <p>{{$codeDisableUser}}</p>
-                                        <h2>Confirm Content:</h2>
+
+                                        <hr>
+                                        <h4 class="align-center label">User information is
+                                            disabled</h4>
+                                        <p><b>User name: </b>{{data_get($user,'name')}}</p>
+                                        <p><b>Email:</b> {{data_get($user,'email')}}</p>
+                                        <hr>
+                                        <h4 class="align-center label">Verification code</h4>
+                                        <p class="align-center code-disable">{{$codeDisableUser}}</p>
+                                        <p class="align-center warning-time-expired">
+                                            &lowast; {{data_get($contentConfirm,'warningExpired')}}</p>
+                                        <hr>
+                                        <p><b class="text-danger label">Warning:</b>
+                                            {{__('common.confirm_delete')}}
+                                        </p>
+                                        <hr>
+                                        <p class="label">Room delete</p>
+                                        @if(sizeof(data_get($contentConfirm,'delete-rooms'))===0)
+                                            <p>No data display</p>
+                                        @else
+                                            @foreach(data_get($contentConfirm,'delete-rooms') as $key => $data)
+                                                <p>{{$data}}</p>
+                                            @endforeach
+                                        @endif
+                                        <hr>
+                                        <p class="label">Contact delete</p>
+                                        @if(sizeof(data_get($contentConfirm,'delete-contact'))===0)
+                                            <p>No data display</p>
+                                        @else
+                                            @foreach(data_get($contentConfirm,'delete-contact') as $key => $data)
+                                                <p>{{$data}}</p>
+                                            @endforeach
+                                        @endif
+                                        <hr>
                                         <p>{!! $content !!}</p>
-                                        <p></p>
+
                                         <p>Good luck! Hope it works.</p>
                                     </td>
                                 </tr>
