@@ -54,7 +54,7 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth:web', 'permissi
         Route::get('add-contact', 'LakaUsers\LakaUserController@showAddContact')->name('laka-user-management.add-contact');
         Route::get('update-contact/{id}', 'LakaUsers\LakaUserController@show')->name('laka-user-management.edit');
         Route::post('update-contact/{id}', 'LakaUsers\LakaUserController@update')->name('laka-user-management.update');
-        Route::post('disable-user/{id}', 'LakaUsers\LakaUserController@disableUser')->name('laka-user-management.disable-user');
+        Route::get('disable-user/{id}', 'LakaUsers\LakaUserController@disableUser')->name('laka-user-management.disable-user');
 
     });
 

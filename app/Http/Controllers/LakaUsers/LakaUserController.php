@@ -24,7 +24,7 @@ class LakaUserController extends CoreController
     ];
 
     protected $permissionActions = [
-        'disableUser' => 'update'
+        'disableUser' => 'edit'
     ];
 
     public function __construct(LakaUserValidator $validator) {
