@@ -20,7 +20,7 @@ return [
             'company'  => 'Company',
             'type_of_user'=>'Type of user',
         ],
-
+        'user_default'=>'User default',
         'is_user_bot' =>'User bot',
         'add_contact_option'    => 'Add contact option',
         'add_all_contacts'      => 'Add all contact',
