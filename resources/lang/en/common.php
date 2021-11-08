@@ -2,37 +2,36 @@
 
 return [
 
-    'id_not_found'              => 'Id not found!',
+    'id_not_found' => 'Id not found!',
     'error_connecting_database' => 'There was an error connecting to the database!',
-    'expired_code'              => 'This code will have limit in the :time minute after this time code will not be effect',
-    'confirm_delete'            => 'Here are some of the rooms and contacts that will be deleted. Note that deletion cannot be recovered.',
-    'invalid_code'              => 'Invalid Code Or Expired Time, Please Retry',
-    'total'                     => 'Total',
-    'action_question_delete'    => 'Are you sure you want to delete?',
-    'dialog_confirm_title'      => 'Notification',
-    'pages'                     => 'Showing pages',
+    'expired_code' => 'This code will have limit in the :time minute after this time code will not be effect',
+    'confirm_delete' => 'Here are some of the rooms and contacts that will be deleted. Note that deletion cannot be recovered.',
+    'invalid_code' => 'Invalid code or expired time. Please try again or request resend to get new code',
+    'total' => 'Total',
+    'action_question_delete' => 'Are you sure you want to delete?',
+    'dialog_confirm_title' => 'Notification',
+    'pages' => 'Showing pages',
     // Action
-    'list'                      => 'List',
-    'delete'                    => 'Delete',
-    'add_new'                   => 'Add New',
-    'update'                    => 'Update',
-    'detail'                    => 'Detail',
-    'save'                      => 'Save',
-    'cancel'                    => 'Cancel',
-    'back'                      => 'Back',
-    'pause'                     => 'Pause',
-    'accept'                    => 'Accept',
-    'role_setting'              => 'Role setting',
-    'back'                      => 'Back',
-    'disable'                   => 'Disable',
+    'list' => 'List',
+    'delete' => 'Delete',
+    'add_new' => 'Add New',
+    'update' => 'Update',
+    'detail' => 'Detail',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'pause' => 'Pause',
+    'accept' => 'Accept',
+    'role_setting' => 'Role setting',
+    'disable' => 'Disable',
     // caption
-    'choose_company'            => 'Choose company',
+    'choose_company' => 'Choose company',
 
     // Page not found
-    'page_not_found'=>'Page not found',
+    'page_not_found' => 'Page not found',
 
     //Error label
-    'error'=>'Error',
+    'error' => 'Error',
     // ==================================== label ================================
     // index
     'index' => 'No.',
@@ -96,7 +95,6 @@ return [
     'user_not_found' => 'User not found!',
     'user_has_been_disabled' => 'User has been disabled!',
     'feature_api_not_found' => 'Feature api not found!',
-    'confirm_delete' => 'Are you sure you want to delete?',
     'update_password_success' => 'Password updated!',
     'feature_confirm_sync' => 'Are you sure you want to Sync?',
     'deleted' => 'Deleted!',
@@ -114,5 +112,8 @@ return [
     'alert_input_version' => 'Please input version',
     'alert_input_environment_dev' => 'Please input -dev',
     'alert_input_environment_stg' => 'Please input -stg',
-    'reset_password_success'=>'Submit request reset password successfully',
+    'reset_password_success' => 'Submit request reset password successfully',
+    'submit_verification_code' => 'Submit verification code',
+    'resend' => 'Resend verification code',
+    'alert_sent_verification_code'=>'An email with a verification code has been sent to :email. Please check email'
 ];

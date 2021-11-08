@@ -2,6 +2,7 @@
 
 namespace App\Repositories\LakaUsers;
 
+use App\Events\sendConfirmEmail;
 use App\Facades\Common;
 use App\Models\Companys\Company;
 use App\Models\LakaUsers\LakaUser;
@@ -10,8 +11,6 @@ use App\Repositories\Companys\CompanyRepository;
 use App\Repositories\Core\CoreRepository;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Cache;
-use Laka\Core\Http\Response\WebResponse;
-use Laka\Core\Pagination\LakaPagination;
 use Laka\Core\Traits\BuildPaginator;
 use Lampart\Hito\Core\Repositories\FilterQueryString\Filters\WhereClause;
 
@@ -47,7 +46,7 @@ class LakaUserRepository extends CoreRepository
             return Common::callApi('get', '/api/v1/user/get-list-delete-user')->toArray();
         });
         if (!$allDisable) {
-            $results['data'] = array_filter($results['data'], function($item) {
+            $results['data'] = array_filter($results['data'], function ($item) {
                 return $item['disabled'] === 0;
             });
         }
@@ -111,30 +110,45 @@ class LakaUserRepository extends CoreRepository
         return $this->getReponseApiData(Common::callApi('post', '/api/v1/contact/add-to-all-rooms-by-company', $data));
     }
 
-    public function disableUser($id, $attributes)
+    public function checkVerificationCode($id, $attributes)
     {
         $codeDisableUser = Cache::get('codeDisableUser');
         $codeInput = (int)$attributes['code'];
-        $typeAction = $attributes['type'];
 
-        if ($typeAction !== 'sentmail' && $codeInput === $codeDisableUser && $typeAction === 'submit_code' && $codeInput > 999 && $codeInput <= 9999) {
-            // Case Code hợp lệ
+        if ($codeDisableUser === $codeInput) {
             Common::callApi('post', '/api/v1/user/delete-user', ['user_id' => $id]);
-
-            return WebResponse::error(route('laka-user-management.user-disable'), ['saved' => true]);
-        } else {
-            // Trường hợp sai kết quả và resent
-            if ($typeAction === 'submit_code' && $codeInput !== $codeDisableUser) {
-                return WebResponse::error(route('laka-user-management.user-disable'), __('common.invalid_code'));
-            } else {
-                if ($typeAction === 'sentmail' || $typeAction === 'resent') {
-                    // $this->sendCode($id);
-                }
-                // View::share('submitCode', 1);
-                return view('user-management-for-app-chat/confirm_code');
-            }
-
+            return true;
         }
+        return false;
+    }
+
+    public function disableUser($id, $attributes)
+    {
+        $typeAction = $attributes['type'];
+        $arrayAction = ['sent-mail', 'resent'];
+        $userDisabled = $this->getUserDetail($id);
+
+        if (in_array($typeAction, $arrayAction)) {
+            $dataContentConfirm = array();
+            $dataContentConfirm = $this->getConfirmDeleteUser($id);
+            $warningExpired = $this->warningExpired(config('laka.time_expired_code'));
+
+            data_set($dataContentConfirm, 'warningExpired', $warningExpired);
+            (event(new sendConfirmEmail($userDisabled, $dataContentConfirm)));
+        }
+
+        return $userDisabled;
+    }
+
+    public function getConfirmDeleteUser($id)
+    {
+        $data = Common::callApi('post', '/api/v1/user/check-status-delete-user', ['user_id' => $id]);
+        return data_get($data->toArray(), 'data');
+    }
+
+    private function warningExpired($config)
+    {
+        return __('common.expired_code', ['time' => (int)$config / 60]);
     }
 
     private function getUserDetail($id)

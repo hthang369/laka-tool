@@ -16,12 +16,8 @@ class LakaUserGridPresenter extends BaseGridPresenter
 
         return [
             'name',
-            [
-                'key'=> 'email'
-            ],
-
+            'email',
             'company',
-
             [
                 'key' => 'action',
                 'sortable' => false,
@@ -33,17 +29,17 @@ class LakaUserGridPresenter extends BaseGridPresenter
                             ['class' => 'btn btn-sm btn-info']);
                     } else {
                         if ($item['disabled'] === 0) {
-                            return link_to(
-                                route('laka-user-management.disable-user', ['id' => $item['id'], 'type' => 'sentmail']),
+
+                            return  link_to(
+                                route('laka-user-management.disable-user', ['id' => $item['id'],'type' => 'sent-mail']),
                                 __('common.disable'),
-                                ['class' => 'btn btn-sm btn-link']
+                                ['class' => 'btn btn-sm btn-danger', 'onclick' => "return window.confirm('Are you sure disable this user ?')"]
                             );
                         }
-                        return __('users.laka.disable');
+                        return '<span class="badge badge-info">' .  __('users.laka.disable'). '</span>';
                     }
                 }
             ],
-
         ];
     }
 }

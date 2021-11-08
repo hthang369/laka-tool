@@ -2,7 +2,8 @@
 
 namespace App\Events;
 
-use App\Models\User;
+
+use App\Models\Users\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -16,10 +17,9 @@ class sendConfirmEmail
     /**
      * @var mixed
      */
-    public $email;
-    public $user_name;
+    public $userDisabled;
     /**
-     * @var String
+     * @var Array
      */
     public $confirmContent;
 
@@ -28,11 +28,12 @@ class sendConfirmEmail
      *
      * @return void
      */
-    public function __construct(User $user, string $confirmContent)
+    public function __construct(array $userDisabled, array $confirmContent)
     {
-        $this->email = $user->email;
-        $this->user_name = $user->name;
+
+        $this->userDisabled = $userDisabled;
         $this->confirmContent = $confirmContent;
+
     }
 
     /**

@@ -11,6 +11,8 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+
 if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
     error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
 }
@@ -20,10 +22,10 @@ Route::get('/', function () {
 });
 
 Route::get('/storage/files/{folder}/{name}', function ($folder, $name) {
-    return Storage::disk('local')->download('public/files/' . $folder.'/'.$name);
+    return Storage::disk('local')->download('public/files/' . $folder . '/' . $name);
 });
 
-Route::group(['middleware' => ['log-activity']], function() {
+Route::group(['middleware' => ['log-activity']], function () {
     Auth::routes();
 });
 
@@ -55,6 +57,7 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth:web', 'permissi
         Route::get('update-contact/{id}', 'LakaUsers\LakaUserController@show')->name('laka-user-management.edit');
         Route::post('update-contact/{id}', 'LakaUsers\LakaUserController@update')->name('laka-user-management.update');
         Route::get('disable-user/{id}', 'LakaUsers\LakaUserController@disableUser')->name('laka-user-management.disable-user');
+        Route::post('disable-user/{id}', 'LakaUsers\LakaUserController@checkVerificationCode')->name('laka-user-management.check-verification-code');
 
     });
 
