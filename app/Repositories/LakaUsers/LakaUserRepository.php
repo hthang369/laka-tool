@@ -76,7 +76,7 @@ class LakaUserRepository extends CoreRepository
 
         $dataResponse = Common::callApi('post', '/api/v1/user/register-users', $data);
         if (data_get($dataResponse, 'error_code') != 0) {
-            throw new \Exception(data_get($dataResponse, 'error_msg'));
+            throw new \InvalidArgumentException(data_get($dataResponse, 'error_msg'));
         }
         $userId = data_get($dataResponse, 'data.id');
         if ($attributes['add_all_contacts'] == 1) {
