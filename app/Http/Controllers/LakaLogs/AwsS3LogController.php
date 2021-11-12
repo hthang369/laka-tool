@@ -32,7 +32,7 @@ class AwsS3LogController extends CoreController
         $this->repository = $this->factory->makeRepository(AwsS3LogRepository::class);
         $this->lakaLogService = $this->factory->makeService(LakaLogService::class);
 
-        View::share('titlePage', 'laka_log.page_title');
+        View::share('titlePage', __('laka_log.page_title'));
         View::share('headerPage', 'laka_log.page_header');
     }
 
