@@ -2,7 +2,7 @@
 
 @section('message_content')
     @if (session('isAlert')||session('errors'))
-        <x-alert type="{{session()->get('errors') ? 'danger' : 'success'}}">
+        <x-alert type="{{session()->get('errors') ? 'danger' : 'success'}}" dismissible="true">
             {{session('message') ?? $message}}
         </x-alert>
     @endif
