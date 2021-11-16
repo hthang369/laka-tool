@@ -1,8 +1,8 @@
 @extends('components.system-admin.form')
 
 @section('message_content')
-    @if (session('message'))
-        <x-alert type="{{session()->has('message') ? 'danger' : 'success'}}">
+    @if (session('isAlert') || session('errors'))
+        <x-alert type="{{session()->get('errors') ? 'danger' : 'success'}}" dismissible="true">
             {{session('message') ?? $message}}
         </x-alert>
     @endif

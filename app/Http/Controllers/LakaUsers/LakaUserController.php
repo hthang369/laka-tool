@@ -5,6 +5,7 @@ namespace App\Http\Controllers\LakaUsers;
 use App\Http\Controllers\Core\CoreController;
 use App\Repositories\LakaUsers\LakaUserRepository;
 use App\Validators\LakaUsers\LakaUserValidator;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Laka\Core\Http\Response\WebResponse;
 
@@ -86,18 +87,23 @@ class LakaUserController extends CoreController
         $routeRedirect = $this->getErrorRouteName(__FUNCTION__, ['id' => $id]);
         $isSuccess = $this->repository->checkVerificationCode($id, request()->all());
 
-        return $isSuccess ? WebResponse::created(route('laka-user-management.user-disable'), null, __('common.user_has_been_disabled')) :
-            WebResponse::error($routeRedirect, null, __('common.invalid_code'));
+
+        return $isSuccess ? WebResponse::created(route('laka-user-management.user-disable'),
+            null, __('common.user_has_been_disabled')) :
+            WebResponse::error($routeRedirect, true, __('common.invalid_code'));
     }
 
     public function disableUser($id)
     {
+
         View::share('titlePage', __('users.laka.confirm_code'));
         View::share('headerPage', 'users.laka.confirm_code');
 
         $userDisabled = $this->repository->disableUser($id, request()->all());
         data_set($userDisabled, 'id', $id);
 
-        return WebResponse::success($this->getViewName(__FUNCTION__),$userDisabled,__('common.alert_sent_verification_code',['email'=>auth()->user()->email]));
+        $msg = __('common.alert_sent_verification_code', ['email' => auth()->user()->email]);
+        Session::flash('isAlert', true);
+        return WebResponse::success($this->getViewName(__FUNCTION__), $userDisabled, $msg);
     }
 }
