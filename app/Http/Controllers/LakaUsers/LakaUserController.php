@@ -38,8 +38,8 @@ class LakaUserController extends CoreController
     {
         parent::__construct($validator);
         $this->repository = $this->factory->makeRepository(LakaUserRepository::class);
-        View::share('titlePage', __('users.laka.list_contact'));
-        View::share('headerPage', 'users.laka.list_contact');
+        View::share('titlePage', __('users.laka.page_title'));
+        View::share('headerPage', 'users.laka.page_header');
     }
 
 

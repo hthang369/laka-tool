@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'page_title' => 'Laka log manage list',
-    'page_header' => 'Laka log manage list',
+    'page_title' => 'Laka log manage',
+    'page_header' => 'Laka log manage',
     'fields' => [
         'name'  => 'Name',
         'email'  => 'Email',

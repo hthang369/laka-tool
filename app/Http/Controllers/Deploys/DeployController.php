@@ -7,6 +7,7 @@ use App\Repositories\Deploys\DeployRepository;
 use App\Services\Deploys\DeployService;
 use App\Validators\Deploys\DeployValidator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 use Laka\Core\Http\Response\WebResponse;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
@@ -28,11 +29,14 @@ class DeployController extends CoreController
 
     protected $service;
 
-    public function __construct(DeployValidator $validator) {
+    public function __construct(DeployValidator $validator)
+    {
         parent::__construct($validator);
 
         $this->repository = $this->factory->makeRepository(DeployRepository::class);
         $this->service = $this->factory->makeService(DeployService::class);
+        View::share('titlePage', __('deploy_version.page_title'));
+
     }
 
     public function doDeploy(Request $request)
@@ -42,13 +46,13 @@ class DeployController extends CoreController
         try {
             $server = $request->get('server');
             $version = $request->get("{$server}_version");
-    
+
             $this->validator($request->merge(['version' => $version])->except('_token'), ValidatorInterface::RULE_UPDATE);
 
             list($status, $message) = $this->service->doDeploy($environment, $server, $version);
             $method = $status ? 'created' : 'error';
             return WebResponse::{$method}($routeName, null, $message);
-        } catch(ValidatorException $ex) {
+        } catch (ValidatorException $ex) {
             return WebResponse::validateFail($routeName, $ex->getMessageBag());
         }
     }

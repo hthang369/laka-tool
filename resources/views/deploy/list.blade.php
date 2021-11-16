@@ -1,6 +1,6 @@
 @extends('layouts.system-admin')
 
-@section('title', 'Danh sách version')
+@section('title', $titlePage)
 
 @section('sidebar')
     @parent
@@ -29,7 +29,7 @@
     @endif
     <div class="card mb-5">
         <div class="text-white card-header bg-primary">
-            <h2>{{$data['environment']}} </h2>
+            <h2>{{ucwords($data['environment']) }} </h2>
         </div>
         <div class="card-body ">
             @foreach($data['serverArray'] as $key => $value)
@@ -43,24 +43,24 @@
                     <x-form method="post" route="version-deploy.deploy">
                         <x-form-group>
                             <x-form-label for="redmine-ticket" class="required">Redmine Ticket:</x-form-label>
-                            <x-form-input type="text" 
-                                name="{{$value->server.'_redmine_id'}}" 
-                                id="redmine-ticket" 
-                                placeholder="Input redmine ticket" 
+                            <x-form-input type="text"
+                                name="{{$value->server.'_redmine_id'}}"
+                                id="redmine-ticket"
+                                placeholder="Input redmine ticket"
                                 required />
                         </x-form-group>
                         <x-form-group>
                             <x-form-label for="deploy-version" class="required">Deploy version:</x-form-label>
-                            <x-form-input type="text" 
-                                name="{{$value->server.'_version'}}" 
-                                id="deploy-version" 
-                                placeholder="ID commit / Version" 
+                            <x-form-input type="text"
+                                name="{{$value->server.'_version'}}"
+                                id="deploy-version"
+                                placeholder="ID commit / Version"
                                 required />
                         </x-form-group>
                         <input type="hidden" class="form-control" name="server" value="{{$value->server}}">
                         <input type="hidden" class="form-control" name="environment" value="{{$data['environment']}}">
                         @can("add_{$sectionCode}")
-                        <x-button variant="primary" :text="Deploy" />    
+                        <x-button variant="primary" :text="Deploy" />
                         @endcan
                     </x-form>
                 </div>

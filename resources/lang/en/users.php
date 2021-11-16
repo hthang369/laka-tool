@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'page_title' => 'LMT user manage list',
-    'page_header' => 'User manage list',
+    'page_title' => 'LMT user manage',
+    'page_header' => 'LMT user manage',
     'fields' => [
         'name' => 'Name',
         'email' => 'Email',
@@ -13,6 +13,8 @@ return [
         'roles' => 'Roles'
     ],
     'laka' => [
+        'page_title' => 'LAKA user manage',
+        'page_header' => 'LAKA user manage',
         'disable' => 'User has disable',
         'fields' => [
             'name' => 'Name',
@@ -20,16 +22,16 @@ return [
             'company' => 'Company',
             'type_of_user' => 'Type of user',
         ],
-        'user_default'          =>'User default',
-        'is_user_bot'           =>'User bot',
-        'add_contact_option'    => 'Add contact option',
-        'add_all_contacts'      => 'Add all contact',
-        'add_to_all_rooms'      => 'Add to all rooms',
-        'contact_header'        => 'Laka user update contact',
-        'list_contact'          => 'Laka user manage',
-        'list_approval'         => 'Laka user approval',
-        'confirm_code'          => 'Laka user confirm code',
-        'label_confirm_code'    => 'Verification code',
+        'user_default' => 'User default',
+        'is_user_bot' => 'User bot',
+        'add_contact_option' => 'Add contact option',
+        'add_all_contacts' => 'Add all contact',
+        'add_to_all_rooms' => 'Add to all rooms',
+        'contact_header' => 'Laka user update contact',
+        'list_contact' => 'Laka user manage',
+        'list_approval' => 'Laka user approval',
+        'confirm_code' => 'Laka user confirm code',
+        'label_confirm_code' => 'Verification code',
         'placeholder_confirm_code' => 'Check email and fill code here'
     ],
     'validator' => [

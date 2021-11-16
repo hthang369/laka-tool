@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'page_title' => 'Company manage list',
-    'page_header' => 'Company manage list',
+    'page_title' => 'LAKA company manage',
+    'page_header' => 'LAKA company manage',
     'fields' => [
         'name'  => 'Name',
         'email'  => 'Email',

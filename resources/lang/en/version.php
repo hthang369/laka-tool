@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'page_title' => 'Version list',
-    'page_header' => 'Version list',
-     
+    'page_title' => 'Version',
+    'page_header' => 'Version',
+
     'socket_version' => 'Socket Version',
     'backend_version' => 'Backend Version',
     'frontend_version' => 'Frontend Version',
