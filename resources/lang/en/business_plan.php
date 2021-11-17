@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'page_title' => 'Bussiness plan list',
-    'page_header' => 'Bussiness plan list',
+    'page_title' => 'LAKA bussiness plan',
+    'page_header' => 'LAKA bussiness plan',
     'fields' => [
         'name'  => 'Name',
         'description'  => 'Description',

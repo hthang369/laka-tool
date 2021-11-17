@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'page_title' => 'LMT role manage list',
-    'page_header' => 'Role manage list',
+    'page_title' => 'LMT role manage',
+    'page_header' => 'LMT role manage ',
     'fields' => [
         'level' => 'Level',
         'name'  => 'Name',
@@ -15,7 +15,7 @@ return [
         'page_header' => 'Set permission for role',
         'permission' => 'Permission'
     ],
-    
+
     //label
     'role' => 'Role',
     'role_rank' => 'Role rank',
