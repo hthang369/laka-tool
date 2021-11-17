@@ -24,6 +24,6 @@ class LogReleaseController extends CoreController
         $this->repository = $this->factory->makeRepository(LogReleaseRepository::class);
 
         View::share('titlePage', __('deploy_version.page_title'));
-        View::share('headerPage', 'deploy_version.page_header');
+        View::share('headerPage', 'deploy_version.log_release.page_header');
     }
 }
