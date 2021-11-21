@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\CheckPermissionByRole;
+use App\Http\Middleware\LogRelease;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -65,6 +66,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'permission' => CheckPermissionByRole::class,
-        'log-activity' => \App\Http\Middleware\LogActivity::class
+        'log-activity' => \App\Http\Middleware\LogActivity::class,
+        'log-release'=>LogRelease::class,
     ];
 }

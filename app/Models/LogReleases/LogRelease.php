@@ -2,6 +2,7 @@
 
 namespace App\Models\LogReleases;
 
+use App\Models\Deploys\Deploy;
 use Laka\Core\Entities\BaseModel;
 
 class LogRelease extends BaseModel
@@ -27,4 +28,8 @@ class LogRelease extends BaseModel
         'release_type',
         'environment'
     ];
+
+    public function deployServer(){
+        return $this->hasOne(Deploy::class,'id','deploy_server_id');
+    }
 }

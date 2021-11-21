@@ -66,7 +66,7 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth:web', 'permissi
         Route::get('/development', 'Deploys\DeployController@index')->name('version-deploy.development');//->middleware("log.activity:Version Deploy");
         Route::get('/staging', 'Deploys\DeployController@index')->name('version-deploy.staging');//->middleware("log.activity:Version Deploy");
         Route::get('/production', 'Deploys\DeployController@index')->name('version-deploy.production');//->middleware("log.activity:Version Deploy");
-        Route::post('deploy', 'Deploys\DeployController@doDeploy')->name('version-deploy.deploy');
+        Route::middleware('log-release')->post('deploy','Deploys\DeployController@doDeploy')->name('version-deploy.deploy');
         // Route log-release
         Route::group(['prefix' => 'log-release'], function () {
             Route::get('/', 'LogReleases\LogReleaseController@index')->name('version-deploy.log-release');
