@@ -35,10 +35,13 @@
             @foreach($data['serverArray'] as $key => $value)
 
                 <div class="well mb-4">
-                    <h3>{{$value->server}}</h3>
-                    <div class="form-group ">
-                        <p>Current version: {{$value->version != null ? $value->version :  'Can\'t get data'}}</p>
+                    <div class="form-group">
+                        <h3> {{ucfirst($value->server) }}</h3>
                     </div>
+
+                    <label>Current version:</label>
+                    <span
+                        class="badge badge-success">{{$value->version != null ? $value->version :  'Can\'t get data'}}</span>
 
                     <x-form method="post" route="version-deploy.deploy">
                         <x-form-group>
@@ -60,10 +63,11 @@
                         <input type="hidden" class="form-control" name="server" value="{{$value->server}}">
                         <input type="hidden" class="form-control" name="environment" value="{{$data['environment']}}">
                         @can("add_{$sectionCode}")
-                        <x-button variant="primary" :text="Deploy" />
+                            <x-button variant="primary" :text="Deploy" type="submit"/>
                         @endcan
                     </x-form>
                 </div>
+                <hr>
             @endforeach
         </div>
 

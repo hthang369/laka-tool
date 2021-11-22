@@ -20,7 +20,6 @@ class LogReleaseController extends Controller
 
     public function getLogReleaseList(Request $request)
     {
-
         $deploy_server = DeployServer::get();
 
         $perPage = $request->input('perPage');
