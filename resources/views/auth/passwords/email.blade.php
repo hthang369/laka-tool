@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Reset Password') }}</div>
+                    <div class="card-header">{{ __('Forgot Password') }}</div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -37,20 +37,13 @@
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <div class="row">
-                                        <div class="col-md-8">
+                                        <div class="col-md-12">
                                             <button type="submit" class="btn btn-primary">
                                                 {{ __('Send Password Reset Link') }}
                                             </button>
-                                        </div>
-                                        <div
-                                            class="col-md-4 d-flex justify-content-end"> {!! Html::tag('a', __('common.back'), ['class' => 'btn btn-danger', 'onclick' => "history.back()"]) !!}
+                                            {!! link_to('', __('common.back'), ['class' => 'btn btn-danger', 'onclick' => "history.back()"]) !!}
                                         </div>
                                     </div>
-
-
-                                </div>
-                                <div class="col-md-6 offset-md-4">
-
                                 </div>
                             </div>
                         </form>
