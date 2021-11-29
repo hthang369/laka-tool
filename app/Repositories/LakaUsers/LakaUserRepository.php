@@ -170,12 +170,15 @@ class LakaUserRepository extends CoreRepository
     protected function parserResult($result)
     {
         $data = $this->getReponseApiData($result);
+        $total = count($data);
         $perPage = $this->getLimitForPagination();
         if (count($data) > 0) {
             $page = Paginator::resolveCurrentPage('page');
-            return parent::parserResult($this->paginator(collect($data)->forPage($page, $perPage)->values(), count($data), $perPage, null, []));
+            $data = collect($data)->forPage($page, $perPage)->values();
         }
-        return parent::parserResult($this->paginator($data, count($data), $perPage, null, []));
+        $pagination = $this->paginator($data, $total, $perPage, null, []);
+        $pagination->appends(request()->all());
+        return parent::parserResult($pagination);
     }
 
     private function getReponseApiData($result)
