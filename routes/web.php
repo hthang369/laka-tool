@@ -58,6 +58,7 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth:web', 'permissi
         Route::post('update-contact/{id}', 'LakaUsers\LakaUserController@update')->name('laka-user-management.update');
         Route::get('disable-user/{id}', 'LakaUsers\LakaUserController@disableUser')->name('laka-user-management.disable-user');
         Route::post('disable-user/{id}', 'LakaUsers\LakaUserController@checkVerificationCode')->name('laka-user-management.check-verification-code');
+        Route::get('reset-password/{id}', 'LakaUsers\LakaUserController@resetPassword')->name('laka-user-management.reset-password');
 
     });
 
