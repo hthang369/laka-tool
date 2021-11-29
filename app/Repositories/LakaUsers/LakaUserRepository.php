@@ -26,7 +26,6 @@ class LakaUserRepository extends CoreRepository
 
     protected $presenterClass = LakaUserGridPresenter::class;
 
-
     public function formGenerate()
     {
         $companyList = resolve(CompanyRepository::class)->pluck('company.name', 'company.id');
@@ -109,7 +108,6 @@ class LakaUserRepository extends CoreRepository
         $apiAdress = '/api/v1/user/force-reset-password';
         $data['user_id'] = $id;
         return Common::callApi('post', $apiAdress, $data)->toArray();
-
     }
 
     protected function addAllContacts($data)
