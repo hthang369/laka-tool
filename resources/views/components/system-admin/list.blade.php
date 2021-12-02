@@ -1,15 +1,6 @@
-@extends('layouts.system-admin')
-
-@section('title', $titlePage)
+@extends('layouts.main-page')
 
 @section('content')
-    <!-- TITLE -->
-    @section('header_page')
-        <h2 class="card-header px-0">
-            @lang($headerPage)
-        </h2>
-    @show
-
     <div class="card-body px-0">
         @section('message_content')
             @if (session('message'))
@@ -42,8 +33,6 @@
             :pagination="data_get($data, 'paginator')">
         </x-table>
     </div>
-
-    @yield('footer_page')
 @endsection
 
 @push('scripts')

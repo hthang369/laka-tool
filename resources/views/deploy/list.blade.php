@@ -1,10 +1,4 @@
-@extends('layouts.system-admin')
-
-@section('title', $titlePage)
-
-@section('sidebar')
-    @parent
-@endsection
+@extends('layouts.main-page')
 
 @section('content')
     @if(session()->has('success'))

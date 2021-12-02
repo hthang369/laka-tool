@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand:700"  />
     <!-- CSS -->
-    @yield('style-css')
+    @stack('styles')
 </head>
 <body>
 
@@ -44,8 +44,6 @@
 
     <!-- Script -->
     @stack('scripts')
-    @stack('styles')
-
 </div>
 
 </body>
