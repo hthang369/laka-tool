@@ -115,5 +115,6 @@ return [
     'reset_password_success' => 'Submit request reset password successfully',
     'submit_verification_code' => 'Submit verification code',
     'resend' => 'Resend verification code',
-    'alert_sent_verification_code'=>'An email with a verification code has been sent to :email. Please check email'
+    'alert_sent_verification_code' => 'An email with a verification code has been sent to :email. Please check email',
+    'validate_add_contact_options' => 'You must choose at least 1 option'
 ];

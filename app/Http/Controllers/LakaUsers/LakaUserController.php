@@ -5,6 +5,7 @@ namespace App\Http\Controllers\LakaUsers;
 use App\Http\Controllers\Core\CoreController;
 use App\Repositories\LakaUsers\LakaUserRepository;
 use App\Validators\LakaUsers\LakaUserValidator;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Laka\Core\Http\Response\WebResponse;
@@ -21,7 +22,7 @@ class LakaUserController extends CoreController
         'show' => 'laka-user-management.add_contact_update',
         'create' => 'laka-user-management.create',
         'store' => 'laka-user-management.add-contact',
-        'update' => 'laka-user-management.add-contact',
+        'update' => 'laka-user-management.edit',
         'resetPassword' => 'laka-user-management.add_contact_update',
         'disableUser' => 'laka-user-management.confirm_code'
     ];
@@ -32,10 +33,10 @@ class LakaUserController extends CoreController
     protected $errorRouteName = [
         'checkVerificationCode' => 'laka-user-management.disable-user',
         'resetPassword' => 'laka-user-management.edit',
+        'update' => 'laka-user-management.edit',
+        'store'=>'laka-user-management.create'
     ];
-    protected $messageResponse = [
 
-    ];
 
     public function __construct(LakaUserValidator $validator)
     {
@@ -62,7 +63,6 @@ class LakaUserController extends CoreController
     {
         $routeRedirect = $this->getErrorRouteName(__FUNCTION__, ['id' => $id]);
         $isSuccess = $this->repository->checkVerificationCode($id, request()->all());
-
 
         return $isSuccess ? WebResponse::created(route('laka-user-management.user-disable'),
             null, __('common.user_has_been_disabled')) :

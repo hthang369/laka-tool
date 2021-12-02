@@ -58,6 +58,7 @@ class LakaUserRepository extends CoreRepository
         $userData = $this->getUserDetail($id);
         $typeUser = data_get($userData, 'is_user_bot') == 1 ? trans('users.laka.is_user_bot') : trans('users.laka.user_default');
         data_set($userData, 'type_of_user', $typeUser);
+
         $companyList = resolve(CompanyRepository::class)->pluck('company.name', 'company.id');
         data_set($userData, 'id', $id);
         data_set($userData, 'company_list', $companyList);
@@ -67,6 +68,7 @@ class LakaUserRepository extends CoreRepository
 
     public function create(array $attributes)
     {
+
         if (is_null($attributes['is_user_bot'])) {
             $attributes['is_user_bot'] = 0;
         }
@@ -75,10 +77,12 @@ class LakaUserRepository extends CoreRepository
         $data = array_except($attributes, ['_token', 'company_id', 'add_all_contacts', 'add_to_all_rooms']);
 
         $dataResponse = Common::callApi('post', '/api/v1/user/register-users', $data);
+
         if (data_get($dataResponse, 'error_code') != 0) {
             throw new \InvalidArgumentException(data_get($dataResponse, 'error_msg'));
         }
         $userId = data_get($dataResponse, 'data.id');
+
         if ($attributes['add_all_contacts'] == 1) {
             $this->addAllContacts(['user_id' => $userId, 'company_id' => $attributes['company_id']]);
         }
@@ -90,16 +94,21 @@ class LakaUserRepository extends CoreRepository
 
     public function update(array $attributes, $id)
     {
+
         $user = $this->getUserDetail($id);
         if ($user['disabled'] == 1) {
             throw new \Exception(trans('users.validator.user_has_been_disabled'));
         }
-        if ($attributes['add_all_contacts'] == 1) {
-            $this->addAllContacts(['user_id' => $id, 'company_id' => $attributes['company_id']]);
+        foreach ($attributes['add_contact_option'] as $option) {
+            if ($option == 'add_all_contacts') {
+                $this->addAllContacts(['user_id' => $id, 'company_id' => $attributes['company_id']]);
+
+            }
+            if ($option == 'add_to_all_rooms') {
+                $this->addToAllRooms(['user_id' => $id, 'company_id' => $attributes['company_id']]);
+            }
         }
-        if ($attributes['add_to_all_rooms'] == 1) {
-            $this->addToAllRooms(['user_id' => $id, 'company_id' => $attributes['company_id']]);
-        }
+
         return true;
     }
 
@@ -112,6 +121,7 @@ class LakaUserRepository extends CoreRepository
 
     protected function addAllContacts($data)
     {
+
         return $this->getReponseApiData(Common::callApi('post', '/api/v1/contact/add-all-contacts-in-company', $data));
     }
 
