@@ -2,11 +2,6 @@
 
 @section('message_content')
     @php
-        // dd(session('errors'));
-        $session_error = session('errors');
-        if (!is_null($session_error) && is_object($session_error)){
-            $errors = $session_error->toArray();
-        };
         $contactOptions = [
             'add_all_contacts' => ['label' => __('users.laka.add_all_contacts'), 'checked' => false],
             'add_to_all_rooms' => ['label' => __('users.laka.add_to_all_rooms'), 'checked' => false]
