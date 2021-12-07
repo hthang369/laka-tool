@@ -3,13 +3,6 @@
 @section('title', $titlePage)
 
 @section('content')
-    <!-- TITLE -->
-    @section('header_page')
-        <h2 class="card-header px-0">
-            @lang($headerPage)
-        </h2>
-    @show
-        
     <div class="card-body px-0">
         @foreach (['socket', 'backend', 'frontend', 'api'] as $item)
             @if(data_get($data, "versions.{$item}_version") == null)

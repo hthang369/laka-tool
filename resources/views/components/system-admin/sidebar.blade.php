@@ -1,55 +1,53 @@
-{{--<div class="bg-light border-right" id="sidebar-wrapper">--}}
-{{--    <div class="list-group list-group-flush">--}}
+<nav id="sidebar" class="sidebar">
+    <div class="p-4">
+        <ul class="list-unstyled components mb-5">
+            @foreach($TOPMENU as $itemTop)
+                @php
+                    $route = substr(Route::currentRouteName(), 0, strpos(Route::currentRouteName(), '.'));
+                    $isActive= $route == $itemTop->group ? 'show' : '';
+                @endphp
+                <li class="active my-2">
 
-{{--    @foreach($LEFTMENU as $itemLeft)--}}
-{{--        @php($activeClass = Route::currentRouteName() == $itemLeft->route_name ? 'active font-weight-bold bg-info' : '')--}}
-{{--        {!! link_to_route($itemLeft->route_name, __($itemLeft->lang), [], [--}}
-{{--            'class' => get_classes(['list-group-item', 'list-group-item-action', $activeClass])--}}
-{{--        ]) !!}--}}
-{{--    @endforeach--}}
-{{--    </div>--}}
-{{--</div>--}}
-
-<nav id="sidebar">
-    <div class="sidebar-header">
-        <h3>Bootstrap Slider</h3>
+                    <a href="#{{$itemTop->group}}" data-toggle="collapse" aria-expanded="false"
+                       class="dropdown-toggle">@lang($itemTop->lang)</a
+                    >
+                    <ul class="collapse list-unstyled {{$isActive}}" id="{{$itemTop->group}}">
+                        @foreach($LEFTMENU as $itemLeft)
+                            @if($itemLeft->group == $itemTop->group)
+                                @php
+                                    $activeClass = Route::currentRouteName() == $itemLeft->route_name ? 'sub-menu-active' : ''
+                                @endphp
+                                <li class="{{$activeClass}} my-2">
+                                    {!! link_to_route($itemLeft->route_name, __($itemLeft->lang),[]) !!}
+                                </li>
+                            @endif
+                        @endforeach
+                    </ul>
+                </li>
+                <li>
+            @endforeach
+        </ul>
     </div>
-    <ul class="lisst-unstyled components">
-        <p>The Providers</p>
-        <li class="active">
-            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a
-            >
-            <ul class="collapse list-unstyled" id="homeSubmenu">
-                <li>
-                    <a href="#">Home 1</a>
-                </li>
-                <li>
-                    <a href="#">Home 2</a>
-                </li>
-            </ul>
-        </li>
-        <li>
-            <a href="#">About</a>
-        </li>
-        <li>
-            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a
-            >
-            <ul class="collapse list-unstyled" id="pageSubmenu">
-                <li>
-                    <a href="#">Page 1</a>
-                </li>
-                <li>
-                    <a href="#">Page 2</a>
-                </li>
-            </ul>
-        </li>
-
-        <li>
-            <a href="#">Policy</a>
-        </li>
-
-        <li>
-            <a href="#">Contact Us</a>
-        </li>
-    </ul>
 </nav>
+@push('scripts')
+    <script>
+        (function ($) {
+            "use strict";
+            var fullHeight = function () {
+
+                $('.js-fullheight').css('height', $(window).height());
+                $(window).resize(function () {
+                    $('.js-fullheight').css('height', $(window).height());
+                });
+
+            };
+            fullHeight();
+
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+
+        })(jQuery);
+    </script>
+@endpush
+

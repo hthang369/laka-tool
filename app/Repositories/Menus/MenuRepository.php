@@ -18,7 +18,8 @@ class MenuRepository extends BaseRepository
         $listCode = $sectionRepo->getDataByPermissionUserId($userId)->pluck('code')->all();
         $sectionCode = Common::getSectionCode();
         $topMenu = TopMenu::whereIn('group', $listCode)->orderBy('index')->get();
-        $leftMenu = LeftMenu::where('group', $sectionCode)->orderBy('index')->get();
+//        $leftMenu = LeftMenu::where('group', $sectionCode)->orderBy('index')->get();
+		$leftMenu = LeftMenu::all();
 
         return ['topMenu' => $topMenu, 'leftMenu' => $leftMenu];
     }

@@ -23,39 +23,44 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand:700"/>
     <!-- CSS -->
     @yield('style-css')
+
 </head>
 <body>
-
-<div id="page-container">
-    <!-- Navbar -->
+<header>
+    @include('components.system-admin.navbar')
+</header>
+<aside>
     <div class="wrapper d-flex align-items-stretch">
-        @include('components.system-admin.sidebar')
-        <div class="modal fade" id="confirmDialogDelete" data-backdrop="static" data-keyboard="false" tabindex="-1"
-             aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        </div>
 
-        <!-- Toasts notification -->
-        @include('components.system-admin.toasts')
+        <!-- Sidebar-->
+        <section id="section-sidebar">
+            @include('components.system-admin.sidebar')
+        </section>
+        <!--      End  Sidebar-->
 
-        <div id="main-container" class="container-fluid m-0 pl-0">
-            <div class="row">
-                @yield('content_layout')
+        <section id="content" class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    @yield('content_layout')
+                </div>
             </div>
-        </div>
+        </section>
+
     </div>
-@include('components.system-admin.navbar')
 
+</aside>
+
+<!-- Toasts notification -->
+@include('components.system-admin.toasts')
 <!-- Dialog confirm delete -->
-
-
-    <!-- Footer -->
+<div class="modal fade" id="confirmDialogDelete" data-backdrop="static" data-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+</div>
+<!-- Footer -->
 @include('components.system-admin.footer')
 
 <!-- Script -->
-    @stack('scripts')
-    @stack('styles')
-
-</div>
-
+@stack('scripts')
+@stack('styles')
 </body>
 </html>
