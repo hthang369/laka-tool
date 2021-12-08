@@ -14,13 +14,17 @@
     <script src="{{ asset('js/jquery.fileDownload.js') }}"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
     <!-- FONT AWESOME -->
     {{--    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">--}}
     {{--    <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/3.2.1/assets/font-awesome/css/font-awesome.css">--}}
     <link rel="stylesheet" href="{{ asset('css/system-admin.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('css/side-bar/style.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/sidebar/style.css') }}"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand:700"/>
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+    <!-- Css Plugin Scrollbar   -->
+    <link rel="stylesheet" href="{{asset('css/sidebar/jquery.mCustomScrollbar.css')}}" />
     <!-- CSS -->
     @yield('style-css')
 

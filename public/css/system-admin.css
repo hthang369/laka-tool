@@ -1,6 +1,6 @@
 #page-container {
     position: relative;
-    min-height: 100vh;
+    /*min-height: 100vh;*/
     display: block;
     overflow: auto;
 }
@@ -25,7 +25,7 @@
 }
 
 #main-container{
-    min-height: 800px;
+    /*min-height: 800px;*/
 }
 
 .required:after {
