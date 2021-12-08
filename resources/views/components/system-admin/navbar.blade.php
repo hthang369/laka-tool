@@ -1,13 +1,8 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar  navbar-expand-lg navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand d-flex align-items-center" href="/">
-            <img src="{{asset('/images/logo-official.png')}}" alt="logo">
-            Management Tool</a>
-
-{{--        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"--}}
-{{--                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">--}}
-{{--            <span class="navbar-toggler-icon"></span>--}}
-{{--        </button>--}}
+        <a class="navbar-brand d-flex align-items-end"  href="/">
+            <img class="logo" src="{{asset('/images/logo-official.png')}}" alt="logo">
+       <span class="logo-name"> Management Tool</span>    </a>
         <div class="d-flex flex-row-reverse bd-highlight collapse navbar-collapse " id="navbarSupportedContent">
             <div class=" bd-highlight dropdown dropdown-menu-left ">
 

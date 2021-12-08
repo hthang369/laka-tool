@@ -14,7 +14,10 @@ footer{
     background: #28353a;
 }
 .mCSB_container.mCS_no_scrollbar_y.mCS_y_hidden{
-    margin-right: 30px !important;
+    margin-right: 17px !important;
+}
+.mCSB_inside > .mCSB_container {
+    margin-right: 17px !important;
 }
 #sidebar {
     max-height:70%;;
@@ -97,7 +100,7 @@ footer{
 }
 
 #sidebar ul li.active > a {
-    padding: 10px 15px;
+    padding: 10px 17px;
     background: transparent;
     color: #fff;
 }

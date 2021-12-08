@@ -20,11 +20,12 @@
     {{--    <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/3.2.1/assets/font-awesome/css/font-awesome.css">--}}
     <link rel="stylesheet" href="{{ asset('css/system-admin.css') }}"/>
     <link rel="stylesheet" href="{{ asset('css/sidebar/style.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/navbar/style.css') }}"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Css Plugin Scrollbar   -->
-    <link rel="stylesheet" href="{{asset('css/sidebar/jquery.mCustomScrollbar.css')}}" />
+    <link rel="stylesheet" href="{{asset('css/sidebar/jquery.mCustomScrollbar.css')}}"/>
     <!-- CSS -->
     @yield('style-css')
 
@@ -33,7 +34,7 @@
 <header>
     @include('components.system-admin.navbar')
 </header>
-<aside>
+<main>
     <div class="wrapper d-flex align-items-stretch">
 
         <!-- Sidebar-->
@@ -51,8 +52,8 @@
         </section>
 
     </div>
+</main>
 
-</aside>
 
 <!-- Toasts notification -->
 @include('components.system-admin.toasts')

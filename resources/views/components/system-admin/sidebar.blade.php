@@ -40,6 +40,7 @@
             $(window).on("load", function () {
                 $("#sidebar").mCustomScrollbar({
                         theme: "inset",
+                        autoHideScrollbar: "true",
                     }
                 );
             });
