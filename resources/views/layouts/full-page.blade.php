@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section('title', $titlePage)
+
 @section('content_layout')
 <!-- Main content -->
 <div class="col px-0">

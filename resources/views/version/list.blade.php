@@ -1,6 +1,4 @@
-@extends('layouts.system-admin')
-
-@section('title', $titlePage)
+@extends('layouts.main-page')
 
 @section('content')
     <!-- TITLE -->
@@ -9,7 +7,7 @@
             @lang($headerPage)
         </h2>
     @show
-        
+
     <div class="card-body px-0">
         @foreach (['socket', 'backend', 'frontend', 'api'] as $item)
             @if(data_get($data, "versions.{$item}_version") == null)

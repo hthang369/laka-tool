@@ -1,8 +1,9 @@
 @extends('layouts.full-page')
 
-@section('style-css')
+@push('styles')
     <link rel="stylesheet" href="{{ asset('css/error-page.css') }}"/>
-@endsection
+@endpush
+
 @section('content')
     <div id="notfound">
         <div class="notfound">

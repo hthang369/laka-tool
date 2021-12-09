@@ -1,6 +1,4 @@
-@extends('layouts.system-admin')
-
-@section('title', $titlePage)
+@extends('layouts.main-page')
 
 @section('content')
     <!-- TITLE -->

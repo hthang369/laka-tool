@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section('title', $titlePage)
+
 @section('content_layout')
     <!-- Sidebar -->
     <div class="col-lg-2 pr-0">
