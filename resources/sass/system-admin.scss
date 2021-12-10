@@ -1,0 +1,171 @@
+/**!
+* Header
+*/
+header {
+    .navbar {
+        background-color: #6351ce;
+        .logo {
+            height: 1.7rem;
+        }
+        .logo-name {
+            margin-left: -4px;
+        }
+    }
+}
+/**!
+* Main content
+*/
+#main-container {
+    min-height: calc(100vh - 7rem);
+    .required {
+        &::after {
+            content:" *";
+            color: red;
+            font-weight: bold;
+        }
+    }
+    .table-index {
+        width: 5%;
+    }
+    .table-action {
+        width: 12%;
+    }
+    #section-sidebar {
+        background-color: #28353a;
+        min-height: calc(100vh - 7rem);
+        .sidebar {
+            height: 75ex;
+            .nav {
+                .nav-item {
+                    .nav-link {
+                        color: #9d9d9d;
+                        &:hover {
+                            color: #fff;
+                        }
+                    }
+                    &.active {
+                        > .nav-link {
+                            color: #fff;
+                            background-color: #007bff;
+                        }
+                    }
+                }
+                .sub-menu {
+                    .nav-link {
+                        &.active {
+                            color: #fff;
+                            border-left: 2px solid #007bff;
+                            background-color: rgba($color: #242424, $alpha: 0.5);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+/**!
+* Custom scollbar
+*/
+.mCustomScrollbar {
+    touch-action: pinch-zoom;
+    &.mCS_no_scrollbar,
+    .mCS_touch_action {
+        touch-action: auto;
+    }
+    .mCustomScrollBox {
+        position: relative;
+		overflow: hidden;
+		height: 100%;
+		max-width: 100%;
+		outline: none;
+		direction: ltr;
+        outline-color: initial;
+    }
+    // .mCSB_inside {
+    //     & > .mCSB_container {
+    //         margin-right: 1rem;
+    //     }
+    // }
+    .mCSB_container {
+        overflow: hidden;
+        width: auto;
+        height: auto;
+    }
+    &.mCS-autoHide {
+        & > .mCustomScrollBox {
+            & > .mCSB_scrollTools,
+            & ~ .mCSB_scrollTools {
+                opacity: 0;
+            }
+            &:hover {
+                & > .mCSB_scrollTools,
+                & ~ .mCSB_scrollTools {
+                    opacity: 1;
+                }
+                .mCSB_draggerContainer {
+                    background-color: rgba($color: #fff, $alpha: 0.4);
+                }
+            }
+        }
+    }
+    .mCSB_scrollTools {
+        position: absolute;
+		width: 10px;
+		height: auto;
+		left: auto;
+		top: 0;
+		right: 2px;
+		bottom: 0;
+        opacity: 0.75;
+        transition: opacity .2s ease-in-out, background-color .2s ease-in-out;
+        .mCSB_draggerContainer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            height: auto;
+        }
+        .mCSB_dragger {
+            cursor: pointer;
+            width: 100%;
+            height: 30px;
+            z-index: 1;
+            .mCSB_dragger_bar {
+                background-color: #fff;
+                transition: opacity .2s ease-in-out, background-color .2s ease-in-out;
+                position: relative;
+                width: 6px;
+                height: 100%;
+                margin: 0 auto;
+                border-radius: 16px;
+                text-align: center;
+            }
+        }
+        .mCSB_draggerRail {
+            width: 6px;
+            height: 100%;
+            margin: 0 auto;
+            border-radius: 16px;
+        }
+    }
+    &.mCS-inset {
+        &.mCSB_scrollTools {
+            .mCSB_dragger {
+                .mCSB_dragger_bar {
+                    width: 6px;
+                    margin: 3px 5px;
+                    position: absolute;
+                    height: auto;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                }
+            }
+            .mCSB_draggerRail {
+                width: 6px;
+            }
+        }
+    }
+}

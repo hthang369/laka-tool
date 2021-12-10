@@ -3,14 +3,25 @@
 @section('title', $titlePage)
 
 @section('content_layout')
-    <!-- Sidebar -->
-    <div class="col-lg-2 pr-0">
+    <!-- Sidebar-->
+    <section id="section-sidebar" class="col-md-2 pr-0">
         @include('components.system-admin.sidebar')
-    </div>
+    </section>
+    <!--      End  Sidebar-->
     <!-- Main content -->
-    <div class="col-lg-10 px-0">
-        <div class="card px-3">
-            @yield('content')
+    <div class="col-md-10 px-0">
+        <div class="card">
+            <!-- TITLE -->
+            <h2 class="card-header px-4 bg-light">
+                @lang($headerPage)
+            </h2>
+            <!-- End title-->
+
+            <!-- Content -->
+            <div class="px-4">
+                @yield('content')
+            </div>
+            <!-- End content -->
         </div>
     </div>
 @endsection
