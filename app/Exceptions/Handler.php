@@ -58,32 +58,50 @@ class Handler extends ExceptionHandler
     {
         // Set default value for message,statusCode,menuLeft
         $message = "";
-        $data['statusCode'] = Response::HTTP_INTERNAL_SERVER_ERROR;
-        //
+        $code = Response::HTTP_INTERNAL_SERVER_ERROR;
         if ($e instanceof ValidatorException) {
             $message = $e->getMessageBag();
-            return Route::has(Common::getSectionCode() . '.index')
-                ? WebResponse::exception(route(Common::getSectionCode() . '.index'), null, $message)
-                : WebResponse::success('errors.common', $data, $message);
+            $code = Response::HTTP_NOT_ACCEPTABLE;
+
+            return $this->response($code, $message, Route::has(Common::getSectionCode() . '.index'));
         } elseif ($e instanceof NotFoundHttpException) {
-            $data['statusCode'] = $e->getStatusCode();
-            $message = __('common.page_not_found');
-            return WebResponse::success('errors.common', $data, $message);
+            $$code = $e->getStatusCode();
+            $message = $e->getMessage();
+            return $this->response($code, $message);
 
         } elseif ($e instanceof FatalError || $e instanceof ConnectionException || $e instanceof InvalidArgumentException || $e instanceof ModelNotFoundException) {
             $message = $e->getMessage();
 
-            return WebResponse::success('errors.common', $data, $message);
+            return $this->response($code, $message);
 
         } elseif ($e instanceof AuthorizationException) {
-            $data['statusCode'] = Response::HTTP_UNAUTHORIZED;
+            $code = Response::HTTP_UNAUTHORIZED;
             $message = $e->getMessage();
 
             return Auth::check()
-                ? WebResponse::success('errors.common', $data, $message)
+                ? $this->response($code, $message)
                 : parent::render($request, $e);
 
         }
         return parent::render($request, $e);
+    }
+
+    private function redirect($message)
+    {
+        return WebResponse::exception(route(Common::getSectionCode() . '.index'), null, $message);
+    }
+
+    private function response($code, $message, $redirect = false)
+    {
+        if ($redirect)
+            return $this->redirect($message);
+
+        $data = [
+            'status' => [
+                'code' => $code,
+                'name' => __("common.errors.http_{$code}")
+            ]
+        ];
+        return WebResponse::success('errors.common', $data, $message);
     }
 }

@@ -6,20 +6,18 @@
     <title>Laka Management - @yield('title')</title>
     <link rel="stylesheet" href="{{asset('css/app.css')}}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <!-- Css Plugin Scrollbar   -->
+    <link rel="stylesheet" href="{{asset('css/jquery.mCustomScrollbar.min.css')}}"/>
     <link rel="stylesheet" href="{{ asset('css/system-admin.css') }}" />
-
     <!-- CSS -->
     @stack('styles')
-    {{-- <link rel="stylesheet" href="{{ asset('css/sidebar/style.css') }}"/> --}}
-    {{-- <link rel="stylesheet" href="{{ asset('css/navbar/style.css') }}"/> --}}
-    <!-- Css Plugin Scrollbar   -->
-    {{-- <link rel="stylesheet" href="{{asset('css/sidebar/jquery.mCustomScrollbar.css')}}"/> --}}
+
 </head>
 <body>
     <header>
         @include('components.system-admin.navbar')
     </header>
-    <main id="main-container" class="container-fluid m-0 pl-0">
+    <main id="main-container" class="container-fluid">
         <div class="row">
             @yield('content_layout')
         </div>

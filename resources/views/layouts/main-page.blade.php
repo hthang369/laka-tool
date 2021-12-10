@@ -4,12 +4,12 @@
 
 @section('content_layout')
     <!-- Sidebar-->
-    <section id="section-sidebar" class="col-md-2 pr-0">
+    <section id="section-sidebar" class="col-md-2 px-0">
         @include('components.system-admin.sidebar')
     </section>
     <!--      End  Sidebar-->
     <!-- Main content -->
-    <div class="col-md-10 px-0">
+    <div class="col-md-10">
         <div class="card">
             <!-- TITLE -->
             <h2 class="card-header px-4 bg-light">

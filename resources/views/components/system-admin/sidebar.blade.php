@@ -11,7 +11,8 @@
             $itemAttrs = [];
             $isChild = $item->children->count() > 0;
             if (str_is($sectionCode, $item->group)) {
-                array_push($parentClass, 'active');
+                if (!$isChild)
+                    array_push($parentClass, 'active');
                 $showClass = 'show';
             }
             if ($isChild) {
