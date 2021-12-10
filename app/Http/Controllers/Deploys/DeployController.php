@@ -36,7 +36,7 @@ class DeployController extends CoreController
         $this->repository = $this->factory->makeRepository(DeployRepository::class);
         $this->service = $this->factory->makeService(DeployService::class);
         View::share('titlePage', __('deploy_version.page_title'));
-
+        View::share('headerPage', __('deploy_version.page_header'));
     }
 
     public function doDeploy(Request $request)
