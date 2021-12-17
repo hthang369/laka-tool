@@ -47,7 +47,7 @@ header {
             }
         }
         position: sticky;
-        z-index: 9999;
+        z-index: $zindex-sticky;
         top: 0;
     }
 }
@@ -113,7 +113,7 @@ header {
         }
         .navbar-sidebar {
             position: fixed;
-            z-index: 9999;
+            z-index: $zindex-fixed;
             top: 50px;
             left: 0;
             bottom: 0;
