@@ -4,9 +4,12 @@
 
 @section('content_layout')
     <!-- Sidebar-->
-    <section id="section-sidebar" class="col-md-2 px-0">
-        @include('components.system-admin.sidebar')
+    <section class="collapse navbar-sidebar navbar-collapse col-md-2 px-0" id="navbarNavDropdown">
+        <div id="section-sidebar">
+            @include('components.system-admin.sidebar')
+        </div>
     </section>
+
     <!--      End  Sidebar-->
     <!-- Main content -->
     <div class="col-md-10">

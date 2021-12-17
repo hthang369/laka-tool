@@ -1,8 +1,8 @@
 @php
     $sectionCode = App\Facades\Common::getSectionCode();
 @endphp
-<nav id="sidebar" class="sidebar my-2">
-    <ul class="nav navbar-nav my-2" id="menu">
+<nav id="sidebar" class="sidebar my-md-2">
+    <ul class="nav d-block my-2" id="menu">
         @foreach ($MENUS as $item)
         @php
             $parentClass = ['nav-item'];

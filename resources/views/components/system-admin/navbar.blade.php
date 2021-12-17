@@ -4,6 +4,9 @@
             <img class="logo" src="{{asset('/images/logo-official.png')}}" alt="logo">
             <span class="logo-name"> Management Tool</span>
         </a>
+        <button class="navbar-toggler p-0" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="d-flex flex-row-reverse bd-highlight">
             <div class=" bd-highlight dropdown dropdown-menu-left ">
                 <i class="fas fa-user btn btn-md btn-secondary" id="dropdownMenuButton" data-toggle="dropdown"

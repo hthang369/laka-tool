@@ -1,7 +1,28 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+
 @mixin nav-active() {
     color: #fff;
     border-left: 4px solid #007bff;
     background-color: rgba($color: #242424, $alpha: 0.5);
+}
+/**!
+* Body
+*/
+::-webkit-scrollbar {
+    width: 8px;
+    background-color: #262a2b;
+    color: #cdc5b8;
+}
+::-webkit-scrollbar-corner {
+    background-color: #1d1f20;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #a0a0a0;
+    &:hover {
+        background-color: #7b7c7c;
+    }
 }
 /**!
 * Header
@@ -16,12 +37,25 @@ header {
             margin-left: -4px;
         }
     }
+    @include media-breakpoint-down('sm') {
+        .navbar {
+            .logo {
+                height: 1.4rem;
+            }
+            .logo-name {
+                font-size: 1rem;
+            }
+        }
+        position: sticky;
+        z-index: 9999;
+        top: 0;
+    }
 }
 /**!
 * Main content
 */
 #main-container {
-    min-height: calc(100vh - 7rem);
+    min-height: calc(100vh - 6rem);
     .required {
         &::after {
             content:" *";
@@ -36,10 +70,11 @@ header {
         width: 12%;
     }
     #section-sidebar {
+        width: 100%;
         background-color: #28353a;
-        min-height: calc(100vh - 7rem);
+        min-height: 100%;
         .sidebar {
-            height: calc(75ex - 3rem);
+            height: 73ex;
             .nav {
                 .nav-item {
                     .nav-link {
@@ -70,6 +105,29 @@ header {
                     }
                 }
             }
+        }
+    }
+    @include media-breakpoint-down('sm') {
+        #section-sidebar {
+            width: 60%;
+        }
+        .navbar-sidebar {
+            position: fixed;
+            z-index: 9999;
+            top: 50px;
+            left: 0;
+            bottom: 0;
+            background-color: rgba($color: #080808, $alpha: 0.7);
+        }
+    }
+    .table {
+        thead {
+            th {
+                white-space: nowrap;
+            }
+        }
+        .table-action {
+            white-space: nowrap;
         }
     }
 }
