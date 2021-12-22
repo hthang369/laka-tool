@@ -1,26 +1,18 @@
 @extends('layouts.full-page')
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset('css/error-page.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/error-page.css') }}"/>
 @endpush
 
 @section('content')
-    <div id="notfound">
-        <div class="notfound">
-            <div class="notfound-bg">
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-            <h1>oops!</h1>
-            <h2>
-                <span class="text-danger">{{trans('common.error')}} {{data_get($data,'statusCode')}} :</span>
-                {{$message}}
-            </h2>
-            <div class="go-back">
-                {!! Form::button(__('common.back'), ['class' => 'btn btn-danger btn-md', 'onclick' => "history.back()"]) !!}
-            </div>
-
+    <div class="notfound d-flex justify-content-center">
+        <div class="notfound-bg text-center w-50">
+            <h1>Oops!</h1>
+            <h2 class="text-danger">{{data_get($data,'status.code')}} - {{data_get($data,'status.name')}}</h2>
+            <p class="content">{{$message}}</p>
+            <p class="go-back">
+                {!! link_to_route('version.index', __('common.go_to_home'), [], ['class' => 'btn btn-danger btn-md']) !!}
+            </p>
         </div>
     </div>
 

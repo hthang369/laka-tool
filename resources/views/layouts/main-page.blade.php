@@ -3,25 +3,28 @@
 @section('title', $titlePage)
 
 @section('content_layout')
-    <!-- Sidebar -->
-    <div class="col-lg-2 pr-0">
-        @include('components.system-admin.sidebar')
-    </div>
-    <!-- Main content -->
-    <div class="col-lg-10 px-0">
-        <div class="card px-3">
-            <!-- TITLE -->
-            @section('header_page')
-                <h2 class="card-header px-0">
-                    @lang($headerPage)
-                </h2>
-            @show
+    <!-- Sidebar-->
+    <section class="collapse navbar-sidebar navbar-collapse col-md-2 px-0" id="navbarNavDropdown">
+        <div id="section-sidebar">
+            @include('components.system-admin.sidebar')
+        </div>
+    </section>
 
-            <div class="card-body px-0">
+    <!--      End  Sidebar-->
+    <!-- Main content -->
+    <div class="col-md-10">
+        <div class="card">
+            <!-- TITLE -->
+            <h2 class="card-header px-4 bg-light">
+                @lang($headerPage)
+            </h2>
+            <!-- End title-->
+
+            <!-- Content -->
+            <div class="px-4">
                 @yield('content')
             </div>
-
-            @yield('footer_page')
+            <!-- End content -->
         </div>
     </div>
 @endsection

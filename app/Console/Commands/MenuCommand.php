@@ -2,9 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Menus\Menus;
 use Illuminate\Console\Command;
-use App\Models\Menus\LeftMenu;
-use App\Models\Menus\TopMenu;
 use Illuminate\Support\Facades\Artisan;
 
 class MenuCommand extends Command
@@ -33,8 +32,7 @@ class MenuCommand extends Command
         $this->info('Refresh menu ...');
         if ($this->option('init')) {
             $this->info('Reset menu ...');
-            TopMenu::truncate();
-            LeftMenu::truncate();
+            Menus::truncate();
             $this->info('Reset menu: Done!');
         }
 

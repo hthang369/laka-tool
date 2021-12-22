@@ -2,8 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Menus\LeftMenu;
-use App\Models\Menus\TopMenu;
+use App\Models\Menus\Menus;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -20,28 +19,38 @@ class MenuSeeder extends Seeder
 
         DB::transaction(function () use($sections) {
             foreach($sections as $index => $section) {
+                $sectionCode = $section['code'];
                 $data = [
-                    'index'             => ($index + 1),
-                    'route_name'        => "{$section['code']}.{$section['name']}",
-                    'url'               => route("{$section['code']}.{$section['name']}", [], false),
-                    'lang'              => __('menu.'.str_replace('-', '_', $section['code'])),
-                    'description'       => __('menu.description.'.str_replace('-', '_', $section['code'])),
-                    'is_no_left_menu'   => 0
+                    'parent_id' => null,
+                    'group' => $sectionCode,
+                    'route_name' => "{$sectionCode}.{$section['name']}",
+                    'link' => count($section['children']) > 0 ? "#{$sectionCode}" : route("{$sectionCode}.{$section['name']}", [], false),
+                    'lang' => 'menu.'.str_replace('-', '_', $sectionCode),
+                    'description' => __('menu.description.'.str_replace('-', '_', $sectionCode))
                 ];
-                $result = TopMenu::firstOrCreate(['group' => $section['code']], $data);
+                $result = Menus::findGroup($sectionCode);
+                if (is_null($result)) {
+                    $result = Menus::make($data);
+                }
+                $result->saveAsRoot();
                 foreach($section['children'] as $idx => $item) {
                     $dataItem = [
-                        'top_menu_id'       => $result->id,
-                        'index'             => ($idx + 1),
-                        'route_name'        => "{$section['code']}.{$item}",
-                        'url'               => route("{$section['code']}.{$item}", [], false),
-                        'lang'              => __('menu.'.str_replace('-', '_', $section['code']).'_'.str_replace('-', '_', $item))
+                        'parent_id' => $result->id,
+                        'group' => $sectionCode,
+                        'route_name' => "{$sectionCode}.{$item}",
+                        'link' => route("{$sectionCode}.{$item}", [], false),
+                        'lang' => 'menu.'.str_replace('-', '_', $sectionCode).'_'.str_replace('-', '_', $item),
+                        'description' => __('menu.description.'.str_replace('-', '_', $sectionCode))
                     ];
-                    $data = LeftMenu::firstOrCreate([
-                        'top_menu_id'   => $result->id,
-                        'group'         => $section['code'],
-                        'route_name'    => $dataItem['route_name']
-                    ], $dataItem);
+                    $resultItem = Menus::where([
+                            'group' => $sectionCode,
+                            'parent_id' => $result->id,
+                            'route_name' => "{$sectionCode}.{$item}"
+                        ])->first();
+                    if (is_null($resultItem)) {
+                        $resultItem = Menus::make($dataItem);
+                    }
+                    $result->appendNode($resultItem);
                 }
             }
         });

@@ -11,8 +11,10 @@ use App\Repositories\Companys\CompanyRepository;
 use App\Repositories\Core\CoreRepository;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\MessageBag;
 use Laka\Core\Traits\BuildPaginator;
 use Lampart\Hito\Core\Repositories\FilterQueryString\Filters\WhereClause;
+use Prettus\Validator\Exceptions\ValidatorException;
 
 class LakaUserRepository extends CoreRepository
 {
@@ -58,9 +60,12 @@ class LakaUserRepository extends CoreRepository
         $userData = $this->getUserDetail($id);
         $typeUser = data_get($userData, 'is_user_bot') == 1 ? trans('users.laka.is_user_bot') : trans('users.laka.user_default');
         data_set($userData, 'type_of_user', $typeUser);
+
         $companyList = resolve(CompanyRepository::class)->pluck('company.name', 'company.id');
         data_set($userData, 'id', $id);
         data_set($userData, 'company_list', $companyList);
+        $company = Company::where('name', data_get($userData, 'company'))->select(['id'])->first();
+        data_set($userData, 'company_id', data_get($company, 'id'));
 
         return $userData;
     }
@@ -70,21 +75,18 @@ class LakaUserRepository extends CoreRepository
         if (is_null($attributes['is_user_bot'])) {
             $attributes['is_user_bot'] = 0;
         }
-        $company = Company::find($attributes['company_id']);
+        $company = Company::find($attributes['company_id'], ['name']);
         $attributes['company'] = $company->name;
         $data = array_except($attributes, ['_token', 'company_id', 'add_all_contacts', 'add_to_all_rooms']);
 
         $dataResponse = Common::callApi('post', '/api/v1/user/register-users', $data);
+
         if (data_get($dataResponse, 'error_code') != 0) {
-            throw new \InvalidArgumentException(data_get($dataResponse, 'error_msg'));
+            throw new ValidatorException(new MessageBag(['email' => data_get($dataResponse, 'error_msg')]));
         }
         $userId = data_get($dataResponse, 'data.id');
-        if ($attributes['add_all_contacts'] == 1) {
-            $this->addAllContacts(['user_id' => $userId, 'company_id' => $attributes['company_id']]);
-        }
-        if ($attributes['add_to_all_rooms'] == 1) {
-            $this->addToAllRooms(['user_id' => $userId, 'company_id' => $attributes['company_id']]);
-        }
+        $this->addContactOption($attributes, $userId);
+
         return true;
     }
 
@@ -94,12 +96,8 @@ class LakaUserRepository extends CoreRepository
         if ($user['disabled'] == 1) {
             throw new \Exception(trans('users.validator.user_has_been_disabled'));
         }
-        if ($attributes['add_all_contacts'] == 1) {
-            $this->addAllContacts(['user_id' => $id, 'company_id' => $attributes['company_id']]);
-        }
-        if ($attributes['add_to_all_rooms'] == 1) {
-            $this->addToAllRooms(['user_id' => $id, 'company_id' => $attributes['company_id']]);
-        }
+        $this->addContactOption($attributes, $id);
+
         return true;
     }
 
@@ -108,6 +106,19 @@ class LakaUserRepository extends CoreRepository
         $apiAdress = '/api/v1/user/force-reset-password';
         $data['user_id'] = $id;
         return Common::callApi('post', $apiAdress, $data)->toArray();
+    }
+
+    protected function addContactOption($attributes, $userId)
+    {
+        foreach ($attributes['add_contact_option'] as $option) {
+            if ($option == 'add_all_contacts') {
+                $this->addAllContacts(['user_id' => $userId, 'company_id' => $attributes['company_id']]);
+
+            }
+            if ($option == 'add_to_all_rooms') {
+                $this->addToAllRooms(['user_id' => $userId, 'company_id' => $attributes['company_id']]);
+            }
+        }
     }
 
     protected function addAllContacts($data)

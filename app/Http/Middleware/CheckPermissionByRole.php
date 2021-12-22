@@ -33,8 +33,8 @@ class CheckPermissionByRole
         }
 
         Schema::defaultStringLength(191);
-        $menu = $this->menuRepo->getAllMenus(Auth::id());
-        View::share(['TOPMENU' => data_get($menu, 'topMenu'), 'LEFTMENU' => data_get($menu, 'leftMenu')]);
+        $menus = $this->menuRepo->getAllMenus(Auth::id());
+        View::share(['MENUS' => $menus]);
 
         return $next($request);
     }

@@ -24,6 +24,7 @@ return [
     'accept' => 'Accept',
     'role_setting' => 'Role setting',
     'disable' => 'Disable',
+    'go_to_home' => 'Go to homepage',
     // caption
     'choose_company' => 'Choose company',
 
@@ -115,5 +116,18 @@ return [
     'reset_password_success' => 'Submit request reset password successfully',
     'submit_verification_code' => 'Submit verification code',
     'resend' => 'Resend verification code',
-    'alert_sent_verification_code'=>'An email with a verification code has been sent to :email. Please check email'
+    'alert_sent_verification_code' => 'An email with a verification code has been sent to :email. Please check email',
+    'validate_add_contact_options' => 'You must choose at least 1 option',
+
+    'errors' => [
+        'http_400' => 'Bad Request',
+        'http_401' => 'Unauthorized',
+        'http_403' => 'Forbidden',
+        'http_404' => 'Page not found',
+        'http_405' => 'Method Not Allowed',
+        'http_406' => 'Not Acceptable',
+        'http_408' => 'Request Timeout',
+        'http_409' => 'Conflict',
+        'http_500' => 'Server Error',
+    ]
 ];

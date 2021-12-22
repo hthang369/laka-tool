@@ -1,0 +1,179 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+
+@mixin nav-active() {
+    color: #fff;
+    border-left: 4px solid #007bff;
+    background-color: rgba($color: #242424, $alpha: 0.5);
+}
+/**!
+* Body
+*/
+::-webkit-scrollbar {
+    width: 8px;
+    background-color: #262a2b;
+    color: #cdc5b8;
+}
+::-webkit-scrollbar-corner {
+    background-color: #1d1f20;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #a0a0a0;
+    &:hover {
+        background-color: #7b7c7c;
+    }
+}
+/**!
+* Header
+*/
+header {
+    .navbar {
+        background-color: #6351ce;
+        .logo {
+            height: 1.7rem;
+        }
+        .logo-name {
+            margin-left: -4px;
+        }
+    }
+    @include media-breakpoint-down('sm') {
+        .navbar {
+            .logo {
+                height: 1.4rem;
+            }
+            .logo-name {
+                font-size: 1rem;
+            }
+        }
+        position: sticky;
+        z-index: $zindex-sticky;
+        top: 0;
+    }
+}
+/**!
+* Main content
+*/
+#main-container {
+    min-height: calc(100vh - 6rem);
+    .required {
+        &::after {
+            content:" *";
+            color: red;
+            font-weight: bold;
+        }
+    }
+    .table-index {
+        width: 5%;
+    }
+    .table-action {
+        width: 12%;
+    }
+    #section-sidebar {
+        width: 100%;
+        background-color: #28353a;
+        min-height: 100%;
+        .sidebar {
+            height: 73ex;
+            .nav {
+                .nav-item {
+                    .nav-link {
+                        color: #9d9d9d;
+                        &:hover {
+                            color: #fff;
+                            background-color: #007bff;
+                        }
+                    }
+                    &.active {
+                        > .nav-link {
+                            @include nav-active();
+                        }
+                    }
+                    .dropdown-toggle {
+                        &::after {
+                            position: absolute;
+                            right: 0.5rem;
+                            top: 1rem;
+                        }
+                    }
+                }
+                .sub-menu {
+                    .nav-link {
+                        &.active {
+                            @include nav-active();
+                        }
+                    }
+                }
+            }
+        }
+    }
+    @include media-breakpoint-down('sm') {
+        #section-sidebar {
+            width: 60%;
+        }
+        .navbar-sidebar {
+            position: fixed;
+            z-index: $zindex-fixed;
+            top: 50px;
+            left: 0;
+            bottom: 0;
+            background-color: rgba($color: #080808, $alpha: 0.7);
+        }
+    }
+    .table {
+        thead {
+            th {
+                white-space: nowrap;
+            }
+        }
+        .table-action {
+            white-space: nowrap;
+        }
+    }
+}
+/**!
+* Custom scollbar
+*/
+.mCustomScrollbar {
+    .mCSB_inside {
+        & > .mCSB_container {
+            margin-right: 0;
+        }
+    }
+    &.mCS-autoHide {
+        & > .mCustomScrollBox {
+            &:hover {
+                .mCSB_draggerContainer {
+                    background-color: rgba($color: #fff, $alpha: 0.4);
+                }
+            }
+        }
+    }
+    .mCSB_scrollTools {
+		width: 6px;
+		right: 2px;
+        .mCSB_dragger {
+            .mCSB_dragger_bar {
+                width: 6px;
+                margin: 3px 0;
+            }
+        }
+        .mCSB_draggerRail {
+            width: 6px;
+            margin: 3px 0;
+        }
+    }
+    &.mCS-inset {
+        &.mCSB_scrollTools {
+            .mCSB_dragger {
+                .mCSB_dragger_bar {
+                    width: 6px;
+                }
+            }
+            .mCSB_draggerRail {
+                width: 6px;
+            }
+        }
+    }
+}
+

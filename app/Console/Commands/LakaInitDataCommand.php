@@ -2,8 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Menus\LeftMenu;
-use App\Models\Menus\TopMenu;
+use App\Models\Menus\Menus;
 use Illuminate\Console\Command;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Artisan;
@@ -75,8 +74,7 @@ class LakaInitDataCommand extends Command
             $this->info('Reset database: Done!');
         }
         $this->info('Reset menu ...');
-        TopMenu::truncate();
-        LeftMenu::truncate();
+        Menus::truncate();
         Artisan::call('db:seed', ['--class' => 'MenuSeeder']);
         $this->info('Reset menu: Done!');
         $this->info('Done!');

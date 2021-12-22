@@ -29,7 +29,7 @@ return [
     [
         'code' => 'version',
         'name' => 'index',
-        'children' => ['index']
+        'children' => []
     ],
     [
         'code' => 'version-deploy',
