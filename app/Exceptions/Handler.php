@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Request;
+use Illuminate\Session\TokenMismatchException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
@@ -82,6 +83,8 @@ class Handler extends ExceptionHandler
                 ? $this->response($code, $message)
                 : parent::render($request, $e);
 
+        } elseif ($e instanceof TokenMismatchException && !Auth::check()) {
+            return WebResponse::exception(route('login'));
         }
         return parent::render($request, $e);
     }
