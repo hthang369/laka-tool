@@ -9,16 +9,26 @@ class UserGridPresenter extends BaseGridPresenter
     protected function setColumns()
     {
         return [
-            'name',
-            'email',
-            'phone',
+            [
+                'key' => 'name',
+                'filtering' => true,
+            ],
+            [
+                'key' => 'email',
+                'filtering' => true,
+            ]
+            ,[
+                'key' => 'phone',
+                'filtering' => true,
+            ]
+            ,
             [
                 'key' => 'roles',
                 'sortable' => false,
-                'cell' => function($item) {
+                'cell' => function ($item) {
                     $html = '';
-                    foreach($item['roles'] as $role) {
-                        $html .= '<span class="badge badge-primary mr-2">'.$role.'</span>';
+                    foreach ($item['roles'] as $role) {
+                        $html .= '<span class="badge badge-primary mr-2">' . $role . '</span>';
                     }
                     return $html;
                 }
