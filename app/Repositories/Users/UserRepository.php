@@ -8,7 +8,6 @@ use App\Repositories\Core\CoreRepository;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Laka\Core\Repositories\FilterQueryString\Filters\WhereClause;
-use Laka\Core\Repositories\FilterQueryString\Filters\WhereLikeClause;
 use Spatie\Permission\Models\Role;
 
 class UserRepository extends CoreRepository
@@ -16,9 +15,7 @@ class UserRepository extends CoreRepository
     protected $modelClass = User::class;
 
     protected $filters = [
-        'name' => WhereLikeClause::class,
-        'email'=>WhereLikeClause::class,
-        'phone'=>WhereLikeClause::class
+        'name' => WhereClause::class
     ];
 
     protected $presenterClass = UserGridPresenter::class;
