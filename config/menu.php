@@ -40,5 +40,10 @@ return [
         'code' => 'laka-log',
         'name' => 'index',
         'children' => ['index', 'create', 's3-log-list']
+    ],
+    [
+        'code' => 'repair-data',
+        'name' => 'index',
+        'children' => ['index']
     ]
 ];

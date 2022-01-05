@@ -20,6 +20,7 @@ return [
     'laka_user_update_contact' => 'LAKA user update contact',
     'version_deploy' => 'Deploy version',
     'laka_log' => 'Laka log',
+    'repair_data' => 'Repair data',
 
     // left menu
     'user_management_index' => 'LMT user list',
@@ -49,4 +50,6 @@ return [
     'laka_log_index' => 'Laka log report',
     'laka_log_create' => 'Laka log parse',
     'laka_log_s3_log_list' => 'Laka log S3',
+
+    'repair_data_index' => 'Repair data'
 ];

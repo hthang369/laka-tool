@@ -15,12 +15,19 @@ class LakaUserGridPresenter extends BaseGridPresenter
     {
 
         return [
-            'name',
-            'email',
+            [
+                'key' => 'name',
+                'filtering' => true
+            ],
+            [
+                'key' => 'email',
+                'filtering' => true
+            ],
             'company',
             [
                 'key' => 'action',
                 'sortable' => false,
+                'dataType' => 'buttons',
                 'cell' => function ($item) {
                     if (str_is(last(request()->segments()), 'add-contact')) {
                         return link_to(
@@ -29,7 +36,6 @@ class LakaUserGridPresenter extends BaseGridPresenter
                             ['class' => 'btn btn-sm btn-info']);
                     } else {
                         if ($item['disabled'] === 0) {
-
                             return  link_to(
                                 route('laka-user-management.disable-user', ['id' => $item['id'],'type' => 'sent-mail']),
                                 __('common.disable'),
