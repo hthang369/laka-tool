@@ -2,11 +2,45 @@
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/mixins';
 
+$progress-bar-width: 25%;
+$progress-translateX: calc(100% * calc(100% / $progress-bar-width));
+
 @mixin nav-active() {
     color: #fff;
     border-left: 4px solid #007bff;
     background-color: rgba($color: #242424, $alpha: 0.5);
 }
+
+@mixin keyframes-marquee($name, $start, $end) {
+    @-moz-keyframes #{$name} {
+        0% {
+            -moz-transform: translateX($start);
+        }
+        100% {
+            -moz-transform: translateX($end);
+        }
+    }
+    @-webkit-keyframes #{$name} {
+        0% {
+            -webkit-transform: translateX($start);
+        }
+        100% {
+            -webkit-transform: translateX($end);
+        }
+    }
+    @keyframes #{$name} {
+        0% {
+            transform: translateX($start);
+        }
+        100% {
+            transform: translateX($end);
+        }
+    }
+}
+
+@include keyframes-marquee(scroll-left, 100%, -100%);
+
+@include keyframes-marquee(scroll-right, -100%, $progress-translateX);
 /**!
 * Body
 */
@@ -177,3 +211,23 @@ header {
     }
 }
 
+/**!
+* Marquee
+*/
+.marquee {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+.marquee-bar {
+    position: absolute;
+    height: 100%;
+    width: $progress-bar-width !important;
+    text-align: center;
+    -moz-transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+    -moz-animation: scroll-right 5s linear infinite;
+    -webkit-animation: scroll-right 5s linear infinite;
+    animation: scroll-right 5s linear infinite;
+}
