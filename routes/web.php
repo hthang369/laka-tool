@@ -85,4 +85,5 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth:web', 'permissi
 
     // repair data
     Route::resource('repair-data', 'RepairDatas\RepairDataController', ['except' => ['show', 'create', 'destroy', 'store']]);
+    Route::post('run-test', 'RepairDatas\RepairDataController@runTest')->name('repair-data.test');
 });
