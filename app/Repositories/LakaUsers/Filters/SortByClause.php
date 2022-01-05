@@ -7,10 +7,11 @@ class SortByClause extends BaseClause
     protected function apply($query)
     {
         $direction = request('direction', 'asc');
+
         if (str_is($direction, 'asc')) {
-            return $query->sortBy($this->column);
+            return $query->sortBy($this->values);
         } else {
-            return $query->sortByDesc($this->column);
+            return $query->sortByDesc($this->values);
         }
     }
 
