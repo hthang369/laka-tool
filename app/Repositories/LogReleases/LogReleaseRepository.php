@@ -7,6 +7,7 @@ use App\Models\LogReleases\LogRelease;
 use App\Presenters\LogReleases\LogReleaseGridPresenter;
 use App\Repositories\Core\CoreRepository;
 use Illuminate\Support\Facades\Auth;
+use Laka\Core\Repositories\FilterQueryString\Filters\FullTextSearchClause;
 use Laka\Core\Repositories\FilterQueryString\Filters\WhereLikeClause;
 use Lampart\Hito\Core\Repositories\FilterQueryString\Filters\WhereClause;
 
@@ -15,7 +16,7 @@ class LogReleaseRepository extends CoreRepository
     protected $modelClass = LogRelease::class;
 
     protected $filters = [
-        'user_name' => WhereLikeClause::class,
+        'user_name' => FullTextSearchClause::class,
         'redmine_id' => WhereLikeClause::class,
         'version' => WhereLikeClause::class,
         'release_type' => WhereLikeClause::class,
