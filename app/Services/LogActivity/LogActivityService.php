@@ -16,9 +16,7 @@ class LogActivityService
 
     public function addToLog(Request $request, $subject)
     {
-        $data = array_filter($request->all(), function($item) {
-            return !in_array($item, ['_token', 'password']);
-        }, ARRAY_FILTER_USE_KEY);
+        $data = array_filter($request->except(['_token', 'password']));
 
         $attributes = [
             'subject'   => $subject,

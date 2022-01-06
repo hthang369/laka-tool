@@ -43,7 +43,7 @@ return [
         'create' => 'Bussiness plan create',
         'update' => 'Bussiness plan update'
     ],
-    'role' => [
+    'role-management' => [
         'index' => 'Role list',
         'create' => 'Role create',
         'update' => 'Role update'
@@ -57,5 +57,9 @@ return [
         'staging' => 'Deploy version environment staging',
         'production' => 'Deploy version environment production',
         'deploy' => 'Deploy version environment'
-    ]
+    ],
+    'repair-data' => [
+        'index' => 'Repair data manager'
+    ],
+    'logout'    => 'Logout'
 ];

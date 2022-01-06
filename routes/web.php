@@ -82,4 +82,8 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth:web', 'permissi
         Route::post('/download-log', 'LakaLogs\DownloadLakaLogController@downloadLog')->name('laka-log.download-log');
     });
     Route::resource('laka-log', 'LakaLogs\LakaLogController');
+
+    // repair data
+    Route::resource('repair-data', 'RepairDatas\RepairDataController', ['except' => ['show', 'create', 'destroy', 'store']]);
+    Route::post('run-test', 'RepairDatas\RepairDataController@runTest')->name('repair-data.test');
 });

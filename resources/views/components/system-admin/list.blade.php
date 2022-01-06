@@ -33,8 +33,6 @@
             :pagination="data_get($data, 'paginator')">
         </x-table>
     </div>
-
-    @yield('footer_page')
 @endsection
 
 @push('scripts')

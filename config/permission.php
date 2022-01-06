@@ -14,6 +14,7 @@ return [
         ['name'=> 'version-deploy', 'code' => 'version-deploy', 'url' => '', 'api' => ''],
         ['name'=> 'permission-role', 'code' => 'permission-role', 'url' => '', 'api' => ''],
         ['name'=> 'laka-log', 'code' => 'laka-log', 'url' => '', 'api' => ''],
+        ['name'=> 'repair-data', 'code' => 'repair-data', 'url' => '', 'api' => ''],
     ],
     /*
      * permission actions
@@ -33,6 +34,7 @@ return [
         'version-deploy'        => ['view', 'add'],
         'permission-role'       => ['view', 'edit'],
         'laka-log'              => ['view', 'add', 'delete', 'download'],
+        'repair-data'           => ['view', 'edit', 'delete', 'download']
     ],
 
     'custom_section_action' => [
