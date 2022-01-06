@@ -17,8 +17,4 @@ class RepairDataRepository extends CoreRepository
 
     protected $presenterClass = RepairDataGridPresenter::class;
 
-    public function paginate($limit = null, $columns = [], $method = "paginate")
-    {
-        return [];
-    }
 }

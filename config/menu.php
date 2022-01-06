@@ -44,6 +44,6 @@ return [
     [
         'code' => 'repair-data',
         'name' => 'index',
-        'children' => ['index']
+        'children' => []
     ]
 ];
