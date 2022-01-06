@@ -9,21 +9,24 @@ use App\Models\LakaUsers\LakaUser;
 use App\Presenters\LakaUsers\LakaUserGridPresenter;
 use App\Repositories\Companys\CompanyRepository;
 use App\Repositories\Core\CoreRepository;
+use App\Repositories\LakaUsers\Filters\SortByClause;
+use App\Repositories\LakaUsers\Filters\WhereLikeClause;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\MessageBag;
 use Laka\Core\Traits\BuildPaginator;
-use Lampart\Hito\Core\Repositories\FilterQueryString\Filters\WhereClause;
 use Prettus\Validator\Exceptions\ValidatorException;
 
 class LakaUserRepository extends CoreRepository
 {
-    use BuildPaginator;
+    use BuildPaginator, LakaUserCriteria;
 
     protected $modelClass = LakaUser::class;
 
     protected $filters = [
-        'name' => WhereClause::class
+        'sort' => SortByClause::class,
+        'name' => WhereLikeClause::class,
+        'email' => WhereLikeClause::class,
     ];
 
     protected $presenterClass = LakaUserGridPresenter::class;
@@ -39,6 +42,7 @@ class LakaUserRepository extends CoreRepository
         $results = Cache::remember('list_user_approval', config('constants.cache_expire'), function () {
             return Common::callApi('get', '/api/v1/api-token/get-list-approval')->toArray();
         });
+        $this->filterByRequest($results);
         return $this->parserResult($results);
     }
 
@@ -52,6 +56,7 @@ class LakaUserRepository extends CoreRepository
                 return $item['disabled'] === 0;
             });
         }
+        $results['data'] = $this->filterByRequest($results['data']);
         return $this->parserResult($results);
     }
 
