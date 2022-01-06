@@ -26,10 +26,13 @@ class LogActivity
 
     public function handle($request, Closure $next)
     {
-        $action = config('constants.'. Route::currentRouteName());
-        $name = user_get('name') ?? 'Login';
-        $this->logActivityService->addToLog($request, $name . " access to: " . $action);
-
+        if (Auth::check()) {
+            $action = config('constants.'. Route::currentRouteName());
+            if (!is_null($action)) {
+                $subject = user_get('name')." access to: {$action}";
+                $this->logActivityService->addToLog($request, $subject);
+            }
+        }
         return $next($request);
     }
 }

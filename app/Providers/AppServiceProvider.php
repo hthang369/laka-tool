@@ -4,7 +4,11 @@ namespace App\Providers;
 
 use Laka\Core\Support\QueryLogger;
 use App\Support\CommonHelper;
+use Illuminate\Queue\Events\JobFailed;
+use Illuminate\Queue\Events\JobProcessing;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -38,5 +42,12 @@ class AppServiceProvider extends ServiceProvider
         // DB::listen(function($query) {
         //     QueryLogger::log($query);
         // });
+        Queue::before(function(JobProcessing $event) {
+            // dump($event->job->resolveName());
+            // Log::info($event->job);
+        });
+        Queue::failing(function (JobFailed $event) {
+            // Log::info($event->job);
+        });
     }
 }
