@@ -9,6 +9,8 @@ class RepairDataGridPresenter extends BaseGridPresenter
     protected function setColumns()
     {
         return [
+            'name',
+            'status'
         ];
     }
 }

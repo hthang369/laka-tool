@@ -6,7 +6,7 @@ use Laka\Core\Entities\BaseModel;
 
 class RepairData extends BaseModel
 {
-    protected $table = 'repairdata';
+    protected $table = 'repair_data';
 
     /**
      * The attributes that are mass assignable.
@@ -20,7 +20,6 @@ class RepairData extends BaseModel
     protected $fillableColumns = [
         'id',
         'name',
-        'description',
         'status'
     ];
 }

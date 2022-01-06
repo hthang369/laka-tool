@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Laka\Core\Facades\Common;
 
 class ProcessPodcast implements ShouldQueue
 {
@@ -31,14 +32,10 @@ class ProcessPodcast implements ShouldQueue
      */
     public function handle()
     {
-        event(new DemoNotificationEvent(true, 'Starting progress'));
+        event(new DemoNotificationEvent(true, 'Starting download'));
 
-        for ($i = 1; $i <= 1000; $i++) {
-            event(new DemoNotificationEvent(true, ($i * 100) / 1000));
-            // $pusher->trigger('channel-demo', 'App\\Events\\DemoNotificationEvent', ($i * 100) / 1000);
-            // $progress->advance();
-            sleep(1);
-        }
-        event(new DemoNotificationEvent(false, 'Ending progress'));
+        Common::callApi('get', 'http://lfm-demo.com/api/v1/download-data');
+
+        event(new DemoNotificationEvent(false, 'Ending download'));
     }
 }
