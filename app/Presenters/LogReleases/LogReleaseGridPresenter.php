@@ -7,15 +7,20 @@ use App\Presenters\BaseGridPresenter;
 class LogReleaseGridPresenter extends BaseGridPresenter
 {
     protected $actionColumnOptions = [
-        'visible' => false
+        'visible' => false,
+
     ];
 
     protected function setColumns()
     {
 
         return [
-            'user_name',
             [
+                'key' => 'user_name',
+                'filtering' => true,
+            ],
+            [
+                'key'=>'server_deploy',
                 'label' => 'Server Deploy',
                 'cell' => function ($item) {
                     $arrColorForServer = [
@@ -30,10 +35,16 @@ class LogReleaseGridPresenter extends BaseGridPresenter
 
                 }
             ],
-            'redmine_id',
-            'version',
+            [
+                'key' => 'redmine_id',
+                'filtering' => true,
+            ], [
+                'key' => 'version',
+                'filtering' => true,
+            ],
             [
                 'key' => 'release_type',
+                'filtering' => true,
                 'cell' => function ($item) {
                     $arrColorForTypeRelease = [
                         'success' => 'New',
@@ -47,6 +58,7 @@ class LogReleaseGridPresenter extends BaseGridPresenter
             ],
             [
                 'key' => 'environment',
+                'filtering' => true,
                 'cell' => function ($item) {
                     $arrColorForEnv = [
                         'secondary' => 'development',
@@ -59,7 +71,12 @@ class LogReleaseGridPresenter extends BaseGridPresenter
                     return '<span class="badge badge-' . $color . '">' . $env . '</span>';
                 }
             ],
-
+            [
+                'label'=>'Action',
+                'sortable' => false,
+                'dataType' => 'buttons',
+                'cell' => null,
+            ],
         ];
     }
 }
