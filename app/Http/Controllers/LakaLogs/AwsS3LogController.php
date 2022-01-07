@@ -39,37 +39,16 @@ class AwsS3LogController extends CoreController
     public function index()
     {
         $now = today();
-        // if session for dtFrom and dtTo exist
-        if (session('s3DtFrom') || session('s3DtTo')) {
-            $dtFrom = session('s3DtFrom') != null ? request('dtFrom', session('s3DtFrom')) : request('dtFrom', $now->clone()->firstOfMonth()->toDateString());
-            $dtTo = session('s3DtTo') != null ? request('dtTo', session('s3DtTo')) : request('dtTo', $now->clone()->firstOfMonth()->toDateString());
-        } else {
-            $dtFrom = request('dtFrom', $now->clone()->firstOfMonth()->toDateString());
-            $dtTo = request('dtTo', $now->clone()->lastOfMonth()->toDateString());
+        $dtFrom = request('dtFrom', $now->clone()->firstOfMonth()->toDateString());
+        $dtTo = request('dtTo', $now->clone()->lastOfMonth()->toDateString());
+        if ($dtFrom && $dtTo) {
+            request()->merge(['date' => ['start' => $dtFrom, 'end' => $dtTo]]);
         }
-
         View::share('dtFrom', $dtFrom);
         View::share('dtTo', $dtTo);
-        session([
-            's3DtFrom' => $dtFrom,
-            's3DtTo' => $dtTo
-        ]);
 
         // get files list
-        $files = collect($this->repository->getLogFromS3());
-
-        // filter files by date
-        $files = $this->lakaLogService->filesFilterByDate($files, $dtFrom, $dtTo);
-        $files = $this->lakaLogService->filesSortByColumn($files, request('sort'), request('direction'));
-
-        // filter
-        $nameFilter = request()->get('name');
-        if (!is_null($nameFilter)){
-            $files = $this->lakaLogService->filesFilterByName($files,$nameFilter);
-        }
-
-        // paginate
-        $paginator = $this->repository->filesPaginate($files, request('page'));
+        $paginator = $this->repository->getLogFromS3(request('page'));
 
         return WebResponse::success($this->getViewName(__FUNCTION__), $paginator);
     }

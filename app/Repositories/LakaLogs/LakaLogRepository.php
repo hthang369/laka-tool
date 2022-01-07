@@ -7,9 +7,8 @@ use App\Helpers\LogParser;
 use App\Models\LakaLogs\LakaLog;
 use App\Presenters\LakaLogs\LakaLogGridPresenter;
 use App\Repositories\Core\CoreRepository;
-use App\Repositories\Filters\WhereBetweenClause;
+use App\Repositories\Core\Filters\WhereBetweenClause;
 use Illuminate\Support\Facades\Storage;
-use Laka\Core\Traits\BuildPaginator;
 use Lampart\Hito\Core\Repositories\FilterQueryString\Filters\WhereClause;
 
 class LakaLogRepository extends CoreRepository

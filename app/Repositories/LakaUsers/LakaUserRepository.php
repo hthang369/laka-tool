@@ -8,9 +8,10 @@ use App\Models\Companys\Company;
 use App\Models\LakaUsers\LakaUser;
 use App\Presenters\LakaUsers\LakaUserGridPresenter;
 use App\Repositories\Companys\CompanyRepository;
+use App\Repositories\Core\BaseClientCriteria;
 use App\Repositories\Core\CoreRepository;
-use App\Repositories\LakaUsers\Filters\SortByClause;
-use App\Repositories\LakaUsers\Filters\WhereLikeClause;
+use App\Repositories\Core\Filters\SortByClientClause;
+use App\Repositories\Core\Filters\WhereLikeClientClause;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\MessageBag;
@@ -19,14 +20,14 @@ use Prettus\Validator\Exceptions\ValidatorException;
 
 class LakaUserRepository extends CoreRepository
 {
-    use BuildPaginator, LakaUserCriteria;
+    use BuildPaginator, BaseClientCriteria;
 
     protected $modelClass = LakaUser::class;
 
     protected $filters = [
-        'sort' => SortByClause::class,
-        'name' => WhereLikeClause::class,
-        'email' => WhereLikeClause::class,
+        'sort' => SortByClientClause::class,
+        'name' => WhereLikeClientClause::class,
+        'email' => WhereLikeClientClause::class,
     ];
 
     protected $presenterClass = LakaUserGridPresenter::class;
