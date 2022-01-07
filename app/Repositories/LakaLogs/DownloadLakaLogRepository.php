@@ -6,6 +6,7 @@ use App\Models\LakaLogs\DownloadLakaLog;
 use App\Presenters\LakaLogs\DownloadLakaLogGridPresenter;
 use App\Repositories\Core\CoreRepository;
 use Illuminate\Support\Facades\Storage;
+use Laka\Core\Repositories\FilterQueryString\Filters\WhereLikeClause;
 use Lampart\Hito\Core\Repositories\FilterQueryString\Filters\WhereClause;
 
 class DownloadLakaLogRepository extends CoreRepository
@@ -13,7 +14,7 @@ class DownloadLakaLogRepository extends CoreRepository
     protected $modelClass = DownloadLakaLog::class;
 
     protected $filters = [
-        'name' => WhereClause::class
+        'name' => WhereLikeClause::class
     ];
 
     protected $storage;
