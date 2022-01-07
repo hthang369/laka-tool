@@ -13,12 +13,11 @@ class LakaLogService
         })->values();
     }
 
-    public function filesFilterByName($files, $fieldName)
+    public function filesFilterByName($files, $name)
     {
-      return $files->filter(function ($item,$key) use ($fieldName) {
-            return (strpos($item['name'],$fieldName)!==false);
+      return $files->filter(function ($item,$key) use ($name) {
+            return (strpos($item['name'],$name)!==false);
         })->values();
-
     }
 
     public function filesSortByColumn($files, $column, $direction)
