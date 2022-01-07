@@ -1,9 +1,9 @@
 <?php
-namespace App\Repositories\LakaUsers;
+namespace App\Repositories\Core;
 
 use Illuminate\Pipeline\Pipeline;
 
-trait LakaUserCriteria
+trait BaseClientCriteria
 {
     public function filterByRequest($results)
     {

@@ -7,21 +7,16 @@ use App\Helpers\LogParser;
 use App\Models\LakaLogs\LakaLog;
 use App\Presenters\LakaLogs\LakaLogGridPresenter;
 use App\Repositories\Core\CoreRepository;
-use App\Repositories\Filters\WhereBetweenClause;
+use App\Repositories\Core\Filters\WhereBetweenClause;
 use Illuminate\Support\Facades\Storage;
-use Laka\Core\Repositories\FilterQueryString\Filters\WhereLikeClause;
-
-//use Lampart\Hito\Core\Repositories\FilterQueryString\Filters\WhereClause;
+use Lampart\Hito\Core\Repositories\FilterQueryString\Filters\WhereClause;
 
 class LakaLogRepository extends CoreRepository
 {
     protected $modelClass = LakaLog::class;
 
     protected $filters = [
-        'name' => WhereLikeClause::class,
-        'ip' => WhereLikeClause::class,
-        'log_level' => WhereLikeClause::class,
-        'url' => WhereLikeClause::class,
+        'name' => WhereClause::class,
         'date_log' => WhereBetweenClause::class
     ];
 
@@ -47,7 +42,7 @@ class LakaLogRepository extends CoreRepository
     public function create(array $attributes)
     {
         $files = $attributes['files'];
-        foreach ($files as $file) {
+        foreach ($files as  $file) {
 
             // Get data of file from TABLE 'download_laka_log'
             $fileDownloaded = $this->downLoadLogLakaRepository->findByField('name', $file)[0];
@@ -98,7 +93,7 @@ class LakaLogRepository extends CoreRepository
             if ($dataLog != null) {
                 $this->model::insert($dataLog);
             }
-        }
+        };
 
         return;
 
