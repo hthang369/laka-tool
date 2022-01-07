@@ -6,10 +6,19 @@ class LakaLogService
 {
     public function filesFilterByDate($files, $dtFrom, $dtTo)
     {
-        return $files->filter(function($item) use($dtFrom, $dtTo) {
+
+        return $files->filter(function ($item) use ($dtFrom, $dtTo) {
             $date = str_replace('.', '-', preg_replace('/.*(\d{4}(.\d{2}){2}).*/', '$1', $item['name']));
             return !($dtFrom > $date || $date > $dtTo);
         })->values();
+    }
+
+    public function filesFilterByName($files, $fieldName)
+    {
+      return $files->filter(function ($item,$key) use ($fieldName) {
+            return (strpos($item['name'],$fieldName)!==false);
+        })->values();
+
     }
 
     public function filesSortByColumn($files, $column, $direction)
