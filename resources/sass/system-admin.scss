@@ -86,10 +86,16 @@ header {
     }
 }
 /**!
+* Slide bar content
+*/
+#main-container,
+.navbar-sidebar {
+    min-height: calc(100vh - 6rem);
+}
+/**!
 * Main content
 */
 #main-container {
-    min-height: calc(100vh - 6rem);
     .required {
         &::after {
             content:" *";
