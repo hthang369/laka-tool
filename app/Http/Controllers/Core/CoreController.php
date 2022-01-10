@@ -21,6 +21,12 @@ abstract class CoreController extends BaseController
         View::share('sectionCode', $this->getSectionCode());
     }
 
+    public function index() {
+        list($grid, $result) = $this->repository->allDataGrid();
+
+        return WebResponse::success($this->getViewName(__FUNCTION__), compact('grid', 'result'), $this->getMessageResponse(__FUNCTION__));
+    }
+
     public function create()
     {
         $data = $this->repository->formGenerate();

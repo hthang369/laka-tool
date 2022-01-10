@@ -3,10 +3,12 @@
 namespace App\Presenters\Companys;
 
 use App\Models\BusinessPlans\BusinessPlan;
-use App\Presenters\BaseGridPresenter;
+use Laka\Core\Grids\BaseGridPresenter;
 
 class CompanyGridPresenter extends BaseGridPresenter
 {
+    protected $name = 'company';
+
     protected function setColumns()
     {
         return [

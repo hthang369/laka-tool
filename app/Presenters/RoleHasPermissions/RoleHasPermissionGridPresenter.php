@@ -2,7 +2,7 @@
 
 namespace App\Presenters\RoleHasPermissions;
 
-use App\Presenters\BaseGridPresenter;
+use Laka\Core\Grids\BaseGridPresenter;
 use App\Transformers\RoleHasPermissionsTransformer;
 use Illuminate\Support\Facades\View;
 

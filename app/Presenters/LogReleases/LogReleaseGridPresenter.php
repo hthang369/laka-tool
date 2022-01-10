@@ -2,7 +2,7 @@
 
 namespace App\Presenters\LogReleases;
 
-use App\Presenters\BaseGridPresenter;
+use Laka\Core\Grids\BaseGridPresenter;
 
 class LogReleaseGridPresenter extends BaseGridPresenter
 {

@@ -2,7 +2,7 @@
 
 namespace App\Presenters\LakaLogs;
 
-use App\Presenters\BaseGridPresenter;
+use Laka\Core\Grids\BaseGridPresenter;
 
 class DownloadLakaLogGridPresenter extends BaseGridPresenter
 {

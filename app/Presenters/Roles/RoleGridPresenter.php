@@ -2,7 +2,7 @@
 
 namespace App\Presenters\Roles;
 
-use App\Presenters\BaseGridPresenter;
+use Laka\Core\Grids\BaseGridPresenter;
 use Spatie\Permission\Models\Role;
 
 class RoleGridPresenter extends BaseGridPresenter

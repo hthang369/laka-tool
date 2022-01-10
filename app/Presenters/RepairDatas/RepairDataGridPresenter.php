@@ -2,7 +2,7 @@
 
 namespace App\Presenters\RepairDatas;
 
-use App\Presenters\BaseGridPresenter;
+use Laka\Core\Grids\BaseGridPresenter;
 
 class RepairDataGridPresenter extends BaseGridPresenter
 {

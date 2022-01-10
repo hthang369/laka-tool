@@ -2,11 +2,17 @@
 
 namespace App\Presenters\LakaUsers;
 
-use App\Presenters\BaseGridPresenter;
-
+use Laka\Core\Grids\BaseGridPresenter;
 
 class LakaUserGridPresenter extends BaseGridPresenter
 {
+    /**
+     * The name of the grid
+     *
+     * @var string
+     */
+    protected $name = 'laka-user';
+
     protected $actionColumnOptions = [
         'visible' => false
     ];

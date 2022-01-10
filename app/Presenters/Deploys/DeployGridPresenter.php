@@ -2,7 +2,7 @@
 
 namespace App\Presenters\Deploys;
 
-use App\Presenters\BaseGridPresenter;
+use Laka\Core\Grids\BaseGridPresenter;
 
 class DeployGridPresenter extends BaseGridPresenter
 {

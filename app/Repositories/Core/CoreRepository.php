@@ -13,4 +13,13 @@ abstract class CoreRepository extends BaseRepository
     {
         return null;
     }
+
+    public function allDataGrid()
+    {
+        if ($this->presenterGrid) {
+            $data = $this->paginate();
+            return [$this->presenterGrid, $data];
+        }
+        return [];
+    }
 }

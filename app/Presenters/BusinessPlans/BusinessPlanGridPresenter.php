@@ -2,7 +2,7 @@
 
 namespace App\Presenters\BusinessPlans;
 
-use App\Presenters\BaseGridPresenter;
+use Laka\Core\Grids\BaseGridPresenter;
 
 class BusinessPlanGridPresenter extends BaseGridPresenter
 {
