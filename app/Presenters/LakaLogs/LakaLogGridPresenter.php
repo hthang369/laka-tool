@@ -2,9 +2,9 @@
 
 namespace App\Presenters\LakaLogs;
 
-use Laka\Core\Grids\BaseGridPresenter;
+use App\Presenters\CoreGridPresenter;
 
-class LakaLogGridPresenter extends BaseGridPresenter
+class LakaLogGridPresenter extends CoreGridPresenter
 {
     protected $exceptQuery = ['date_log'];
 

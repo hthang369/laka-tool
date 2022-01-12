@@ -32,6 +32,9 @@
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
     </div>
 
+    <!-- Back to top -->
+    @include('components.system-admin.back_to_top')
+
     <!-- Footer -->
     @include('components.system-admin.footer')
 

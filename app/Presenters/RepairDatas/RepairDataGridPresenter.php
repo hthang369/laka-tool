@@ -2,9 +2,9 @@
 
 namespace App\Presenters\RepairDatas;
 
-use Laka\Core\Grids\BaseGridPresenter;
+use App\Presenters\CoreGridPresenter;
 
-class RepairDataGridPresenter extends BaseGridPresenter
+class RepairDataGridPresenter extends CoreGridPresenter
 {
     protected function setColumns()
     {

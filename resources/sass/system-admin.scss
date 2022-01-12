@@ -4,10 +4,11 @@
 
 $progress-bar-width: 25%;
 $progress-translateX: calc(100% * calc(100% / $progress-bar-width));
+$serria-blue: #007bff;
 
 @mixin nav-active() {
     color: #fff;
-    border-left: 4px solid #007bff;
+    border-left: 4px solid $serria-blue;
     background-color: rgba($color: #242424, $alpha: 0.5);
 }
 
@@ -169,6 +170,28 @@ header {
         .table-action {
             white-space: nowrap;
         }
+    }
+}
+/**!
+* Back to top
+*/
+.back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    padding: 0.5rem 0.75rem;
+    background-color: rgba($color: $serria-blue, $alpha: 0.75);
+    display: none !important;
+    color: #53bcff;
+    i {
+        cursor: pointer;
+    }
+    &.active {
+        display: block !important;
+    }
+    &:hover {
+        color: $white;
+        text-decoration: none;
     }
 }
 /**!

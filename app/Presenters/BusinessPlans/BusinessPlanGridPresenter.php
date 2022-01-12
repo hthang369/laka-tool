@@ -2,9 +2,9 @@
 
 namespace App\Presenters\BusinessPlans;
 
-use Laka\Core\Grids\BaseGridPresenter;
+use App\Presenters\CoreGridPresenter;
 
-class BusinessPlanGridPresenter extends BaseGridPresenter
+class BusinessPlanGridPresenter extends CoreGridPresenter
 {
     protected function setColumns()
     {

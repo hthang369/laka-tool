@@ -2,9 +2,9 @@
 
 namespace App\Presenters\LogReleases;
 
-use Laka\Core\Grids\BaseGridPresenter;
+use App\Presenters\CoreGridPresenter;
 
-class LogReleaseGridPresenter extends BaseGridPresenter
+class LogReleaseGridPresenter extends CoreGridPresenter
 {
     protected $actionColumnOptions = [
         'visible' => false

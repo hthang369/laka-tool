@@ -2,11 +2,11 @@
 
 namespace App\Presenters\RoleHasPermissions;
 
-use Laka\Core\Grids\BaseGridPresenter;
+use App\Presenters\CoreGridPresenter;
 use App\Transformers\RoleHasPermissionsTransformer;
 use Illuminate\Support\Facades\View;
 
-class RoleHasPermissionGridPresenter extends BaseGridPresenter
+class RoleHasPermissionGridPresenter extends CoreGridPresenter
 {
     protected $indexColumnOptions = ['visible' => false];
     protected $actionColumnOptions = ['visible' => false];

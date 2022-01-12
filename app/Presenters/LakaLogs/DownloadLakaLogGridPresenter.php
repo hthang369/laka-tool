@@ -2,9 +2,9 @@
 
 namespace App\Presenters\LakaLogs;
 
-use Laka\Core\Grids\BaseGridPresenter;
+use App\Presenters\CoreGridPresenter;
 
-class DownloadLakaLogGridPresenter extends BaseGridPresenter
+class DownloadLakaLogGridPresenter extends CoreGridPresenter
 {
     protected $actionColumnOptions = [
         'visible' => false,

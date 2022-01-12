@@ -3,16 +3,19 @@
 namespace App\Presenters\Companys;
 
 use App\Models\BusinessPlans\BusinessPlan;
-use Laka\Core\Grids\BaseGridPresenter;
+use App\Presenters\CoreGridPresenter;
 
-class CompanyGridPresenter extends BaseGridPresenter
+class CompanyGridPresenter extends CoreGridPresenter
 {
     protected $name = 'company';
 
     protected function setColumns()
     {
         return [
-            'name',
+            [
+                'key' => 'name',
+                'filtering' => true
+            ],
             'email',
             'phone',
             'address',

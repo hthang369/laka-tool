@@ -2,9 +2,9 @@
 
 namespace App\Presenters\Deploys;
 
-use Laka\Core\Grids\BaseGridPresenter;
+use App\Presenters\CoreGridPresenter;
 
-class DeployGridPresenter extends BaseGridPresenter
+class DeployGridPresenter extends CoreGridPresenter
 {
     protected function setColumns()
     {

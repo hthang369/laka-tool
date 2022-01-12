@@ -231,6 +231,10 @@ var $api = $api || {};
            */
           searchForm: undefined,
           /**
+           *
+           */
+          pagerDropdown: undefined,
+          /**
            * The CSS class of the columns that are sortable
            */
           sortLinks: 'data-sort',
@@ -302,11 +306,13 @@ var $api = $api || {};
         value: function filter() {
           var _this3 = this;
 
-          var form = $(this.opts.filterForm);
+          let btnFilter = $(this.opts.filterForm.btnName);
+          var form = $(this.opts.filterForm.target).find('input');
+          let routeLink = this.opts.filterForm.routeLink;
 
           if (form.length > 0) {
-            $(document).on('submit', this.opts.filterForm, function (event) {
-              $.pjax.submit(event, _this3.opts.id, _this3.opts.pjax.pjaxOptions);
+            btnFilter.click(function() {
+                callDoActionQuery(routeLink, form)
             });
           }
         }
@@ -328,7 +334,16 @@ var $api = $api || {};
             });
           }
         }
-      }]);
+      }, {
+        key: 'pager',
+        value: function pager() {
+            let target = $(this.opts.pagerDropdown.target);
+            let routeLink = this.opts.filterForm.routeLink;
+            target.change(function(e) {
+                callDoActionQuery(routeLink, [e.target]);
+            });
+        }
+    }]);
 
       return grid;
     }();
@@ -338,7 +353,6 @@ var $api = $api || {};
      *
      * @param instance
      */
-
 
     function setupDateRangePicker(instance) {
       if (instance.opts.dateRangeSelector) {
@@ -380,8 +394,23 @@ var $api = $api || {};
       obj.bindPjax();
       obj.search();
       obj.filter();
+      obj.pager();
     };
   })(jQuery);
+
+  function callDoActionQuery(routeLink, elements) {
+    let params = new URLSearchParams(location.search)
+    $.each(elements, function(idx, item) {
+        if (item.value) {
+            params.set(item.name, item.value)
+        } else {
+            params.delete(item.name)
+        }
+    });
+    let url = params.toString() == '' ? '' : '?' + params.toString();
+    let fullUrl = new URL(url, routeLink);
+    window.location.replace(fullUrl.toString());
+  }
 
   _grids.formUtils = {
     /**
@@ -639,6 +668,21 @@ var $api = $api || {};
         }
     });
   };
+
+  $(window).scroll(function() {
+    if ($(this).scrollTop() > 100) {
+    $('.back-to-top').addClass('active');
+    } else {
+    $('.back-to-top').removeClass('active');
+    }
+  });
+
+    $('.back-to-top').click(function() {
+      $('html, body').animate({
+        scrollTop: 0
+      }, 1500);
+      return false;
+    });
 
   return _grids;
 })(jQuery);

@@ -2,10 +2,10 @@
 
 namespace App\Presenters\Roles;
 
-use Laka\Core\Grids\BaseGridPresenter;
+use App\Presenters\CoreGridPresenter;
 use Spatie\Permission\Models\Role;
 
-class RoleGridPresenter extends BaseGridPresenter
+class RoleGridPresenter extends CoreGridPresenter
 {
     protected function setColumns()
     {
@@ -23,6 +23,6 @@ class RoleGridPresenter extends BaseGridPresenter
 
     protected function visibleDelete($item)
     {
-        return (Role::find($item->id)->users()->count() == 0) && parent::visibleDelete($item);
+        return (Role::find(data_get($item, 'id'))->users()->count() == 0) && parent::visibleDelete($item);
     }
 }

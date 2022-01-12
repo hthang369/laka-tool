@@ -2,9 +2,9 @@
 
 namespace App\Presenters\LakaUsers;
 
-use Laka\Core\Grids\BaseGridPresenter;
+use App\Presenters\CoreGridPresenter;
 
-class LakaUserGridPresenter extends BaseGridPresenter
+class LakaUserGridPresenter extends CoreGridPresenter
 {
     /**
      * The name of the grid
