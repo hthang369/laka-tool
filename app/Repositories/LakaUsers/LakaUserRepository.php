@@ -70,9 +70,11 @@ class LakaUserRepository extends CoreRepository
         $companyList = resolve(CompanyRepository::class)->pluck('company.name', 'company.id');
         data_set($userData, 'id', $id);
         data_set($userData, 'company_list', $companyList);
-        $company = Company::where('id', data_get($userData, 'company'))->select(['id'])->first();
+        $company = Company::where('id', data_get($userData, 'company'))->select(['id','name'])->first();
 
         data_set($userData, 'company_id', data_get($company, 'id'));
+        data_set($userData, 'company_name', data_get($company, 'name'));
+
         return $userData;
     }
 

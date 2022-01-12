@@ -19,6 +19,7 @@ return [
         'fields' => [
             'name' => 'Name',
             'email' => 'Email',
+            'company_name' => 'Company Name',
             'company' => 'Company',
             'type_of_user' => 'Type of user',
         ],

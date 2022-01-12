@@ -2,6 +2,7 @@
 
 namespace App\Presenters\LakaUsers;
 
+use App\Models\Companys\Company;
 use App\Presenters\BaseGridPresenter;
 
 
@@ -23,7 +24,19 @@ class LakaUserGridPresenter extends BaseGridPresenter
                 'key' => 'email',
                 'filtering' => true
             ],
-            'company',
+            [
+                'key' => 'company',
+                'cell' => function ($item) {
+                    $companyName = Company::where('id', $item['company'])->select(['name'])->first();
+
+                    if (is_null($companyName)) {
+                        return '<span class="badge badge-warning">' . $item['company'] . '</span>';
+                    } else {
+                        return '<span class="badge badge-success">' . $companyName['name'] . '</span>';
+
+                    }
+                }
+            ],
             [
                 'key' => 'action',
                 'sortable' => false,
@@ -36,13 +49,13 @@ class LakaUserGridPresenter extends BaseGridPresenter
                             ['class' => 'btn btn-sm btn-info']);
                     } else {
                         if ($item['disabled'] === 0) {
-                            return  link_to(
-                                route('laka-user-management.disable-user', ['id' => $item['id'],'type' => 'sent-mail']),
+                            return link_to(
+                                route('laka-user-management.disable-user', ['id' => $item['id'], 'type' => 'sent-mail']),
                                 __('common.disable'),
                                 ['class' => 'btn btn-sm btn-danger', 'onclick' => "return window.confirm('Are you sure disable this user ?')"]
                             );
                         }
-                        return '<span class="badge badge-info">' .  __('users.laka.disable'). '</span>';
+                        return '<span class="badge badge-info">' . __('users.laka.disable') . '</span>';
                     }
                 }
             ],
