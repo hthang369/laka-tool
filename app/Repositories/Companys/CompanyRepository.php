@@ -6,14 +6,17 @@ use App\Models\Companys\Company;
 use App\Presenters\Companys\CompanyGridPresenter;
 use App\Repositories\BusinessPlans\BusinessPlanRepository;
 use App\Repositories\Core\CoreRepository;
-use Lampart\Hito\Core\Repositories\FilterQueryString\Filters\WhereClause;
+use Laka\Core\Repositories\FilterQueryString\Filters\FullTextSearchClause;
+use Laka\Core\Repositories\FilterQueryString\Filters\WhereLikeClause;
 
 class CompanyRepository extends CoreRepository
 {
     protected $modelClass = Company::class;
 
     protected $filters = [
-        'name' => WhereClause::class
+        'name' => FullTextSearchClause::class,
+        'email' => WhereLikeClause::class,
+        'phone' => WhereLikeClause::class,
     ];
 
     protected $select = [

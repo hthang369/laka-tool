@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repositories\LakaUsers\Filters;
+namespace App\Repositories\Core\Filters;
 
-abstract class BaseClause
+abstract class BaseClientClause
 {
     protected $query;
     protected $column;

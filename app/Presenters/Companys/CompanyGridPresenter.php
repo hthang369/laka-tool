@@ -10,9 +10,18 @@ class CompanyGridPresenter extends BaseGridPresenter
     protected function setColumns()
     {
         return [
-            'name',
-            'email',
-            'phone',
+            [
+                'key' => 'name',
+                'filtering' => true,
+            ],
+            [
+                'key' => 'email',
+                'filtering' => true,
+            ],
+            [
+                'key' => 'phone',
+                'filtering' => true,
+            ],
             'address',
             [
                 'key' => 'business_plan_id',
