@@ -8,7 +8,7 @@
             @endif
         @show
 
-        {!! $data['grid']->render() !!}
+        {!! $data['grid']->render($data['result']) !!}
     </div>
 @endsection
 

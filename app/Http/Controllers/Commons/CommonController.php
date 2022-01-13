@@ -20,11 +20,9 @@ class CommonController extends CoreController
         'confirmDialog' => 'public'
     ];
 
-    public function __construct(CommonValidator $validator)
+    public function __construct(CommonRepository $repository, CommonValidator $validator)
     {
-        parent::__construct($validator);
-
-        $this->repository = $this->factory->makeRepository(CommonRepository::class);
+        parent::__construct($repository, $validator);
     }
 
     public function confirmDialog($id)

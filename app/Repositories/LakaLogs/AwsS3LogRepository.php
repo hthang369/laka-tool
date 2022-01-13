@@ -11,7 +11,7 @@ use App\Repositories\Core\Filters\WhereLikeClientClause;
 use App\Repositories\LakaLogs\Filters\WhereDateClause;
 use App\Services\LakaLogs\LakaLogService;
 use Illuminate\Support\Facades\Storage;
-use Laka\Core\Traits\BuildPaginator;
+use Laka\Core\Traits\Pagination\BuildPaginator;
 
 class AwsS3LogRepository extends CoreRepository
 {

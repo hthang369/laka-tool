@@ -19,7 +19,6 @@ class LakaUserGridPresenter extends CoreGridPresenter
 
     protected function setColumns()
     {
-
         return [
             [
                 'key' => 'name',

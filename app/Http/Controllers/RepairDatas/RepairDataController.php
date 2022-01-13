@@ -20,10 +20,8 @@ class RepairDataController extends CoreController
         'index' => 'repair-data.index'
     ];
 
-    public function __construct(RepairDataValidator $validator) {
-        parent::__construct($validator);
-
-        $this->repository = $this->factory->makeRepository(RepairDataRepository::class);
+    public function __construct(RepairDataRepository $repository, RepairDataValidator $validator) {
+        parent::__construct($repository, $validator);
 
         View::share('titlePage', __('repair_data.page_title'));
         View::share('headerPage', 'repair_data.page_header');

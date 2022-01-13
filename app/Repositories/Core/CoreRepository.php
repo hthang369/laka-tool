@@ -3,7 +3,7 @@
 namespace App\Repositories\Core;
 
 use Laka\Core\Repositories\BaseRepository;
-use App\Traits\PresenterDataGrid;
+use Laka\Core\Traits\Grids\PresenterDataGrid;
 
 abstract class CoreRepository extends BaseRepository
 {
@@ -12,14 +12,5 @@ abstract class CoreRepository extends BaseRepository
     public function formGenerate()
     {
         return null;
-    }
-
-    public function allDataGrid()
-    {
-        if ($this->presenterGrid) {
-            $data = $this->paginate();
-            return [$this->presenterGrid, $data];
-        }
-        return [];
     }
 }

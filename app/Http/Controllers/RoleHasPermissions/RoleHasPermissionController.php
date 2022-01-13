@@ -22,10 +22,9 @@ class RoleHasPermissionController extends CoreController
         'update' => 'permission-role.show'
     ];
 
-    public function __construct(RoleHasPermissionValidator $validator) {
-        parent::__construct($validator);
+    public function __construct(RoleHasPermissionRepository $repository, RoleHasPermissionValidator $validator) {
+        parent::__construct($repository, $validator);
 
-        $this->repository = $this->factory->makeRepository(RoleHasPermissionRepository::class);
         View::share('titlePage', __('role.permission_role.page_title'));
         View::share('headerPage', 'role.permission_role.page_header');
     }

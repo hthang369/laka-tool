@@ -18,10 +18,8 @@ class VersionController extends BaseController
         'index'     => 'version.list'
     ];
 
-    public function __construct(VersionValidator $validator) {
-        parent::__construct($validator);
-
-        $this->repository = $this->factory->makeRepository(VersionRepository::class);
+    public function __construct(VersionRepository $repository, VersionValidator $validator) {
+        parent::__construct($repository, $validator);
 
         View::share('titlePage', __('version.page_title'));
         View::share('headerPage', 'version.page_header');

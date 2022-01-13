@@ -27,10 +27,8 @@ class BusinessPlanController extends CoreController
         'update'    => 'bussiness-plan.edit'
     ];
 
-    public function __construct(BusinessPlanValidator $validator) {
-        parent::__construct($validator);
-
-        $this->repository = $this->factory->makeRepository(BusinessPlanRepository::class);
+    public function __construct(BusinessPlanRepository $repository, BusinessPlanValidator $validator) {
+        parent::__construct($repository, $validator);
 
         View::share('titlePage', __('business_plan.page_title'));
         View::share('headerPage', 'business_plan.page_header');

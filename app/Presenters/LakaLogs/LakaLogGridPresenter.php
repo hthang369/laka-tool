@@ -24,7 +24,6 @@ class LakaLogGridPresenter extends CoreGridPresenter
                 'key' => 'url',
                 'filtering' => true,
             ],
-
         ];
     }
 }

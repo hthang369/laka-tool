@@ -16,8 +16,14 @@ class CompanyGridPresenter extends CoreGridPresenter
                 'key' => 'name',
                 'filtering' => true
             ],
-            'email',
-            'phone',
+            [
+                'key' => 'email',
+                'filtering' => true
+            ],
+            [
+                'key' => 'phone',
+                'filtering' => true
+            ],
             'address',
             [
                 'key' => 'business_plan_id',

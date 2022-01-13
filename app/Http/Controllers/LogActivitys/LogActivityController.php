@@ -13,10 +13,8 @@ use App\Validators\LogActivitys\LogActivityValidator;
  */
 class LogActivityController extends BaseController
 {
-    public function __construct(LogActivityValidator $validator) {
-        parent::__construct($validator);
-
-        $this->repository = $this->factory->makeRepository(LogActivityRepository::class);
+    public function __construct(LogActivityRepository $repository, LogActivityValidator $validator) {
+        parent::__construct($repository, $validator);
     }
 
 

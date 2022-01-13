@@ -26,10 +26,9 @@ class AwsS3LogController extends CoreController
 
     protected $lakaLogService;
 
-    public function __construct(AwsS3LogValidator $validator) {
-        parent::__construct($validator);
+    public function __construct(AwsS3LogRepository $repository, AwsS3LogValidator $validator) {
+        parent::__construct($repository, $validator);
 
-        $this->repository = $this->factory->makeRepository(AwsS3LogRepository::class);
         $this->lakaLogService = $this->factory->makeService(LakaLogService::class);
 
         View::share('titlePage', __('laka_log.page_title'));
@@ -50,6 +49,6 @@ class AwsS3LogController extends CoreController
         // get files list
         $paginator = $this->repository->getLogFromS3(request('page'));
 
-        return WebResponse::success($this->getViewName(__FUNCTION__), $paginator);
+        return WebResponse::success($this->getViewName(__FUNCTION__), $this->getData($paginator));
     }
 }

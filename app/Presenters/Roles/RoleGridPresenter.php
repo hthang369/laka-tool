@@ -32,6 +32,6 @@ class RoleGridPresenter extends CoreGridPresenter
 
     protected function visibleDelete($item)
     {
-        return (Role::find(data_get($item, 'id'))->users()->count() == 0) && parent::visibleDelete($item);
+        return (Role::find($item->id)->users()->count() == 0) && parent::visibleDelete($item);
     }
 }

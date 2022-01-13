@@ -32,11 +32,9 @@ class LakaLogController extends CoreController
         'show' => 'laka-log.detail'
     ];
 
-    public function __construct(LakaLogValidator $validator)
+    public function __construct(LakaLogRepository $repository, LakaLogValidator $validator)
     {
-        parent::__construct($validator);
-
-        $this->repository = $this->factory->makeRepository(LakaLogRepository::class);
+        parent::__construct($repository, $validator);
 
         View::share('titlePage', __('laka_log.page_title'));
         View::share('headerPage', 'laka_log.page_header');

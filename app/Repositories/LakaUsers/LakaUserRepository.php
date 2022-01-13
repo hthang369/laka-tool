@@ -15,7 +15,7 @@ use App\Repositories\Core\Filters\WhereLikeClientClause;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\MessageBag;
-use Laka\Core\Traits\BuildPaginator;
+use Laka\Core\Traits\Pagination\BuildPaginator;
 use Prettus\Validator\Exceptions\ValidatorException;
 
 class LakaUserRepository extends CoreRepository
