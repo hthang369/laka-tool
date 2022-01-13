@@ -9,7 +9,10 @@ class BusinessPlanGridPresenter extends CoreGridPresenter
     protected function setColumns()
     {
         return [
-            'name',
+            [
+                'key' => 'name',
+                'filtering' => true
+            ],
             'description',
         ];
     }

@@ -10,9 +10,18 @@ class RoleGridPresenter extends CoreGridPresenter
     protected function setColumns()
     {
         return [
-            'level',
-            'name',
-            'role_rank',
+            [
+                'key' => 'level',
+                'filtering' => true,
+            ],
+            [
+                'key' => 'name',
+                'filtering' => true,
+            ],
+            [
+                'key' => 'role_rank',
+                'filtering' => true,
+            ],
             [
                 'key'   => 'role_setting',
                 'label' => __('role.fields.role_setting'),

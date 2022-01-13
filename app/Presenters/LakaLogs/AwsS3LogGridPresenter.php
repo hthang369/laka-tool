@@ -13,7 +13,10 @@ class AwsS3LogGridPresenter extends CoreGridPresenter
     protected function setColumns()
     {
         return [
-            'name',
+            [
+                'key' => 'name',
+                'filtering'=>true,
+            ],
             [
                 'key' => 'isDownloaded',
                 'label' => __('laka_log.fields.status'),
@@ -31,6 +34,7 @@ class AwsS3LogGridPresenter extends CoreGridPresenter
                 'key' => 'action',
                 'label' => translate('table.action'),
                 'sortable' => false,
+                'dataType'=>'buttons',
                 'cell' => 'laka-log.button-download'
             ]
         ];

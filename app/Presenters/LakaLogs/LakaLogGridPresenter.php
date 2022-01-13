@@ -11,10 +11,20 @@ class LakaLogGridPresenter extends CoreGridPresenter
     protected function setColumns()
     {
         return [
-            'log_level',
-            'ip',
-            'date_log',
-            'url'
+            [
+                'key' => 'log_level',
+                'filtering' => true,
+            ], [
+                'key' => 'ip',
+                'filtering' => true,
+            ], [
+                'key' => 'date_log',
+            ],
+            [
+                'key' => 'url',
+                'filtering' => true,
+            ],
+
         ];
     }
 }

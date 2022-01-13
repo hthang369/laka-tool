@@ -8,9 +8,10 @@ use App\Models\Companys\Company;
 use App\Models\LakaUsers\LakaUser;
 use App\Presenters\LakaUsers\LakaUserGridPresenter;
 use App\Repositories\Companys\CompanyRepository;
+use App\Repositories\Core\BaseClientCriteria;
 use App\Repositories\Core\CoreRepository;
-use App\Repositories\LakaUsers\Filters\SortByClause;
-use App\Repositories\LakaUsers\Filters\WhereLikeClause;
+use App\Repositories\Core\Filters\SortByClientClause;
+use App\Repositories\Core\Filters\WhereLikeClientClause;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\MessageBag;
@@ -19,14 +20,14 @@ use Prettus\Validator\Exceptions\ValidatorException;
 
 class LakaUserRepository extends CoreRepository
 {
-    use BuildPaginator, LakaUserCriteria;
+    use BuildPaginator, BaseClientCriteria;
 
     protected $modelClass = LakaUser::class;
 
     protected $filters = [
-        'sort' => SortByClause::class,
-        'name' => WhereLikeClause::class,
-        'email' => WhereLikeClause::class,
+        'sort' => SortByClientClause::class,
+        'name' => WhereLikeClientClause::class,
+        'email' => WhereLikeClientClause::class,
     ];
 
     protected $presenterClass = LakaUserGridPresenter::class;
@@ -63,15 +64,16 @@ class LakaUserRepository extends CoreRepository
     public function show($id, $columns = [])
     {
         $userData = $this->getUserDetail($id);
+
         $typeUser = data_get($userData, 'is_user_bot') == 1 ? trans('users.laka.is_user_bot') : trans('users.laka.user_default');
         data_set($userData, 'type_of_user', $typeUser);
 
         $companyList = resolve(CompanyRepository::class)->pluck('company.name', 'company.id');
         data_set($userData, 'id', $id);
         data_set($userData, 'company_list', $companyList);
-        $company = Company::where('name', data_get($userData, 'company'))->select(['id'])->first();
-        data_set($userData, 'company_id', data_get($company, 'id'));
+        $company = Company::where('id', data_get($userData, 'company'))->select(['id'])->first();
 
+        data_set($userData, 'company_id', data_get($company, 'id'));
         return $userData;
     }
 

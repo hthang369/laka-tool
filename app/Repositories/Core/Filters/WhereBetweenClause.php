@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Filters;
+namespace App\Repositories\Core\Filters;
 
 use Laka\Core\Repositories\FilterQueryString\Filters\BaseClause;
 use Illuminate\Database\Eloquent\Builder;
