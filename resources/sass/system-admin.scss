@@ -59,6 +59,9 @@ $serria-blue: #007bff;
         background-color: #7b7c7c;
     }
 }
+.visible-collapse {
+    visibility: collapse;
+}
 /**!
 * Header
 */
@@ -159,6 +162,11 @@ header {
             left: 0;
             bottom: 0;
             background-color: rgba($color: #080808, $alpha: 0.7);
+        }
+        .paginatior {
+            .pager-info {
+                display: none !important;
+            }
         }
     }
     .table {
