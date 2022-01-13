@@ -3,7 +3,7 @@
 @section('content')
     <div class="card-body px-0">
         @foreach (['socket', 'backend', 'frontend', 'api'] as $item)
-            @php($versionNumber = data_get($data, "result.versions.{$item}_version"))
+            @php($versionNumber = data_get($data, "versions.{$item}_version"))
             @if(is_null($versionNumber))
                 <div class="alert alert-warning">
                     <strong>Sorry!</strong> No Socket Version Found.

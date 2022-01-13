@@ -27,7 +27,6 @@ class LakaLogController extends CoreController
 
     protected $listViewName = [
         'index' => 'laka-log.list',
-        'create' => 'laka-log.create',
         'store' => 'laka-log.create',
         'show' => 'laka-log.detail'
     ];
