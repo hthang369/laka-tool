@@ -26,19 +26,43 @@
 
 @section('body_button')
     <div class="form-group-update mt-4">
-        {!! Form::open(['method' => 'POST']) !!}
+        {!! Form::open(['method' => 'POST','id'=>'form-update-laka-usser']) !!}
         <x-form-group :inline="true">
             <x-form-label class="col-sm-2 col-form-label required">@lang('users.laka.fields.company')</x-form-label>
-            <x-form-select name="company_id" :items="$data['company_list']" :selected="$data['company_id']" placeholder=" " required
-                groupClass="col-sm-10 form-row" />
+            <x-form-select name="company_id" :items="$data['company_list']" :selected="$data['company_id']"
+                           placeholder=" " required
+                           groupClass="col-sm-10 form-row"/>
         </x-form-group>
         <x-form-group :inline="true">
-            <x-form-label class="col-sm-2 col-form-label required">@lang('users.laka.add_contact_option')</x-form-label>
-            <x-form-checkbox-group name="add_contact_option[]" class="col-10" :items="$contactOptions"></x-form-checkbox-group>
+            <x-form-label class="col-sm-2  required">@lang('users.laka.add_contact_option')</x-form-label>
+            <input type="hidden" id="add-contact-option" name="add-contact-option">
+            <button type="submit" id="btn-add-all-contact" class="btn btn-sm btn-primary mr-2">{{__('users.laka.add_all_contacts')}}</button>
+            <button type="submit" id="btn-add-all-room"
+                    class="btn btn-sm btn-primary">{{__('users.laka.add_to_all_rooms')}}</button>
+
+            {{--            <x-form-checkbox-group name="add_contact_option[]" class="col-10" :items="$contactOptions"></x-form-checkbox-group>--}}
         </x-form-group>
-        <button type="submit" class="btn btn-sm btn-primary">{{__('common.update')}}</button>
-        {!! link_to(route("{$sectionCode}.reset-password", $data['id']), __('common.reset_password'), ['class' => 'btn btn-sm btn-warning']) !!}
-        {!! Html::tag('a', __('common.back'), ['class' => 'btn btn-sm btn-danger', 'onclick' => "history.back()"]) !!}
+        <div class="form-row align-items-center justify-content-center">
+            {!! link_to(route("{$sectionCode}.reset-password", $data['id']), __('common.reset_password'), ['class' => 'btn btn-sm btn-warning mr-2']) !!}
+            {!! Html::tag('a', __('common.back'), ['class' => 'btn btn-sm btn-danger', 'onclick' => "history.back()"]) !!}
+        </div>
         {!! Form::close() !!}
     </div>
 @endsection
+@push('scripts')
+    <script>
+        let btnAddAllContact = document.getElementById('btn-add-all-contact');
+        let btnAddAllRoom = document.getElementById('btn-add-all-room');
+        let inputAddContactOption = document.getElementById('add-contact-option');
+        let form = document.getElementById('form-update-laka-usser');
+
+        btnAddAllContact.addEventListener('click', () => {
+            inputAddContactOption.value = "add-all-contact";
+            form.submit();
+        });
+        btnAddAllRoom.addEventListener('click', () => {
+            inputAddContactOption.value = "add-all-room";
+            form.submit();
+        });
+    </script>
+@endpush

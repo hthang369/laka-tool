@@ -27,7 +27,7 @@ return [
         'is_user_bot' => 'User bot',
         'add_contact_option' => 'Add contact option',
         'add_all_contacts' => 'Add all contact',
-        'add_to_all_rooms' => 'Add to all rooms',
+        'add_to_all_rooms' => 'Add to all room',
         'contact_header' => 'Laka user update contact',
         'list_contact' => 'Laka user manage',
         'list_approval' => 'Laka user approval',

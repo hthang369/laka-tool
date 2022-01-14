@@ -17,7 +17,7 @@ class LakaUserValidator extends BaseValidator
         ],
         ValidatorInterface::RULE_UPDATE => [
             'company_id' => 'required',
-            'add_contact_option' => 'required'
+//            'add_contact_option' => 'required'
         ],
     ];
 

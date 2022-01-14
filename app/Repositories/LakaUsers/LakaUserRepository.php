@@ -105,8 +105,16 @@ class LakaUserRepository extends CoreRepository
         if ($user['disabled'] == 1) {
             throw new \Exception(trans('users.validator.user_has_been_disabled'));
         }
-        $this->addContactOption($attributes, $id);
+        $arrMapOption = [
+            'addAllContacts' => 'add-all-contact',
+            'addToAllRooms' => 'add-all-room',
+        ];
+        $addContactOption = $attributes['add-contact-option'];
+        $methodName = array_search($addContactOption, $arrMapOption);
 
+        if ($methodName) {
+            $this->$methodName(['user_id' => $id, 'company_id' => $attributes['company_id']]);
+        }
         return true;
     }
 
