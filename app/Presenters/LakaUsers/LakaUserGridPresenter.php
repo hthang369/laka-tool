@@ -25,16 +25,11 @@ class LakaUserGridPresenter extends CoreGridPresenter
             ],
             [
                 'key' => 'company',
-                'cell' => function ($item) {
-                    $companyName = Company::where('id', $item['company'])->select(['name'])->first();
-
-                    if (is_null($companyName)) {
-                        return  $item['company'] ;
-                    } else {
-                        return  $companyName['name'];
-
-                    }
-                }
+                'lookup' => [
+                    'dataSource' => resolve(Company::class)->all(),
+                    'displayExpr' => 'name',
+                    'valueExpr' => 'id'
+                ],
             ],
             [
                 'key' => 'action',

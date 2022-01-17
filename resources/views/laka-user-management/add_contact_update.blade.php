@@ -36,11 +36,8 @@
         <x-form-group :inline="true">
             <x-form-label class="col-sm-2  required">@lang('users.laka.add_contact_option')</x-form-label>
             <input type="hidden" id="add-contact-option" name="add-contact-option">
-            <button type="submit" id="btn-add-all-contact" class="btn btn-sm btn-primary mr-2">{{__('users.laka.add_all_contacts')}}</button>
-            <button type="submit" id="btn-add-all-room"
-                    class="btn btn-sm btn-primary">{{__('users.laka.add_to_all_rooms')}}</button>
-
-            {{--            <x-form-checkbox-group name="add_contact_option[]" class="col-10" :items="$contactOptions"></x-form-checkbox-group>--}}
+            <x-button type="submit" variant="primary" size="sm" class="mr-2" id="btn-add-all-contact" text="{{__('users.laka.add_all_contacts')}}" />
+            <x-button type="submit" id="btn-add-all-room" variant="primary" size="sm" text="{{__('users.laka.add_to_all_rooms')}}" />
         </x-form-group>
         <div class="form-row align-items-center justify-content-center">
             {!! link_to(route("{$sectionCode}.reset-password", $data['id']), __('common.reset_password'), ['class' => 'btn btn-sm btn-warning mr-2']) !!}
