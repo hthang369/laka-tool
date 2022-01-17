@@ -29,9 +29,9 @@ class LakaUserGridPresenter extends CoreGridPresenter
                     $companyName = Company::where('id', $item['company'])->select(['name'])->first();
 
                     if (is_null($companyName)) {
-                        return '<span class="badge badge-warning">' . $item['company'] . '</span>';
+                        return  $item['company'] ;
                     } else {
-                        return '<span class="badge badge-success">' . $companyName['name'] . '</span>';
+                        return  $companyName['name'];
 
                     }
                 }
