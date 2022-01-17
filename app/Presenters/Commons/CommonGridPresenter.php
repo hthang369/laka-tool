@@ -2,7 +2,7 @@
 
 namespace App\Presenters\Commons;
 
-use App\Presenters\BaseGridPresenter;
+use Laka\Core\Grids\BaseGridPresenter;
 
 class CommonGridPresenter extends BaseGridPresenter
 {

@@ -3,16 +3,27 @@
 namespace App\Presenters\Companys;
 
 use App\Models\BusinessPlans\BusinessPlan;
-use App\Presenters\BaseGridPresenter;
+use App\Presenters\CoreGridPresenter;
 
-class CompanyGridPresenter extends BaseGridPresenter
+class CompanyGridPresenter extends CoreGridPresenter
 {
+    protected $name = 'company';
+
     protected function setColumns()
     {
         return [
-            'name',
-            'email',
-            'phone',
+            [
+                'key' => 'name',
+                'filtering' => true
+            ],
+            [
+                'key' => 'email',
+                'filtering' => true
+            ],
+            [
+                'key' => 'phone',
+                'filtering' => true
+            ],
             'address',
             [
                 'key' => 'business_plan_id',

@@ -23,11 +23,10 @@
     @endif
     <div class="card mb-5">
         <div class="text-white card-header bg-primary">
-            <h2>{{ucwords($data['environment']) }} </h2>
+            <h2>{{ucwords(data_get($data, 'environment')) }} </h2>
         </div>
         <div class="card-body ">
-            @foreach($data['serverArray'] as $key => $value)
-
+            @foreach(data_get($data, 'serverArray') as $key => $value)
                 <div class="well mb-4">
                     <div class="form-group">
                         <h3> {{ucfirst($value->server) }}</h3>

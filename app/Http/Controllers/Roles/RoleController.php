@@ -28,10 +28,8 @@ class RoleController extends CoreController
         'update'    => 'role-management.edit'
     ];
 
-    public function __construct(RoleValidator $validator) {
-        parent::__construct($validator);
-
-        $this->repository = $this->factory->makeRepository(RoleRepository::class);
+    public function __construct(RoleRepository $repository, RoleValidator $validator) {
+        parent::__construct($repository, $validator);
 
         View::share('titlePage', __('role.page_title'));
         View::share('headerPage', 'role.page_header');

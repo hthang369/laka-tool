@@ -18,10 +18,8 @@ class LogReleaseController extends CoreController
         'index' => 'logs-release.list'
     ];
 
-    public function __construct(LogReleaseValidator $validator) {
-        parent::__construct($validator);
-
-        $this->repository = $this->factory->makeRepository(LogReleaseRepository::class);
+    public function __construct(LogReleaseRepository $repository, LogReleaseValidator $validator) {
+        parent::__construct($repository, $validator);
 
         View::share('titlePage', __('deploy_version.page_title'));
         View::share('headerPage', 'deploy_version.log_release.page_header');

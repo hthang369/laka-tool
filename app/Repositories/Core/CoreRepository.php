@@ -3,7 +3,7 @@
 namespace App\Repositories\Core;
 
 use Laka\Core\Repositories\BaseRepository;
-use App\Traits\PresenterDataGrid;
+use Laka\Core\Traits\Grids\PresenterDataGrid;
 
 abstract class CoreRepository extends BaseRepository
 {

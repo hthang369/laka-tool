@@ -20,12 +20,12 @@ class DownloadLakaLogController extends CoreController
         'downloadLog' => 'download'
     ];
 
-    protected $listViewName = [];
+    protected $listViewName = [
+        'index' => 'laka-log.create'
+    ];
 
-    public function __construct(DownloadLakaLogValidator $validator) {
-        parent::__construct($validator);
-
-        $this->repository = $this->factory->makeRepository(DownloadLakaLogRepository::class);
+    public function __construct(DownloadLakaLogRepository $repository, DownloadLakaLogValidator $validator) {
+        parent::__construct($repository, $validator);
     }
 
     public function downloadLog()  {

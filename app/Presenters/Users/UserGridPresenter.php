@@ -2,9 +2,9 @@
 
 namespace App\Presenters\Users;
 
-use App\Presenters\BaseGridPresenter;
+use App\Presenters\CoreGridPresenter;
 
-class UserGridPresenter extends BaseGridPresenter
+class UserGridPresenter extends CoreGridPresenter
 {
     protected function setColumns()
     {

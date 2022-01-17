@@ -2,9 +2,9 @@
 
 namespace App\Presenters\LakaLogs;
 
-use App\Presenters\BaseGridPresenter;
+use App\Presenters\CoreGridPresenter;
 
-class DownloadLakaLogGridPresenter extends BaseGridPresenter
+class DownloadLakaLogGridPresenter extends CoreGridPresenter
 {
     protected $actionColumnOptions = [
         'visible' => false,
@@ -13,7 +13,10 @@ class DownloadLakaLogGridPresenter extends BaseGridPresenter
     protected function setColumns()
     {
         return [
-            'name',
+            [
+                'key' => 'name',
+                'filtering' => true,
+            ],
             [
                 'key' => 'status',
                 'cell' => function ($item) {
@@ -23,10 +26,12 @@ class DownloadLakaLogGridPresenter extends BaseGridPresenter
                         return '<span class="badge badge-danger">' . __('laka_log.log-not-parsed') . '</span>';
                     }
                 }
-            ], [
+            ],
+            [
                 'key' => 'action',
                 'sortable' => false,
-                'cell' => 'laka-log.button-parse'
+                'dataType'=>'buttons',
+                'cell' => 'laka-log.button-parse',
             ],
         ];
     }

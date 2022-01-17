@@ -38,10 +38,9 @@ class LakaUserController extends CoreController
     ];
 
 
-    public function __construct(LakaUserValidator $validator)
+    public function __construct(LakaUserRepository $repository, LakaUserValidator $validator)
     {
-        parent::__construct($validator);
-        $this->repository = $this->factory->makeRepository(LakaUserRepository::class);
+        parent::__construct($repository, $validator);
         View::share('titlePage', __('users.laka.page_title'));
         View::share('headerPage', 'users.laka.page_header');
     }
@@ -50,13 +49,13 @@ class LakaUserController extends CoreController
     public function showUserDisable()
     {
         $data = $this->repository->showAllDeleteUser();
-        return WebResponse::success('laka-user-management.list', $data);
+        return WebResponse::success('laka-user-management.list', $this->getData($data));
     }
 
     public function showAddContact()
     {
         $data = $this->repository->showAllDeleteUser(false);
-        return WebResponse::success('laka-user-management.list', $data);
+        return WebResponse::success('laka-user-management.list', $this->getData($data));
     }
 
     public function checkVerificationCode($id)

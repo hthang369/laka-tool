@@ -80,8 +80,9 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth:web', 'permissi
     Route::group(['prefix' => 'laka-log'], function () {
         Route::get('/s3-log-list', 'LakaLogs\AwsS3LogController@view')->name('laka-log.s3-log-list');
         Route::post('/download-log', 'LakaLogs\DownloadLakaLogController@downloadLog')->name('laka-log.download-log');
+        Route::get('/create', 'LakaLogs\DownloadLakaLogController@index')->name('laka-log.create');
     });
-    Route::resource('laka-log', 'LakaLogs\LakaLogController');
+    Route::resource('laka-log', 'LakaLogs\LakaLogController', ['except' => ['create']]);
 
     // repair data
     Route::resource('repair-data', 'RepairDatas\RepairDataController', ['except' => ['show', 'create', 'destroy', 'store']]);

@@ -7,6 +7,7 @@ use Laka\Core\Http\Response\JsonResponse;
 use Laka\Core\Http\Response\WebResponse;
 use Laka\Core\Validators\BaseValidator;
 use Illuminate\Support\Facades\View;
+use Laka\Core\Repositories\BaseRepository;
 
 /**
  * Class CoreController
@@ -14,9 +15,9 @@ use Illuminate\Support\Facades\View;
  */
 abstract class CoreController extends BaseController
 {
-    public function __construct(BaseValidator $validator)
+    public function __construct(BaseRepository $repository, BaseValidator $validator)
     {
-        parent::__construct($validator);
+        parent::__construct($repository, $validator);
 
         View::share('sectionCode', $this->getSectionCode());
     }
@@ -25,14 +26,7 @@ abstract class CoreController extends BaseController
     {
         $data = $this->repository->formGenerate();
 
-        return WebResponse::success($this->getViewName(__FUNCTION__), $data);
-    }
-
-    public function edit($id)
-    {
-        $data = $this->repository->show($id);
-
-        return WebResponse::success($this->getViewName(__FUNCTION__), $data);
+        return WebResponse::success($this->getViewName(__FUNCTION__), $this->getData($data));
     }
 
     public function destroy($id) {

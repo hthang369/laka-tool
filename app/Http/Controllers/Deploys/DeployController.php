@@ -29,11 +29,10 @@ class DeployController extends CoreController
 
     protected $service;
 
-    public function __construct(DeployValidator $validator)
+    public function __construct(DeployRepository $repository, DeployValidator $validator)
     {
-        parent::__construct($validator);
+        parent::__construct($repository, $validator);
 
-        $this->repository = $this->factory->makeRepository(DeployRepository::class);
         $this->service = $this->factory->makeService(DeployService::class);
         View::share('titlePage', __('deploy_version.page_title'));
         View::share('headerPage', __('deploy_version.page_header'));

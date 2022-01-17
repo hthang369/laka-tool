@@ -28,10 +28,8 @@ class CompanyController extends CoreController
         'update'    => 'company.edit'
     ];
 
-    public function __construct(CompanyValidator $validator) {
-        parent::__construct($validator);
-
-        $this->repository = $this->factory->makeRepository(CompanyRepository::class);
+    public function __construct(CompanyRepository $repository, CompanyValidator $validator) {
+        parent::__construct($repository, $validator);
 
         View::share('titlePage', __('company.page_title'));
         View::share('headerPage', 'company.page_header');

@@ -2,9 +2,9 @@
 
 namespace App\Presenters\LakaLogs;
 
-use App\Presenters\BaseGridPresenter;
+use App\Presenters\CoreGridPresenter;
 
-class AwsS3LogGridPresenter extends BaseGridPresenter
+class AwsS3LogGridPresenter extends CoreGridPresenter
 {
     protected $actionColumnOptions = [
         'visible' => false,
@@ -13,7 +13,10 @@ class AwsS3LogGridPresenter extends BaseGridPresenter
     protected function setColumns()
     {
         return [
-            'name',
+            [
+                'key' => 'name',
+                'filtering'=>true,
+            ],
             [
                 'key' => 'isDownloaded',
                 'label' => __('laka_log.fields.status'),
@@ -31,6 +34,7 @@ class AwsS3LogGridPresenter extends BaseGridPresenter
                 'key' => 'action',
                 'label' => translate('table.action'),
                 'sortable' => false,
+                'dataType'=>'buttons',
                 'cell' => 'laka-log.button-download'
             ]
         ];

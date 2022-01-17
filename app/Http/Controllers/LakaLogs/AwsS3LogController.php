@@ -26,10 +26,9 @@ class AwsS3LogController extends CoreController
 
     protected $lakaLogService;
 
-    public function __construct(AwsS3LogValidator $validator) {
-        parent::__construct($validator);
+    public function __construct(AwsS3LogRepository $repository, AwsS3LogValidator $validator) {
+        parent::__construct($repository, $validator);
 
-        $this->repository = $this->factory->makeRepository(AwsS3LogRepository::class);
         $this->lakaLogService = $this->factory->makeService(LakaLogService::class);
 
         View::share('titlePage', __('laka_log.page_title'));
@@ -39,32 +38,17 @@ class AwsS3LogController extends CoreController
     public function index()
     {
         $now = today();
-        // if session for dtFrom and dtTo exist
-        if (session('s3DtFrom') || session('s3DtTo')) {
-            $dtFrom = session('s3DtFrom') != null ? request('dtFrom', session('s3DtFrom')) : request('dtFrom', $now->clone()->firstOfMonth()->toDateString());
-            $dtTo = session('s3DtTo') != null ? request('dtTo', session('s3DtTo')) : request('dtTo', $now->clone()->firstOfMonth()->toDateString());
-        } else {
-            $dtFrom = request('dtFrom', $now->clone()->firstOfMonth()->toDateString());
-            $dtTo = request('dtTo', $now->clone()->lastOfMonth()->toDateString());
+        $dtFrom = request('dtFrom', $now->clone()->firstOfMonth()->toDateString());
+        $dtTo = request('dtTo', $now->clone()->lastOfMonth()->toDateString());
+        if ($dtFrom && $dtTo) {
+            request()->merge(['date' => ['start' => $dtFrom, 'end' => $dtTo]]);
         }
-
         View::share('dtFrom', $dtFrom);
         View::share('dtTo', $dtTo);
-        session([
-            's3DtFrom' => $dtFrom,
-            's3DtTo' => $dtTo
-        ]);
 
         // get files list
-        $files = collect($this->repository->getLogFromS3());
+        $paginator = $this->repository->getLogFromS3(request('page'));
 
-        // filter files by date
-        $files = $this->lakaLogService->filesFilterByDate($files, $dtFrom, $dtTo);
-        $files = $this->lakaLogService->filesSortByColumn($files, request('sort'), request('direction'));
-
-        // paginate
-        $paginator = $this->repository->filesPaginate($files, request('page'));
-
-        return WebResponse::success($this->getViewName(__FUNCTION__), $paginator);
+        return WebResponse::success($this->getViewName(__FUNCTION__), $this->getData($paginator));
     }
 }

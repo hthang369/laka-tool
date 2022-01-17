@@ -21,7 +21,7 @@ class DeployRepository extends CoreRepository
     {
         $environment = last(request()->segments());
         $serverArray = [];
-        foreach (config("deploy.list_environment.{$environment}") as $server => $value) {
+        foreach (config("laka.deploy.list_environment.{$environment}") as $server => $value) {
             $deployServer = new Deploy();
             $version = Deploy::getVersion($server, $environment);
             if ($version == null) {

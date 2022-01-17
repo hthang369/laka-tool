@@ -37,11 +37,9 @@ class UserController extends CoreController
         'updatePassword' => 'user-management.update-password',
     ];
 
-    public function __construct(UserValidator $validator)
+    public function __construct(UserRepository $repository, UserValidator $validator)
     {
-        parent::__construct($validator);
-
-        $this->repository = $this->factory->makeRepository(UserRepository::class);
+        parent::__construct($repository, $validator);
 
         View::share('titlePage', __('users.page_title'));
         View::share('headerPage', 'users.page_header');
