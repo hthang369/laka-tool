@@ -92,7 +92,7 @@ class LakaUserController extends CoreController
         $msg = __('common.alert_sent_verification_code', ['email' => auth()->user()->email]);
         Session::flash('isAlert', true);
 
-        return WebResponse::success($this->getViewName(__FUNCTION__), $userDisabled, $msg);
+        return WebResponse::success($this->getViewName(__FUNCTION__), $this->getData($userDisabled) , $msg);
     }
 
     public function resetPassword($id)
