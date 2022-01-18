@@ -75,7 +75,7 @@ class LakaUserRepository extends CoreRepository
 
         data_set($userData, 'company_id', data_get($company, 'id'));
         data_set($userData, 'company', data_get($company, 'name'));
-        
+
         return $userData;
     }
 
@@ -99,7 +99,7 @@ class LakaUserRepository extends CoreRepository
         return true;
     }
 
-    public function update(array $attributes, $id)
+    public function update( $attributes, $id)
     {
         $user = $this->getUserDetail($id);
         if ($user['disabled'] == 1) {
@@ -111,11 +111,11 @@ class LakaUserRepository extends CoreRepository
         ];
         $addContactOption = $attributes['add-contact-option'];
         $methodName = array_search($addContactOption, $arrMapOption);
-
         if ($methodName) {
-            $this->$methodName(['user_id' => $id, 'company_id' => $attributes['company_id']]);
+            $result = $this->$methodName(['user_id' => $id, 'company_id' => $attributes['company_id']]);
         }
-        return true;
+
+        return $result;
     }
 
     public function resetPassword($id)
@@ -162,6 +162,7 @@ class LakaUserRepository extends CoreRepository
 
     public function disableUser($id, $attributes)
     {
+
         $typeAction = $attributes['type'];
         $arrayAction = ['sent-mail', 'resent'];
         $userDisabled = $this->getUserDetail($id);
@@ -213,6 +214,8 @@ class LakaUserRepository extends CoreRepository
     {
         if (!data_get($result, 'error_code')) {
             return data_get($result, 'data');
+        } else {
+            return $result;
         }
         return [];
     }
