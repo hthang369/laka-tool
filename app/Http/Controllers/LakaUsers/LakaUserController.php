@@ -51,7 +51,8 @@ class LakaUserController extends CoreController
         $errorRoute = $this->getErrorRouteName(__FUNCTION__, ['id' => $id]);
 
         if (is_null($data['error_code'])) {
-            return WebResponse::updated(route($this->getViewName(__FUNCTION__), ['id' => $id]), $data,$data['message']);
+            $totalUserAdded = count($data['user_had_added']);
+            return WebResponse::updated(route($this->getViewName(__FUNCTION__), ['id' => $id]), $data, __('users.laka.add_all_contact_in_company', ['total' => $totalUserAdded]));
         } else {
             return WebResponse::error($errorRoute, true, $data['error_msg']);
         }
@@ -92,7 +93,7 @@ class LakaUserController extends CoreController
         $msg = __('common.alert_sent_verification_code', ['email' => auth()->user()->email]);
         Session::flash('isAlert', true);
 
-        return WebResponse::success($this->getViewName(__FUNCTION__), $this->getData($userDisabled) , $msg);
+        return WebResponse::success($this->getViewName(__FUNCTION__), $this->getData($userDisabled), $msg);
     }
 
     public function resetPassword($id)
