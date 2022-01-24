@@ -6,6 +6,7 @@ use App\Http\Controllers\Core\CoreController;
 use App\Repositories\LakaLogs\DownloadLakaLogRepository;
 use App\Validators\LakaLogs\DownloadLakaLogValidator;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\View;
 use Laka\Core\Http\Response\JsonResponse;
 use Laka\Core\Http\Response\WebResponse;
 
@@ -26,6 +27,8 @@ class DownloadLakaLogController extends CoreController
 
     public function __construct(DownloadLakaLogRepository $repository, DownloadLakaLogValidator $validator) {
         parent::__construct($repository, $validator);
+        View::share('titlePage', __('laka_log.page_title'));
+        View::share('headerPage', 'laka_log.page_header');
     }
 
     public function downloadLog()  {
