@@ -85,8 +85,8 @@ class LakaUserRepository extends CoreRepository
         if (is_null($attributes['is_user_bot'])) {
             $attributes['is_user_bot'] = 0;
         }
-        $company = Company::find($attributes['company_id'], ['name']);
-        $attributes['company'] = $company->name;
+        $company = Company::find($attributes['company_id'], ['name', 'id']);
+        $attributes['company'] = $company->id;
         $data = array_except($attributes, ['_token', 'company_id', 'add_all_contacts', 'add_to_all_rooms']);
 
         $dataResponse = Common::callApi('post', '/api/v1/user/register-users', $data);
