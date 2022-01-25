@@ -4,7 +4,7 @@
 
 @section('content_layout')
     <!-- Sidebar-->
-    <section class="collapse navbar-sidebar navbar-collapse col-md-2 px-0" id="navbarNavDropdown">
+    <section class="collapse navbar-sidebar navbar-collapse col-lg-2 col-md-3 px-0" id="navbarNavDropdown">
         <div id="section-sidebar">
             @include('components.system-admin.sidebar')
         </div>
@@ -12,7 +12,7 @@
 
     <!--      End  Sidebar-->
     <!-- Main content -->
-    <div class="col-md-10">
+    <div class="main-content col-12 col-lg-10 col-md-9">
         <div class="card">
             <!-- TITLE -->
             <h2 class="card-header px-4 bg-light">

@@ -344,9 +344,9 @@ var $api = $api || {};
                     tableElement.find('colgroup col').each(function(i, item) {
                         $(item).attr('width', tableProps.thead[i] + 'px');
                     });
-                    // tableElement.find('thead tr:first-child th').each(function(i, item) {
-                    //     $(item).css('min-width', tableProps.thead[i] + 'px');
-                    // });
+                    tableElement.find('thead tr:first-child th').each(function(i, item) {
+                        $(item).css('min-width', tableProps.thead[i] + 'px');
+                    });
 
                     if (!parent.closest('.table-wrapper').length) {
                         parent.wrap('<div class="table-wrapper"></div>');
@@ -707,12 +707,21 @@ var $api = $api || {};
             $('.back-to-top').removeClass('active');
         }
     });
+    if (!$('#navbarNavDropdown').hasClass('show')) {
+        $('.main-content').removeClass('col-md-9');
+    }
 
     $('.back-to-top').click(function () {
         $('html, body').animate({
             scrollTop: 0
         }, 1500);
         return false;
+    });
+
+    $('#navbarNavDropdown').on('show.bs.collapse', function() {
+        $('.main-content').addClass('col-md-9')
+    }).on('hidden.bs.collapse', function() {
+        $('.main-content').removeClass('col-md-9')
     });
 
     return _grids;
