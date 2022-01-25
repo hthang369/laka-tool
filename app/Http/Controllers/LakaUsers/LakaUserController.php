@@ -37,7 +37,6 @@ class LakaUserController extends CoreController
         'store' => 'laka-user-management.create'
     ];
 
-
     public function __construct(LakaUserRepository $repository, LakaUserValidator $validator)
     {
         parent::__construct($repository, $validator);

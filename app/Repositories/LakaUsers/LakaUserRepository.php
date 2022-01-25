@@ -13,6 +13,7 @@ use App\Repositories\Core\CoreRepository;
 use App\Repositories\Core\Filters\SortByClientClause;
 use App\Repositories\Core\Filters\WhereLikeClientClause;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\MessageBag;
 use Laka\Core\Traits\Pagination\BuildPaginator;
@@ -95,6 +96,7 @@ class LakaUserRepository extends CoreRepository
         }
         $userId = data_get($dataResponse, 'data.id');
         $this->addContactOption($attributes, $userId);
+        Artisan::call('cache:clear');
 
         return true;
     }
@@ -114,6 +116,7 @@ class LakaUserRepository extends CoreRepository
         if ($methodName) {
             $result = $this->$methodName(['user_id' => $id, 'company_id' => $attributes['company_id']]);
         }
+        Artisan::call('cache:clear');
 
         return $result;
     }

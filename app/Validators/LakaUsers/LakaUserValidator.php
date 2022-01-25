@@ -11,7 +11,7 @@ class LakaUserValidator extends BaseValidator
         ValidatorInterface::RULE_CREATE => [
             'name' => 'required',
             'email' => 'required|email',
-            'password' => 'required|password',
+            'password' => 'required|min:6',
             'password_confirmation' => 'required|same:password',
             'company_id' => 'required',
         ],
