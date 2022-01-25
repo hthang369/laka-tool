@@ -33,7 +33,8 @@ return [
         'list_approval' => 'Laka user approval',
         'confirm_code' => 'Laka user confirm code',
         'label_confirm_code' => 'Verification code',
-        'placeholder_confirm_code' => 'Check email and fill code here'
+        'placeholder_confirm_code' => 'Check email and fill code here',
+        'add_all_contact_in_company'=>'Total user has added: :total'
     ],
     'validator' => [
         'user_has_been_disabled' => 'User is has been disabled'
