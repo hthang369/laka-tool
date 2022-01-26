@@ -341,9 +341,6 @@ var $api = $api || {};
                     var tableProps = _grids.utils._getTableProps(tableElement);
                     let parent = tableElement.parent();
 
-                    tableElement.find('colgroup col').each(function(i, item) {
-                        $(item).attr('width', tableProps.thead[i] + 'px');
-                    });
                     tableElement.find('thead tr:first-child th').each(function(i, item) {
                         $(item).css('min-width', tableProps.thead[i] + 'px');
                     });
@@ -361,6 +358,16 @@ var $api = $api || {};
 
                     parent.scroll(function() {
                         headerTable.closest('.sticky-table').scrollLeft(parent.scrollLeft())
+                    });
+
+                    $(window).resize(function() {
+                        var tableProps = _grids.utils._getTableProps(tableElement);
+                        tableElement.find('thead tr:first-child th').each(function(i, item) {
+                            $(item).css('min-width', tableProps.thead[i] + 'px');
+                        });
+                        headerTable.find('thead tr:first-child th').each(function(i, item) {
+                            $(item).css('min-width', tableProps.thead[i] + 'px');
+                        });
                     });
                 }
             },
