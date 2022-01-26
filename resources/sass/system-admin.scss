@@ -47,6 +47,7 @@ $serria-blue: #007bff;
 */
 ::-webkit-scrollbar {
     width: 8px;
+    height: 8px;
     background-color: #262a2b;
     color: #cdc5b8;
 }
@@ -168,6 +169,11 @@ header {
                 display: none !important;
             }
         }
+        .table-wrapper {
+            .sticky-table {
+                top: 52px;
+            }
+        }
     }
     .table {
         thead {
@@ -177,6 +183,21 @@ header {
         }
         .table-action {
             white-space: nowrap;
+        }
+    }
+    .sticky-table {
+        .table {
+            margin-bottom: 0 !important;
+        }
+        overflow: hidden;
+    }
+    .content-table {
+        thead {
+            tr {
+                &:first-child {
+                    visibility: collapse;
+                }
+            }
         }
     }
 }

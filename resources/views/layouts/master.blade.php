@@ -40,7 +40,7 @@
 
     <!-- Script -->
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/grid.js') }}"></script>
+    <script src="{{ asset('js/data-grid.js') }}"></script>
     @stack('scripts')
 </body>
 </html>
