@@ -351,7 +351,9 @@ var $api = $api || {};
 
                     let headerTable = tableElement.clone().wrap('<div class="table-responsive sticky-table sticky-top"></div>');
                     headerTable.find('tbody').remove();
-                    headerTable.find('thead tr:last-child').remove();
+                    if (headerTable.find('thead tr').length > 1) {
+                        headerTable.find('thead tr:last-child').remove();
+                    }
                     headerTable.closest('.sticky-table').insertBefore(parent);
 
                     tableElement.addClass('content-table');

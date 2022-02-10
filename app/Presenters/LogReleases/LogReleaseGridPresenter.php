@@ -8,7 +8,6 @@ class LogReleaseGridPresenter extends CoreGridPresenter
 {
     protected $actionColumnOptions = [
         'visible' => false,
-
     ];
 
     protected function setColumns()
