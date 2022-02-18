@@ -31,7 +31,7 @@ class LakaUserRepository extends CoreRepository
         'name' => WhereLikeClientClause::class,
         'email' => WhereLikeClientClause::class,
         'id'=>WhereLikeClientClause::class,
-        'request_approval_status'=>WhereLikeClientClause::class,
+
     ];
 
 

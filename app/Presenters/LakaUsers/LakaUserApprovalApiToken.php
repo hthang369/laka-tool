@@ -27,7 +27,6 @@ class LakaUserApprovalApiToken extends CoreGridPresenter
 
             [
                 'key' => 'request_approval_status',
-                'filtering' => true,
                 'cell' => function ($item) {
                     $arrStatus = [
                         1 => 'no-accepted',
