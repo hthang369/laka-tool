@@ -6,6 +6,7 @@ use App\Events\sendConfirmEmail;
 use App\Facades\Common;
 use App\Models\Companys\Company;
 use App\Models\LakaUsers\LakaUser;
+use App\Presenters\LakaUsers\LakaUserApprovalApiToken;
 use App\Presenters\LakaUsers\LakaUserGridPresenter;
 use App\Repositories\Companys\CompanyRepository;
 use App\Repositories\Core\BaseClientCriteria;
@@ -29,9 +30,21 @@ class LakaUserRepository extends CoreRepository
         'sort' => SortByClientClause::class,
         'name' => WhereLikeClientClause::class,
         'email' => WhereLikeClientClause::class,
+        'id'=>WhereLikeClientClause::class,
+        'request_approval_status'=>WhereLikeClientClause::class,
     ];
 
-    protected $presenterClass = LakaUserGridPresenter::class;
+
+    public function bootPresenterDataGrid()
+    {
+        if (str_is(last(request()->segments()), 'laka-user-management')) {
+            $this->presenterClass = LakaUserApprovalApiToken::class;
+        } else {
+            $this->presenterClass = LakaUserGridPresenter::class;
+        }
+        parent::bootPresenterDataGrid();
+    }
+
 
     public function formGenerate()
     {
@@ -41,11 +54,29 @@ class LakaUserRepository extends CoreRepository
 
     public function paginate($limit = null, $columns = [], $method = "paginate")
     {
-        $results = Cache::remember('list_user_approval', config('constants.cache_expire'), function () {
-            return Common::callApi('get', '/api/v1/api-token/get-list-approval')->toArray();
-        });
-        $this->filterByRequest($results);
+        $results = Common::callApi('get', '/api/v1/api-token/get-list-approval')->toArray();
+        $results['data'] = $this->filterByRequest($results['data']);
         return $this->parserResult($results);
+    }
+
+    public function approvalToken($id)
+    {
+        $data = ['id' => $id];
+        return $result = Common::callApi('post', ' /api/v1/api-token/approve-token', $data)->toArray();
+
+    }
+
+    public function stopToken($id)
+    {
+        $data = ['id' => $id];
+        return $result = Common::callApi('post', '/api/v1/api-token/stop-token', $data)->toArray();
+    }
+
+    public function delete($id)
+    {
+        $data = ['id' => $id,];
+        return $result = Common::callApi('post', '/api/v1/api-token/delete-token', $data)->toArray();
+
     }
 
     public function showAllDeleteUser($allDisable = true)
@@ -101,7 +132,7 @@ class LakaUserRepository extends CoreRepository
         return true;
     }
 
-    public function update( $attributes, $id)
+    public function update($attributes, $id)
     {
         $user = $this->getUserDetail($id);
         if ($user['disabled'] == 1) {
@@ -165,7 +196,6 @@ class LakaUserRepository extends CoreRepository
 
     public function disableUser($id, $attributes)
     {
-
         $typeAction = $attributes['type'];
         $arrayAction = ['sent-mail', 'resent'];
         $userDisabled = $this->getUserDetail($id);
