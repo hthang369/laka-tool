@@ -33,16 +33,13 @@
                            placeholder=" " required
                            groupClass="col-sm-10 form-row"/>
         </x-form-group>
-        <x-form-group :inline="true">
-            <x-form-label class="col-sm-2  required">@lang('users.laka.add_contact_option')</x-form-label>
+        <div class="form-row align-items-center justify-content-center">
             <input type="hidden" id="add-contact-option" name="add-contact-option">
             <x-button type="button" variant="primary" size="sm" class="mr-2" id="btn-add-all-contact"
-                      text="{{__('users.laka.add_all_contacts')}}"/>
-            <x-button type="button" id="btn-add-all-room" variant="primary" size="sm"
-                      text="{{__('users.laka.add_to_all_rooms')}}"/>
-        </x-form-group>
-        <div class="form-row align-items-center justify-content-center">
-            {!! link_to(route("{$sectionCode}.reset-password", $data['id']), __('common.reset_password'), ['class' => 'btn btn-sm btn-warning mr-2','onclick'=>"return confirm('Are you sure reset password?')"]) !!}
+                      text="{{__('users.laka.add_all_contacts')}}" icon="fa fa-plus"/>
+            <x-button type="button" id="btn-add-all-room" class="mr-2" variant="primary" size="sm"
+                      text="{{__('users.laka.add_to_all_rooms')}}" icon="fa fa-plus"/>
+            {!! link_to(route("{$sectionCode}.reset-password", $data['id']), "<i class='fa fa-redo mr-2'></i>" . __('common.reset_password'), ['class' => 'btn btn-sm btn-warning mr-2','onclick'=>"return confirm('Are you sure reset password?')"],true,false) !!}
             {!! Html::tag('a', __('common.back'), ['class' => 'btn btn-sm btn-danger', 'onclick' => "history.back()"]) !!}
         </div>
         {!! Form::close() !!}
