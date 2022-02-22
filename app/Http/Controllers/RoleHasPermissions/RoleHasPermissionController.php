@@ -36,6 +36,6 @@ class RoleHasPermissionController extends CoreController
         $role = Role::find($id);
         $base = array_add($base, 'role', $role);
 
-        return WebResponse::success('role.permission', $base);
+        return WebResponse::success('role.permission', ['result' => $base]);
     }
 }

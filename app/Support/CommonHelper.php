@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CommonHelper
 {
@@ -38,5 +39,23 @@ class CommonHelper
         } catch(ConnectionException $e) {
             throw $e;
         }
+    }
+
+    public function downloadFileToAws($awsName, $fileName, $pathName, $isUrl = true)
+    {
+        $storageAws = Storage::disk($awsName);
+        $storageLocal = Storage::disk('local');
+        $localPath = config("filesystems.disks.public.{$pathName}") . $fileName;
+        
+        if (!$storageLocal->exists($localPath)) {
+            $storageLocal->put(
+                $localPath,
+                $storageAws->get($fileName)
+            );
+        }
+
+        $link = $storageLocal->url($localPath);
+        
+        return ($isUrl) ? env('APP_URL').$link : $link;
     }
 }

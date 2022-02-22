@@ -14,12 +14,13 @@ class RepairData extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'status'
+        'name', 'path', 'size', 'status'
     ];
 
     protected $fillableColumns = [
         'id',
         'name',
+        'path',
         'status',
         'created_at'
     ];

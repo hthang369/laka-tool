@@ -10,7 +10,7 @@
         </x-col>
         <x-col size="6">
             <div class="d-flex align-items-center my-2">
-                <x-button class="btn-run" variant="primary" text="Download backup" />
+                <x-button class="btn-search" variant="primary" data-loading="{{translate('table.loading_text')}}" text="Get all file" />
             </div>
         </x-col>
     </x-row>
@@ -25,19 +25,19 @@
 <script src="//js.pusher.com/3.1/pusher.min.js"></script>
 <script>
 (function ($) {
+    $('.btn-search').click(function() {
+        $api.post('{{route("repair-data.store")}}', null, {
+            'contentType': 'application/json',
+            'targetLoading': '.btn-search',
+            'pjaxContainer': '#repairData-grid'
+        });
+    });
     $('.btn-run').click(function() {
-        $(this).attr('disabled', true);
-        let actionMethod = $(this).data('method');
-        axios.post('{{route("repair-data.test")}}', null, {
-            transformRequest: function (data, headers) {
-                $('.btn-run').attr('disabled', true);
-                return data;
-            },
-
-            transformResponse: function (data) {
-                $('.btn-run').attr('disabled', false);
-                return data;
-            },
+        let data = JSON.stringify({name: $(this).data('name'), id: $(this).data('id')});
+        $api.post('{{route("repair-data.test")}}', data, {
+            'contentType': 'application/json',
+            'targetLoading': $(this),
+            'pjaxContainer': '#repairData-grid'
         });
     });
     var pusher = new Pusher('{{env("PUSHER_APP_KEY")}}', {
@@ -51,6 +51,7 @@
         } else {
             $('.progress-bar').removeClass('marquee-bar');
         }
+        _grids.utils.getProgressButton('#btn-run-'+data.targetId, data.success);
         $('.progress-title').find('span').text(data.message);
     });
 })(jQuery);

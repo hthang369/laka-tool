@@ -255,6 +255,18 @@ var $api = $api || {};
             });
 
             return tableProp;
+        },
+        getProgressButton(target, success) {
+            if (target) {
+                let loadingText = $(target).data('loading');
+                let btnTarget = $(target).data('text');
+
+                if (success) {
+                    $(target).attr('disabled', 'disabled').html('<i class="fa fa-spinner fa-spin"></i>&nbsp;' + loadingText);
+                } else {
+                    $(target).html(btnTarget).removeAttr('disabled');
+                }
+            }
         }
     }
 
