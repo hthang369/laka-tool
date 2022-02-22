@@ -5,8 +5,8 @@
         @yield('form_content')
 
         <div class="form-row d-flex justify-content-center">
-        {!! Form::submit(__('common.save'), ['class' => 'btn btn-primary btn-sm']) !!}
-        {!! Form::button(__('common.back'), ['class' => 'btn btn-danger btn-sm ml-2', 'onclick' => "history.back()"]) !!}
+        {!! Form::btSubmit(__('common.save'), 'primary', ['class' => 'btn-sm', 'icon' => 'fa-save']) !!}
+        {!! bt_link_to_route("{$sectionCode}.index", __('common.back'), 'danger', [], ['class' => 'btn-sm ml-2', 'icon' => 'fa-undo']) !!}
         </div>
     {!! Form::close() !!}
 @endsection
