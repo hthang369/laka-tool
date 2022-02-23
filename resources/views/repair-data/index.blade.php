@@ -10,7 +10,7 @@
         </x-col>
         <x-col size="6">
             <div class="d-flex align-items-center my-2">
-                <x-button class="btn-search" variant="primary" data-loading="{{translate('table.loading_text')}}" text="Get all file" />
+                <x-button class="btn-search" variant="primary" icon="fa fa-search" data-loading="{{translate('table.loading_text')}}" text="Get all file" />
             </div>
         </x-col>
     </x-row>
