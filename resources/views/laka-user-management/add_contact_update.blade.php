@@ -39,8 +39,8 @@
                       text="{{__('users.laka.add_all_contacts')}}" icon="fa fa-plus"/>
             <x-button type="button" id="btn-add-all-room" class="mr-2" variant="primary" size="sm"
                       text="{{__('users.laka.add_to_all_rooms')}}" icon="fa fa-plus"/>
-            {!! link_to(route("{$sectionCode}.reset-password", $data['id']), "<i class='fa fa-redo mr-2'></i>" . __('common.reset_password'), ['class' => 'btn btn-sm btn-warning mr-2','onclick'=>"return confirm('Are you sure reset password?')"],true,false) !!}
-            {!! Html::tag('a', __('common.back'), ['class' => 'btn btn-sm btn-danger', 'onclick' => "history.back()"]) !!}
+            {!! link_to(route("{$sectionCode}.reset-password", $data['id']), "<i class='fa fa-redo mr-2'></i>" . __('common.reset_password'), ['class' => 'btn btn-sm btn-warning','onclick'=>"return confirm('Are you sure reset password?')"],true,false) !!}
+            {!! bt_link_to_route("{$sectionCode}.index", __('common.back'), 'danger', [], ['class' => 'btn-sm ml-2', 'icon' => 'fa-undo']) !!}
         </div>
         {!! Form::close() !!}
     </div>

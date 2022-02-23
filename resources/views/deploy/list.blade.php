@@ -56,7 +56,7 @@
                         <input type="hidden" class="form-control" name="server" value="{{$value->server}}">
                         <input type="hidden" class="form-control" name="environment" value="{{$data['environment']}}">
                         @can("add_{$sectionCode}")
-                            <x-button variant="primary" :text="Deploy" type="submit"/>
+                            <x-button size="sm" variant="primary" :text="Deploy" type="submit"/>
                         @endcan
                     </x-form>
                 </div>
