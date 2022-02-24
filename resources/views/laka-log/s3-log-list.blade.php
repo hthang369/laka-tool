@@ -10,7 +10,7 @@
             <div class="col-2">
                 <x-datepicker name="dtTo" :value="$dtTo" />
             </div>
-            <x-button type="submit" variant="primary" text="Search" />
+            <x-button type="submit" variant="primary" text="Search" icon="fas fa-search" />
         </x-form-group>
         @parent
     </x-form>

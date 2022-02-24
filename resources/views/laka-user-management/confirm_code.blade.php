@@ -23,8 +23,9 @@
         </div>
     </div>
     <div class="d-flex justify-content-center">
-        {!! Form::submit(__('common.submit_verification_code'), ['class' => 'btn btn-danger btn-sm mr-3']) !!}
-        {!! link_to(route("{$sectionCode}.disable-user",[ $data['id'],'type'=>'resent']), __('common.resend'), ['class' => 'btn btn-sm btn-warning'] )!!}
+        {!! Form::btSubmit(__('common.submit_verification_code'), 'success', ['class' => 'btn-sm mr-2', 'icon' => 'far fa-check','onclick'=>"return window.confirm('Are you sure submit verification code?')"]) !!}
+        {!! bt_link_to_route("{$sectionCode}.disable-user", __('common.resend'), 'warning', [ $data['id'],'type'=>'resent'], ['class' => 'btn-sm mr-2', 'icon' => "fa fa-redo",'onclick'=>"return confirm('Are you want resend verification code?')"]);!!}
+        {!! bt_link_to_route("{$sectionCode}.index", __('common.back'), 'danger', [], ['class' => 'btn-sm', 'icon' => 'fa-undo']) !!}
 
     </div>
     {!! Form::close() !!}

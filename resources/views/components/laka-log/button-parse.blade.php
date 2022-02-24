@@ -1,7 +1,11 @@
 @can("add_{$sectionCode}")
-<x-form method="POST" route="laka-log.store">
-    {!! Form::hidden('files[]', data_get($data,'name')) !!}
-    <x-button :variant="$data->status == 1 ? secondary : primary" size="sm" :text="__('laka_log.btn-parse')" type="submit" :disabled="$data->status == 1 ? true : false"/>
-</x-form>
+    @php
+        $variantBtnParse = $data->status == 1?'secondary':'primary';
+        $isDisable = $data->status == 1 ? true : false;
+    @endphp
+    <x-form method="POST" route="laka-log.store">
+        {!! Form::hidden('files[]', data_get($data,'name')) !!}
+        {!! Form::btSubmit(__('laka_log.btn-parse'), $variantBtnParse, ['class' => 'btn-sm','disabled'=>$isDisable, 'icon' => "fas fa-exchange-alt",'onclick'=>'return window.confirm("Are you want parse record?")']) !!}
+    </x-form>
 @endcan
 

@@ -106,6 +106,7 @@ return [
     'wrong_password' => 'Wrong password!',
     'used' => 'The item you delete is in use!',
     'confirm_disable' => 'Are you sure you want to disable?',
+    'confirm_reset_pass'=>'Are you sure reset password?',
     'added_all_contacts' => 'Added all contacts',
     'add_all_contacts_failed' => 'Add all contacts failed',
     'added_to_all_rooms' => 'Added to all rooms',
