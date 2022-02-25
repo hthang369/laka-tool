@@ -35,6 +35,7 @@ class RoleHasPermissionController extends CoreController
         $base = $this->repository->getDataByRole($id);
         $role = Role::find($id);
         $base = array_add($base, 'role', $role);
+        View::share('parent_route', 'role-management.index');
 
         return WebResponse::success('role.permission', $base);
     }

@@ -6,7 +6,12 @@
 
         <div class="form-row d-flex justify-content-center">
         {!! Form::btSubmit(__('common.save'), 'primary', ['class' => 'btn-sm', 'icon' => 'fa-save']) !!}
+        @if (Route::has("{$sectionCode}.index"))
         {!! bt_link_to_route("{$sectionCode}.index", __('common.back'), 'danger', [], ['class' => 'btn-sm ml-2', 'icon' => 'fa-undo']) !!}
+        @else
+        {!! bt_link_to_route($parent_route, __('common.back'), 'danger', [], ['class' => 'btn-sm ml-2', 'icon' => 'fa-undo']) !!}
+        @endif
+
         </div>
     {!! Form::close() !!}
 @endsection

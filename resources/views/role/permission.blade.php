@@ -1,7 +1,7 @@
 @extends('components.system-admin.update')
 
 @section('header_page')
-<h2 class="card-header px-0">
+<h2 class="card-header px-4 bg-light">
     @lang($headerPage) : {{ data_get($data, 'role.name')}}
 </h2>
 @endsection
