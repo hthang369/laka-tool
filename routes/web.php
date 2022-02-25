@@ -59,7 +59,11 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth:web', 'permissi
         Route::get('disable-user/{id}', 'LakaUsers\LakaUserController@disableUser')->name('laka-user-management.disable-user');
         Route::post('disable-user/{id}', 'LakaUsers\LakaUserController@checkVerificationCode')->name('laka-user-management.check-verification-code');
         Route::get('reset-password/{id}', 'LakaUsers\LakaUserController@resetPassword')->name('laka-user-management.reset-password');
-
+        Route::group(['prefix'=>'approval-api-token'],function(){
+            Route::get('/approval-token/{id}','LakaUsers\LakaUserController@approvalToken')->name('laka-user-management.approval-token');
+            Route::get('/stop-token/{id}','LakaUsers\LakaUserController@stopToken')->name('laka-user-management.stop-token');
+            Route::delete('/delete-token/{id}','LakaUsers\LakaUserController@destroy')->name('laka-user-management.delete-token');
+        });
     });
 
     // Version deploy

@@ -34,7 +34,14 @@ return [
         'confirm_code' => 'Laka user confirm code',
         'label_confirm_code' => 'Verification code',
         'placeholder_confirm_code' => 'Check email and fill code here',
-        'add_all_contact_in_company'=>'Total user has added: :total'
+        'add_all_contact_in_company'=>'Total user has added: :total',
+        'approval-token'=>[
+            'activate'=>'Token activated',
+            'stop'=>'Token stopped',
+            'no-accepted'=>'No accepted',
+            'accepted'=>'Accepted',
+            'pause'=>'Pause',
+        ]
     ],
     'validator' => [
         'user_has_been_disabled' => 'User is has been disabled'

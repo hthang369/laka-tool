@@ -34,6 +34,7 @@ return [
     'role_setting' => 'Role setting',
     'disable' => 'Disable',
     'go_to_home' => 'Go to homepage',
+    'are_you_sure'=>'Are you sure :message ?',
     // caption
     'choose_company' => 'Choose company',
 
