@@ -24,7 +24,9 @@ class LakaUserController extends CoreController
         'store' => 'laka-user-management.add-contact',
         'update' => 'laka-user-management.edit',
         'resetPassword' => 'laka-user-management.add_contact_update',
-        'disableUser' => 'laka-user-management.confirm_code'
+        'disableUser' => 'laka-user-management.confirm_code',
+        'approvalToken' => 'laka-user-management.index',
+        'stopToken' => 'laka-user-management.index',
     ];
 
     protected $permissionActions = [
@@ -34,7 +36,9 @@ class LakaUserController extends CoreController
         'checkVerificationCode' => 'laka-user-management.disable-user',
         'resetPassword' => 'laka-user-management.edit',
         'update' => 'laka-user-management.update',
-        'store' => 'laka-user-management.create'
+        'store' => 'laka-user-management.create',
+        'approvalToken' => 'laka-user-management.index',
+        'stopToken' => 'laka-user-management.index',
     ];
 
     public function __construct(LakaUserRepository $repository, LakaUserValidator $validator)
@@ -42,6 +46,30 @@ class LakaUserController extends CoreController
         parent::__construct($repository, $validator);
         View::share('titlePage', __('users.laka.page_title'));
         View::share('headerPage', 'users.laka.page_header');
+    }
+
+
+    public function approvalToken($id)
+    {
+        $data = $this->repository->approvalToken($id);
+        if ($data['error_code'] == 1) {
+            return WebResponse::error(route($this->errorRouteName[__FUNCTION__]), true, $data['error_msg']);
+        }
+        if ($data['error_code'] == 0) {
+            return WebResponse::created(route($this->getViewName(__FUNCTION__)), $data, __('users.laka.approval-token.activate'));
+        }
+
+    }
+
+    public function stopToken($id)
+    {
+        $data = $this->repository->stopToken($id);
+        if ($data['error_code'] == 1) {
+            return WebResponse::error(route($this->errorRouteName[__FUNCTION__]), true, $data['error_msg']);
+        }
+        if ($data['error_code'] == 0) {
+            return WebResponse::created(route($this->getViewName(__FUNCTION__)), $data, __('users.laka.approval-token.stop'));
+        }
     }
 
     public function update(Request $request, $id)
