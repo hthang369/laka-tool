@@ -11,6 +11,15 @@ return [
     'action_question_delete' => 'Are you sure you want to delete?',
     'dialog_confirm_title' => 'Notification',
     'pages' => 'Showing pages',
+
+    //Confirm
+    'confirm_submit_verification_code' => 'Are you sure submit verification code?',
+    'confirm_resend'=>'Are you want resend verification code?',
+    'confirm_disable' => 'Are you sure you want to disable?',
+    'confirm_reset_pass' => 'Are you sure reset password?',
+    'confirm_deploy'=>'Are you sure deploy?',
+    'confirm_parse_all'=>'Are you sure parse all?',
+    'confirm_parse_record'=>'Are you sure parse record?',
     // Action
     'list' => 'List',
     'delete' => 'Delete',
@@ -105,8 +114,6 @@ return [
     'no_item_found' => '<strong>Sorry!</strong> No Item Found.',
     'wrong_password' => 'Wrong password!',
     'used' => 'The item you delete is in use!',
-    'confirm_disable' => 'Are you sure you want to disable?',
-    'confirm_reset_pass'=>'Are you sure reset password?',
     'added_all_contacts' => 'Added all contacts',
     'add_all_contacts_failed' => 'Add all contacts failed',
     'added_to_all_rooms' => 'Added to all rooms',

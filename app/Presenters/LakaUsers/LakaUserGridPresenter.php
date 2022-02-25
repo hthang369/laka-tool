@@ -40,7 +40,7 @@ class LakaUserGridPresenter extends CoreGridPresenter
                         return bt_link_to_route("laka-user-management.edit", __('common.update'), 'primary', [$item['id']], ['class' => 'btn-sm', 'icon' => 'fa-edit']);
                     } else {
                         if ($item['disabled'] === 0) {
-                            return bt_link_to_route("laka-user-management.disable-user", __('common.disable'), 'danger', [$item['id'], 'type' => 'sent-mail'], ['class' => 'btn-sm', 'icon' => "far fa-ban",'onclick'=>"return confirm('Are you sure you want to disable?')"]);
+                            return bt_link_to_route("laka-user-management.disable-user", __('common.disable'), 'danger', [$item['id'], 'type' => 'sent-mail'], ['class' => 'btn-sm', 'icon' => "far fa-ban",'onclick'=>"return confirm('".__('common.confirm_disable')."')"]);
                         }
                         return '<span class="badge badge-info">' . __('users.laka.disable') . '</span>';
                     }
