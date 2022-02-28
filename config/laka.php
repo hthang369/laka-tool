@@ -48,8 +48,8 @@ return [
                 'supervisorctl stop dbredis:*',
                 'sudo rm /tmp/RediSearch/dump.rdb.old',
                 'sudo mv /tmp/RediSearch/dump.rdb /tmp/RediSearch/dump.rdb.old',
-                'sudo cp -p /mnt/f/laka/%s /tmp/RediSearch',
-                'sudo mv /tmp/RediSearch/%s /tmp/RediSearch/dump.rdb',
+                'sudo cp -p /mnt/:path/:filename /tmp/RediSearch',
+                'sudo mv /tmp/RediSearch/:filename /tmp/RediSearch/dump.rdb',
                 'supervisorctl start dbredis:*'
             ]
         ]

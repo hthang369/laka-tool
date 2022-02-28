@@ -41,4 +41,10 @@ class CommonHelper extends CommonSupport
 
         return ($isUrl) ? env('APP_URL') . $link : $link;
     }
+
+    public function getFullPathFileName($fileName, $pathName)
+    {
+        $localPath = config("filesystems.disks.public.{$pathName}") . $fileName;
+        return Storage::disk('local')->url($localPath);
+    }
 }

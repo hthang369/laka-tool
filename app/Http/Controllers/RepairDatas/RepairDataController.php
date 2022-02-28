@@ -5,6 +5,7 @@ namespace App\Http\Controllers\RepairDatas;
 use App\Facades\Common;
 use App\Http\Controllers\Core\CoreController;
 use App\Jobs\ProcessPodcast;
+use App\Jobs\RestoreRedisData;
 use App\Repositories\RepairDatas\RepairDataRepository;
 use App\Validators\RepairDatas\RepairDataValidator;
 use Illuminate\Http\Request;
@@ -42,8 +43,13 @@ class RepairDataController extends CoreController
         return JsonResponse::created($data, $this->getMessageResponse(__FUNCTION__));
     }
 
-    public function runTest(Request $request)
+    public function downloadData(Request $request)
     {
         ProcessPodcast::dispatch($request->input('name'), $request->input('id'));
+    }
+
+    public function restoreDataRedis(Request $request)
+    {
+        RestoreRedisData::dispatch($request->input('name'), $request->input('id'));
     }
 }

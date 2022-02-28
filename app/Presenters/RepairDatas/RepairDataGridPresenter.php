@@ -46,7 +46,15 @@ class RepairDataGridPresenter extends CoreGridPresenter
                         'data-loading' => translate('table.loading_text'),
                         'data-id' => $itemData['id'],
                         'data-name' => $itemData['path']], 'download', $this->getSectionCode()).' '.
-                    FormFacade::btButton('Restore', 'primary', ['class' => 'btn-sm btn-restore', 'icon' => 'fa-sync']);
+                    FormFacade::btButton('Restore', 'primary', [
+                        'class' => 'btn-sm btn-restore',
+                        'icon' => 'fa-sync',
+                        'id' => 'btn-restore-'.$itemData['id'],
+                        'data-id' => $itemData['id'],
+                        'data-text' => 'Restore',
+                        'data-loading' => translate('table.loading_text'),
+                        'data-name' => $itemData['path']
+                    ]);
                 }
             ]
         ];

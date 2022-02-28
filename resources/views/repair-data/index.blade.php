@@ -34,7 +34,15 @@
     });
     $('.btn-run').click(function() {
         let data = JSON.stringify({name: $(this).data('name'), id: $(this).data('id')});
-        $api.post('{{route("repair-data.test")}}', data, {
+        $api.post('{{route("repair-data.download")}}', data, {
+            'contentType': 'application/json',
+            'targetLoading': $(this),
+            'pjaxContainer': '#repairData-grid'
+        });
+    });
+    $('.btn-restore').click(function() {
+        let data = JSON.stringify({name: $(this).data('name'), id: $(this).data('id')});
+        $api.post('{{route("repair-data.restore")}}', data, {
             'contentType': 'application/json',
             'targetLoading': $(this),
             'pjaxContainer': '#repairData-grid'
