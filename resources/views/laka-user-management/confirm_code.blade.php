@@ -23,8 +23,10 @@
         </div>
     </div>
     <div class="d-flex justify-content-center">
-        {!! Form::btSubmit(__('common.submit_verification_code'), 'success', ['class' => 'btn-sm mr-2', 'icon' => 'far fa-check','onclick'=>"return window.confirm('".__('common.confirm_submit_verification_code')."')"]) !!}
-        {!! bt_link_to_route("{$sectionCode}.disable-user", __('common.resend'), 'warning', [ $data['id'],'type'=>'resent'], ['class' => 'btn-sm mr-2', 'icon' => "fa fa-redo",'onclick'=>"return confirm('".__('common.confirm_resend')."')"]);!!}
+        {!! Form::btSubmit(__('common.submit_verification_code'), 'success',
+['class' => 'btn-sm mr-2', 'icon' => 'far fa-check',
+'data-confirmation-msg'=>__('common.confirm_submit_verification_code')],'delete',$sectionCode) !!}
+        {!! bt_link_to_route("{$sectionCode}.disable-user", __('common.resend'), 'warning', [ $data['id'],'type'=>'resent'], ['class' => 'btn-sm mr-2', 'icon' => "fa fa-redo",'data-confirmation-msg'=>__('common.confirm_resend')],'delete',$sectionCode);!!}
         {!! bt_link_to_route("{$sectionCode}.user-disable", __('common.back'), 'danger', [], ['class' => 'btn-sm', 'icon' => 'fa-undo']) !!}
 
     </div>

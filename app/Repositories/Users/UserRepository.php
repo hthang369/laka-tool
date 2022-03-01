@@ -40,7 +40,12 @@ class UserRepository extends CoreRepository
 
     public function update(array $attributes, $id)
     {
-        $attributes['password'] = Hash::make($attributes['password']);
+        if (!is_null($attributes['password'])) {
+            $attributes['password'] = Hash::make($attributes['password']);
+        } else {
+            $attributes = array_except($attributes, 'password');
+        }
+
         return DB::transaction(function () use ($attributes, $id) {
             $user = parent::update(array_filter($attributes), $id);
             $roles = array_keys($attributes['roles']);
