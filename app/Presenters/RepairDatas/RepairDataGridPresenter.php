@@ -33,10 +33,14 @@ class RepairDataGridPresenter extends CoreGridPresenter
                     return Common::formatBadge(data_get($lookup, $value), 'info');
                 }
             ],
-            'created_at',
+            [
+                'key' => 'created_at',
+                'sortable' => false
+            ],
             [
                 'key' => 'action',
                 'label' => 'Action',
+                'sortable' => false,
                 'cell' => function($itemData) {
                     return FormFacade::btButton('Download', 'primary', [
                         'class' => 'btn-sm btn-run',
