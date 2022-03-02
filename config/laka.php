@@ -46,7 +46,7 @@ return [
         'command' => [
             'restore' => [
                 'supervisorctl stop dbredis:*',
-                'sudo rm :redis_folder/dump.rdb.old',
+                'sudo rm -f :redis_folder/dump.rdb.old',
                 'sudo mv :redis_folder/dump.rdb :redis_folder/dump.rdb.old',
                 'sudo cp -p :rootDir/:path/:filename :redis_folder',
                 'sudo mv :redis_folder/:filename :redis_folder/dump.rdb',
