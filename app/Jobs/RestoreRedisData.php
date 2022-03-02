@@ -45,7 +45,6 @@ class RestoreRedisData implements ShouldQueue
                     [strtolower(pathinfo($fullPath, PATHINFO_DIRNAME)), pathinfo($fullPath, PATHINFO_BASENAME), env('PATH_ROOT'), env('REDIS_FOLDER')],
                 $command);
         }, $commands);
-        dd($commands);
         try {
             foreach($commands as $command) {
                 $process = Process::fromShellCommandline($command);
