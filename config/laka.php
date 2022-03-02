@@ -46,10 +46,10 @@ return [
         'command' => [
             'restore' => [
                 'supervisorctl stop dbredis:*',
-                'sudo rm /tmp/RediSearch/dump.rdb.old',
-                'sudo mv /tmp/RediSearch/dump.rdb /tmp/RediSearch/dump.rdb.old',
-                'sudo cp -p /mnt/:path/:filename /tmp/RediSearch',
-                'sudo mv /tmp/RediSearch/:filename /tmp/RediSearch/dump.rdb',
+                'sudo rm :redis_folder/dump.rdb.old',
+                'sudo mv :redis_folder/dump.rdb :redis_folder/dump.rdb.old',
+                'sudo cp -p :path_root/:path/:filename :redis_folder',
+                'sudo mv :redis_folder/:filename :redis_folder/dump.rdb',
                 'supervisorctl start dbredis:*'
             ]
         ]
