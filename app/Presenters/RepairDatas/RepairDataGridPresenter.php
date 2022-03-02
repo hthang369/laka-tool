@@ -16,6 +16,11 @@ class RepairDataGridPresenter extends CoreGridPresenter
         'visible' => false,
     ];
 
+    private $variantBtns = [
+        true => 'primary',
+        false => 'secondary'
+    ];
+
     protected function setColumns()
     {
         $dataSource = Common::getLookupOptionsByEnumType(RepairStatus::class);
@@ -42,18 +47,22 @@ class RepairDataGridPresenter extends CoreGridPresenter
                 'label' => 'Action',
                 'sortable' => false,
                 'cell' => function($itemData) {
-                    return FormFacade::btButton('Download', 'primary', [
+                    $variantDownload = data_get($this->variantBtns, str_is($itemData['status'], RepairStatus::NONE));
+                    $variantRestore = data_get($this->variantBtns, !str_is($itemData['status'], RepairStatus::RESTORE));
+                    return FormFacade::btButton('Download', $variantDownload, [
                         'class' => 'btn-sm btn-run',
                         'icon' => 'fa-download',
                         'id' => 'btn-run-'.$itemData['id'],
+                        'disabled' => !str_is($itemData['status'], RepairStatus::NONE),
                         'data-text' => 'Download',
                         'data-loading' => translate('table.loading_text'),
                         'data-id' => $itemData['id'],
                         'data-name' => $itemData['path']], 'download', $this->getSectionCode()).' '.
-                    FormFacade::btButton('Restore', 'primary', [
+                    FormFacade::btButton('Restore', $variantRestore, [
                         'class' => 'btn-sm btn-restore',
                         'icon' => 'fa-sync',
                         'id' => 'btn-restore-'.$itemData['id'],
+                        'disabled' => str_is($itemData['status'], RepairStatus::RESTORE),
                         'data-id' => $itemData['id'],
                         'data-text' => 'Restore',
                         'data-loading' => translate('table.loading_text'),

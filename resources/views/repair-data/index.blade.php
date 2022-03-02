@@ -52,12 +52,23 @@
         cluster: '{{env("PUSHER_APP_CLUSTER")}}',
         encrypted: true
     });
-    var channel = pusher.subscribe('channel-demo');
-    channel.bind('App\\Events\\DemoNotificationEvent', function(data) {
+    var channel = pusher.subscribe('channel-download');
+    channel.bind('App\\Events\\DownloadDataNotificationEvent', function(data) {
         if (data.success) {
             $('.progress-bar').addClass('marquee-bar');
         } else {
             $('.progress-bar').removeClass('marquee-bar');
+        }
+        _grids.utils.getProgressButton('#btn-run-'+data.targetId, data.success);
+        $('.progress-title').find('span').text(data.message);
+    });
+    var channel = pusher.subscribe('channel-restore');
+    channel.bind('App\\Events\\RestoreDataNotificationEvent', function(data) {
+        if (data.success) {
+            $('.progress-bar').addClass('marquee-bar');
+        } else {
+            $('.progress-bar').removeClass('marquee-bar');
+            window.location.reload();
         }
         _grids.utils.getProgressButton('#btn-run-'+data.targetId, data.success);
         $('.progress-title').find('span').text(data.message);

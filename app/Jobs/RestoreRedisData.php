@@ -2,10 +2,10 @@
 
 namespace App\Jobs;
 
+use App\Events\RestoreDataNotificationEvent;
 use App\Facades\Common;
 use App\Repositories\RepairDatas\RepairDataRepository;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -36,6 +36,8 @@ class RestoreRedisData implements ShouldQueue
      */
     public function handle(RepairDataRepository $repository)
     {
+        event(new RestoreDataNotificationEvent(true, 'Starting restore', $this->id));
+
         $file = Common::getFullPathFileName($this->name, 'path_repair');
         $commands = config('laka.repair-data.command.restore');
         $fullPath = str_replace([':', '\\'], ['', '/'], public_path(str_replace('/', '\\', $file)));
@@ -54,5 +56,7 @@ class RestoreRedisData implements ShouldQueue
             $repository->update(['status' => 2], $this->id);
         } catch(\Exception $ex) {
         }
+
+        event(new RestoreDataNotificationEvent(false, 'Ending restore', $this->id));
     }
 }
