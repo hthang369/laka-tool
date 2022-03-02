@@ -58,7 +58,7 @@ class RepairDataGridPresenter extends CoreGridPresenter
                         'data-text' => 'Restore',
                         'data-loading' => translate('table.loading_text'),
                         'data-name' => $itemData['path']
-                    ]);
+                    ], 'upload', $this->getSectionCode());
                 }
             ]
         ];
