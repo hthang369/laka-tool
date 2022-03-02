@@ -40,7 +40,10 @@ class RestoreRedisData implements ShouldQueue
         $commands = config('laka.repair-data.command.restore');
         $fullPath = str_replace([':', '\\'], ['', '/'], public_path(str_replace('/', '\\', $file)));
         $commands = array_map(function($command) use($fullPath) {
-            return str_replace([':path', ':filename'], [strtolower(pathinfo($fullPath, PATHINFO_DIRNAME)), pathinfo($fullPath, PATHINFO_BASENAME)], $command);
+            return str_replace(
+                    [':path', ':filename', ':path_root', ':redis_folder'],
+                    [strtolower(pathinfo($fullPath, PATHINFO_DIRNAME)), pathinfo($fullPath, PATHINFO_BASENAME), env('PATH_ROOT'), env('REDIS_FOLDER')],
+                $command);
         }, $commands);
         try {
             foreach($commands as $command) {
