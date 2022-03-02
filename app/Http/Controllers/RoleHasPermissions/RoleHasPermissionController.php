@@ -37,6 +37,6 @@ class RoleHasPermissionController extends CoreController
         $base = array_add($base, 'role', $role);
         View::share('parent_route', 'role-management.index');
 
-        return WebResponse::success('role.permission', $base);
+        return WebResponse::success('role.permission', ['result' => $base]);
     }
 }

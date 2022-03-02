@@ -34,7 +34,7 @@ return [
         'version-deploy'        => ['view', 'add'],
         'permission-role'       => ['view', 'edit'],
         'laka-log'              => ['view', 'add', 'delete', 'download'],
-        'repair-data'           => ['view', 'edit', 'delete', 'download']
+        'repair-data'           => ['view', 'add', 'delete', 'download']
     ],
 
     'custom_section_action' => [

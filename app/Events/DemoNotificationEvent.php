@@ -17,16 +17,18 @@ class DemoNotificationEvent implements ShouldBroadcastNow
 
     public $message;
     public $success;
+    public $targetId;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($success, $message)
+    public function __construct($success, $message, $id)
     {
         $this->success = $success;
         $this->message = $message;
+        $this->targetId = $id;
     }
 
     /**
