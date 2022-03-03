@@ -3,8 +3,8 @@
 namespace App\Repositories\RoleHasPermissions;
 
 use App\Models\Permissions\RoleHasPermissions;
-use App\Repositories\Core\CoreRepository;
 use App\Presenters\RoleHasPermissions\RoleHasPermissionGridPresenter;
+use App\Repositories\Core\CoreRepository;
 use Illuminate\Support\Facades\DB;
 use Lampart\Hito\Core\Repositories\FilterQueryString\Filters\WhereClause;
 use Spatie\Permission\Models\Permission;
@@ -38,9 +38,9 @@ class RoleHasPermissionRepository extends CoreRepository
 
         $builder = clone $this->model;
         $results = $builder->select([DB::raw('IF(section_parent_id = @curID,@r:=@r+1,@r:=1) AS no'),
-                    DB::raw('@curID := section_parent_id as parentID'),'sec.*'])
-                ->fromSub(
-                    $this->model->select(DB::raw("sections.id AS section_id,
+            DB::raw('@curID := section_parent_id as parentID'), 'sec.*'])
+            ->fromSub(
+                $this->model->select(DB::raw("sections.id AS section_id,
                                                     0 AS section_parent_id,
                                                     sections.name AS section_name,
                                                     sections.code AS section_code,
@@ -60,10 +60,10 @@ class RoleHasPermissionRepository extends CoreRepository
                     // ->orderBy('sections.parent_id', 'ASC')
                     ->orderBy('sections.code', 'ASC')
                     ->orderBy('sections.id', 'ASC'),
-                    'sec'
-                )
-                ->crossJoin(DB::raw('(SELECT @r:=0,@curID:=0) AS r'))
-                ->get();
+                'sec'
+            )
+            ->crossJoin(DB::raw('(SELECT @r:=0,@curID:=0) AS r'))
+            ->get();
 
         $this->resetQuery();
 
@@ -72,9 +72,12 @@ class RoleHasPermissionRepository extends CoreRepository
 
     public function update(array $attributes, $id)
     {
+        $attributes['view_version'] = 1;
+
         $role = Role::find($id);
         $permissions = Permission::whereIn('name', array_keys(array_except(array_filter($attributes), ['_token'])))->get();
         $role->syncPermissions($permissions);
+
         return $role;
     }
 
