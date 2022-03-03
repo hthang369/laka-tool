@@ -9,13 +9,14 @@
             $itemClass = ['nav-link', 'px-3'];
             $showClass = '';
             $itemAttrs = [];
-            $isChild = $item->children->count() > 0;
+            $hasChild = $item->children->count() > 0;
             if (str_is($sectionCode, $item->group)) {
-                if (!$isChild)
+                if (!$hasChild)
                     array_push($parentClass, 'active');
                 $showClass = 'show';
             }
-            if ($isChild) {
+
+            if ($hasChild) {
                 $link = "#{$item->group}";
                 array_push($parentClass, 'dropdown');
                 array_push($itemClass, 'dropdown-toggle');
@@ -25,7 +26,7 @@
         @endphp
         <li class="{{Arr::toCssClasses($parentClass)}}">
             {!! link_to($item->link, __($item->lang), $itemAttrs) !!}
-            @if ($isChild)
+            @if ($hasChild)
                 <ul class="collapse list-unstyled pl-3 {{$showClass}}" id="{{$item->group}}">
                     @each('components.system-admin.slidebar-item', $item->children, 'subItem')
                 </ul>

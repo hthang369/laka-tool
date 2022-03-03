@@ -22,6 +22,9 @@ class RoleHasPermissionController extends CoreController
         'update' => 'permission-role.show'
     ];
 
+    protected $permissionActions = [
+        'showByRole'=>'edit',
+    ];
     public function __construct(RoleHasPermissionRepository $repository, RoleHasPermissionValidator $validator) {
         parent::__construct($repository, $validator);
 
