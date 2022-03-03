@@ -58,6 +58,7 @@
             $('.progress-bar').addClass('marquee-bar');
         } else {
             $('.progress-bar').removeClass('marquee-bar');
+            window.location.reload();
         }
         _grids.utils.getProgressButton('#btn-run-'+data.targetId, data.success);
         $('.progress-title').find('span').text(data.message);
