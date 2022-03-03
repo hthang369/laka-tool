@@ -15,13 +15,12 @@ class CreateLogReleases extends Migration
     {
         Schema::create('log_releases', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->string('user_name');
-            $table->integer('deploy_server_id');
-            $table->string('redmine_id');
-            $table->string('version');
-            $table->integer('release_type');
-            $table->string('environment');
+            $table->integer('user_id')->unsigned();
+            $table->integer('deploy_server_id')->unsigned();
+            $table->string('redmine_id',70);
+            $table->string('version',70);
+            $table->string('release_type',50);
+            $table->string('environment',50);
             $table->timestamps();
         });
     }

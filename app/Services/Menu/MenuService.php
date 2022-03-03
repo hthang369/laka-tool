@@ -19,21 +19,24 @@ class MenuService
     public function getMenuByPermission()
     {
         $menus = $this->menuRepo->getAllMenus(Auth::id());
+        return $this->recursiveMenu($menus);
+    }
 
-        foreach ($menus as $parentKey => $parentMenu) {
-
-            if ($parentMenu->children->count() > 0) {
-                foreach ($parentMenu->children as $key => $childMenu) {
-                    $splitRouteName = explode('.', $childMenu->route_name);
-                    if (in_array('create', $splitRouteName) && !user_can("add_{$childMenu->group}")) {
-                        $childMenu->visible = false;
-                    } else {
-                        $childMenu->visible = true;
-                    }
-                }
+    public function recursiveMenu($parrentMenu)
+    {
+        foreach ($parrentMenu as $childMenu) {
+            $splitRouteName = explode('.', $childMenu->route_name);
+            if (in_array('create', $splitRouteName) && !user_can("add_{$childMenu->group}")) {
+                $childMenu->visible = false;
+            } else {
+                $childMenu->visible = true;
             }
+            if ($childMenu->children->count() > 0) {
+                $this->recursiveMenu($childMenu->children);
+            }
+
         }
 
-        return $menus;
+        return $parrentMenu;
     }
 }
