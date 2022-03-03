@@ -2,16 +2,14 @@
 
 namespace App\Jobs;
 
-use App\Events\DemoNotificationEvent;
+use App\Events\DownloadDataNotificationEvent;
 use App\Facades\Common;
 use App\Repositories\RepairDatas\RepairDataRepository;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Storage;
 
 class ProcessPodcast implements ShouldQueue
 {
@@ -37,7 +35,7 @@ class ProcessPodcast implements ShouldQueue
      */
     public function handle(RepairDataRepository $repository)
     {
-        event(new DemoNotificationEvent(true, 'Starting download', $this->id));
+        event(new DownloadDataNotificationEvent(true, 'Starting download', $this->id));
 
         $file = Common::downloadFileToAws('s3_repair', $this->name, 'path_repair', false);
         $localFile = public_path(str_replace('/', '\\', $file));
@@ -45,6 +43,6 @@ class ProcessPodcast implements ShouldQueue
             $repository->update(['status' => 1], $this->id);
         }
 
-        event(new DemoNotificationEvent(false, 'Ending download', $this->id));
+        event(new DownloadDataNotificationEvent(false, 'Ending download', $this->id));
     }
 }
