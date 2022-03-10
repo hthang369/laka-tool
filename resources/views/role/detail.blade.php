@@ -10,6 +10,7 @@
 
 @section('body_content')
     @foreach (['level', 'name', 'role_rank', 'description'] as $key)
+
     <div class="form-row">
         {!! Form::label($key, __("role.fields.{$key}"), ['class' => 'col-2 font-weight-bold']) !!}
         {!! Form::label('', $data[$key], ['class' => 'col-10']) !!}
