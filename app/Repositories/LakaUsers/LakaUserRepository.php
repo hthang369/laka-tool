@@ -31,9 +31,9 @@ class LakaUserRepository extends CoreRepository
         'name' => WhereLikeClientClause::class,
         'email' => WhereLikeClientClause::class,
         'id'=>WhereLikeClientClause::class,
-
     ];
 
+    private $cache_key = 'list_user_delete';
 
     public function bootPresenterDataGrid()
     {
@@ -44,7 +44,6 @@ class LakaUserRepository extends CoreRepository
         }
         parent::bootPresenterDataGrid();
     }
-
 
     public function formGenerate()
     {
@@ -62,26 +61,30 @@ class LakaUserRepository extends CoreRepository
     public function approvalToken($id)
     {
         $data = ['id' => $id];
-        return $result = Common::callApi('post', ' /api/v1/api-token/approve-token', $data)->toArray();
-
+        $result = Common::callApi('post', ' /api/v1/api-token/approve-token', $data)->toArray();
+        $this->resetCacheData();
+        return $result;
     }
 
     public function stopToken($id)
     {
         $data = ['id' => $id];
-        return $result = Common::callApi('post', '/api/v1/api-token/stop-token', $data)->toArray();
+        $result = Common::callApi('post', '/api/v1/api-token/stop-token', $data)->toArray();
+        $this->resetCacheData();
+        return $result;
     }
 
     public function delete($id)
     {
         $data = ['id' => $id,];
-        return $result = Common::callApi('post', '/api/v1/api-token/delete-token', $data)->toArray();
-
+        $result = Common::callApi('post', '/api/v1/api-token/delete-token', $data)->toArray();
+        $this->resetCacheData();
+        return $result;
     }
 
     public function showAllDeleteUser($allDisable = true)
     {
-        $results = Cache::remember('list_user_delete', config('constants.cache_expire'), function () {
+        $results = Cache::remember($this->cache_key, config('constants.cache_expire'), function () {
             return Common::callApi('get', '/api/v1/user/get-list-delete-user')->toArray();
         });
         if (!$allDisable) {
@@ -127,7 +130,7 @@ class LakaUserRepository extends CoreRepository
         }
         $userId = data_get($dataResponse, 'data.id');
         $this->addContactOption($attributes, $userId);
-        Artisan::call('cache:clear');
+        $this->resetCacheData();
 
         return true;
     }
@@ -147,7 +150,7 @@ class LakaUserRepository extends CoreRepository
         if ($methodName) {
             $result = $this->$methodName(['user_id' => $id, 'company_id' => $attributes['company_id']]);
         }
-        Artisan::call('cache:clear');
+        $this->resetCacheData();
 
         return $result;
     }
@@ -189,6 +192,7 @@ class LakaUserRepository extends CoreRepository
 
         if ($codeDisableUser === $codeInput) {
             Common::callApi('post', '/api/v1/user/delete-user', ['user_id' => $id]);
+            $this->resetCacheData();
             return true;
         }
         return false;
@@ -253,4 +257,10 @@ class LakaUserRepository extends CoreRepository
         return [];
     }
 
+    private function resetCacheData()
+    {
+        if (Cache::has($this->cache_key)) {
+            Cache::forget($this->cache_key);
+        }
+    }
 }
