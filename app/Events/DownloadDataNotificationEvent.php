@@ -4,29 +4,28 @@ namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class DemoNotificationEvent implements ShouldBroadcastNow
+class DownloadDataNotificationEvent implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $message;
     public $success;
+    public $targetId;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($success, $message)
+    public function __construct($success, $message, $id)
     {
         $this->success = $success;
         $this->message = $message;
+        $this->targetId = $id;
     }
 
     /**
@@ -36,6 +35,6 @@ class DemoNotificationEvent implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        return new Channel('channel-demo');
+        return new Channel('channel-download');
     }
 }

@@ -16,7 +16,9 @@ class CreateRepairDataTable extends Migration
         Schema::create('repair_data', function (Blueprint $table) {
             $table->id();
             $table->string('name', 150);
-            $table->string('status');
+            $table->string('path');
+            $table->unsignedInteger('size');
+            $table->unsignedTinyInteger('status');
             $table->timestamps();
         });
     }

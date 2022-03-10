@@ -41,5 +41,17 @@ return [
                 'socket' => ['http://laka.lampart-vn.com:8000'],
             ],
         ]
+    ],
+    'repair-data' => [
+        'command' => [
+            'restore' => [
+                'supervisorctl stop dbredis:*',
+                'sudo rm -f :redis_folder/dump.rdb.old',
+                'sudo mv :redis_folder/dump.rdb :redis_folder/dump.rdb.old',
+                'sudo cp -p :rootDir/:path/:filename :redis_folder',
+                'sudo mv :redis_folder/:filename :redis_folder/dump.rdb',
+                'supervisorctl start dbredis:*'
+            ]
+        ]
     ]
 ];

@@ -107,4 +107,5 @@ return [
         ],
     ],
 
+    'system_mail' => env('MAIL_SYSTEM_ADDRESS')
 ];

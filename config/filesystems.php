@@ -40,6 +40,8 @@ return [
             'root' => storage_path('app/public'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
+            'path_log' => 'public/files/',
+            'path_repair' => 'public/files/database/'
         ],
 
         's3' => [
@@ -48,6 +50,17 @@ return [
             'secret' => env('AWS_SECRET_ACCESS_KEY'),
             'region' => env('AWS_DEFAULT_REGION'),
             'bucket' => env('AWS_BUCKET'),
+            'url' => env('AWS_URL'),
+            'endpoint' => env('AWS_ENDPOINT'),
+            'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
+        ],
+
+        's3_repair' => [
+            'driver' => 's3',
+            'key' => env('AWS_ACCESS_KEY_ID_BACKUP'),
+            'secret' => env('AWS_SECRET_ACCESS_KEY_BACKUP'),
+            'region' => env('AWS_DEFAULT_REGION'),
+            'bucket' => env('AWS_BUCKET_BACKUP'),
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
