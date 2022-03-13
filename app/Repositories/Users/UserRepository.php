@@ -43,8 +43,7 @@ class UserRepository extends CoreRepository
         $attributes['password'] = Hash::make($attributes['password']);
         return DB::transaction(function () use ($attributes, $id) {
             $user = parent::update(array_filter($attributes), $id);
-            $roles = array_keys($attributes['roles']);
-            $user->syncRoles($roles);
+            $user->syncRoles($attributes['roles']);
             return $user;
         });
     }
@@ -54,8 +53,7 @@ class UserRepository extends CoreRepository
         $attributes['password'] = Hash::make($attributes['password']);
         return DB::transaction(function () use ($attributes) {
             $user = parent::create(array_filter($attributes));
-            $roles = array_keys($attributes['roles']);
-            $user->syncRoles($roles);
+            $user->syncRoles($attributes['roles']);
             return $user;
         });
     }
