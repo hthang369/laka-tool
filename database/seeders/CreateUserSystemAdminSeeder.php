@@ -24,6 +24,7 @@ class CreateUserSystemAdminSeeder extends Seeder
             'name' => 'User System Admin',
             'address' => '',
             'phone' => '',
+            'status' => 1,
             'email' => 'root@gmail.com',
             'password' => Hash::make('root'),
         ];

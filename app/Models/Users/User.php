@@ -50,7 +50,8 @@ class User extends Authenticatable
         'name',
         'email',
         'phone',
-        'address'
+        'address',
+        'status'
     ];
 
     public function getFillableColumns()

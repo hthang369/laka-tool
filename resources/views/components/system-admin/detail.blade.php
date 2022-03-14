@@ -2,7 +2,7 @@
 
 @section('body_button')
 <div class="form-row d-flex justify-content-center">
-    @if($data['userLoginRoleRank'] <= $data['role_rank'])
+    @if($data['userLoginRoleRank'] <= $data['role_rank'] && $data['status']!=1)
         @can("edit_{$sectionCode}")
             {!! Route::has("{$sectionCode}.edit") ? bt_link_to_route("{$sectionCode}.edit", __('common.update'), 'primary', [data_get($data, 'id')], ['class' => 'btn-sm', 'icon' => 'fa-edit']) : '' !!}
         @endcan
