@@ -20,6 +20,7 @@ return [
     'confirm_deploy'=>'Are you sure deploy?',
     'confirm_parse_all'=>'Are you sure parse all?',
     'confirm_parse_record'=>'Are you sure parse record?',
+    'confirm_change_password'=>'Are you sure change password?',
     // Action
     'list' => 'List',
     'delete' => 'Delete',

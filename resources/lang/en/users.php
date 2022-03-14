@@ -3,6 +3,8 @@
 return [
     'page_title' => 'LMT user manage',
     'page_header' => 'LMT user manage',
+    'page_title_update_password'=>'LMT update password',
+    'page_header_update_password'=>'LMT update password',
     'fields' => [
         'name' => 'Name',
         'email' => 'Email',
