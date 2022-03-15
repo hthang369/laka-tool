@@ -36,12 +36,24 @@ class UserRepository extends CoreRepository
         $data = parent::show($id, $columns);
         $data['roles'] = $data->roles()->get()->pluck('name', 'id');
         $data['role_rank'] = $data->roles()->min('role_rank');
-        $userLoginRoleRank = Auth::user()->roles()->min('role_rank');
-        $data['userLoginRoleRank'] = $userLoginRoleRank;
+        $data['isShowBtnUpdate'] = true;
 
-        //Check role_rank of user login
-        if (str_is(last(request()->segments()), 'edit') && $userLoginRoleRank >= $data->role_rank && $data['status'] == 1) {
+        $userLoggedRoleRank = Auth::user()->roles()->min('role_rank');
+        $isUserSystemAdmin = Auth::user()->status == 1 ? true : false;
+
+        // Check role if with route edit
+        if (str_is(last(request()->segments()), 'edit')) {
+            if ($data['status'] == 1 && !$isUserSystemAdmin) {
                 throw new AuthorizationException();
+            } elseif ($data['status'] != 1 && $userLoggedRoleRank > $data['role_rank']) {
+                throw new AuthorizationException();
+            }
+        }
+        if ($data['status'] == 1 && !$isUserSystemAdmin) {
+            $data['isShowBtnUpdate'] = false;
+        }
+        if ($data['status'] != 1 && $userLoggedRoleRank > $data['role_rank']) {
+            $data['isShowBtnUpdate'] = false;
         }
 
         $listRole = $this->formGenerate();
