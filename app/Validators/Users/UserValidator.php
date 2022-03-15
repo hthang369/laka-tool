@@ -5,7 +5,6 @@ namespace App\Validators\Users;
 use Laka\Core\Validators\BaseValidator;
 use Prettus\Validator\Contracts\ValidatorInterface;
 
-
 class UserValidator extends BaseValidator
 {
     const RULE_UPDATE_PASSWORD = 'update_pass';
@@ -15,13 +14,13 @@ class UserValidator extends BaseValidator
             'name' => 'required',
             'password' => 'required|min:8',
             'email' => 'required|email|unique:users',
-            'roles'=>'required'
+            'roles' => 'required'
         ],
         ValidatorInterface::RULE_UPDATE => [
             'name' => 'required',
             'password' => 'nullable|min:8',
             'email' => 'required|email|unique:users',
-            'roles'=>'required'
+            'roles' => 'required'
         ],
         UserValidator::RULE_UPDATE_PASSWORD => [
             'current_password' => 'required|min:8|password',
