@@ -20,7 +20,8 @@ use Prettus\Validator\Exceptions\ValidatorException;
 class DeployController extends CoreController
 {
     protected $permissionActions = [
-        'doDeploy' => 'add'
+        'doDeploy' => 'add',
+        'index'=>'add',
     ];
 
     protected $listViewName = [

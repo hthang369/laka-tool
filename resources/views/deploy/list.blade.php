@@ -55,7 +55,7 @@
                         </x-form-group>
                         <input type="hidden" class="form-control" name="server" value="{{$value->server}}">
                         <input type="hidden" class="form-control" name="environment" value="{{$data['environment']}}">
-                        @can("add_{$sectionCode}")
+                        @can("add_$sectionCode")
                             <x-button size="sm" variant="primary" :text="Deploy" type="submit" icon="fas fa-cogs"
                                       onclick="return window.confirm('{{__('common.confirm_deploy')}}')"/>
                         @endcan

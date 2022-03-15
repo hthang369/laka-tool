@@ -31,7 +31,6 @@ class LogReleaseRepository extends CoreRepository
 
         $server_name = data_get($data, 'server');
         $data['user_id'] = Auth::id();
-        $data['user_name'] = Auth::user()->name;
         $data['deploy_server_id'] = $this->getServerId($server_name);
 
         $data['redmine_id'] = data_get($data, "{$server_name}_redmine_id");

@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Repositories\Menus\MenuRepository;
+use App\Services\Menu\MenuService;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,11 +13,10 @@ use Illuminate\Support\Facades\View;
 class CheckPermissionByRole
 {
 
-    private $menuRepo;
-
-    public function __construct(MenuRepository $menuRepo)
+    private $menuService;
+    public function __construct(MenuService $menuService )
     {
-        $this->menuRepo = $menuRepo;
+        $this->menuService = $menuService;
     }
 
     /**
@@ -33,7 +33,7 @@ class CheckPermissionByRole
         }
 
         Schema::defaultStringLength(191);
-        $menus = $this->menuRepo->getAllMenus(Auth::id());
+        $menus = $this->menuService->getMenuByPermission();
         View::share(['MENUS' => $menus]);
 
         return $next($request);

@@ -5,6 +5,8 @@ namespace App\Repositories\Users;
 use App\Models\Users\User;
 use App\Presenters\Users\UserGridPresenter;
 use App\Repositories\Core\CoreRepository;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Laka\Core\Repositories\FilterQueryString\Filters\FullTextSearchClause;
@@ -33,6 +35,16 @@ class UserRepository extends CoreRepository
     {
         $data = parent::show($id, $columns);
         $data['roles'] = $data->roles()->get()->pluck('name', 'id');
+        $data['role_rank'] = $data->roles()->min('role_rank');
+
+        $userLoginRoleRank = Auth::user()->roles()->min('role_rank');
+        $data['userLoginRoleRank'] = $userLoginRoleRank;
+
+        //Check role_rank of user login
+        if (str_is(last(request()->segments()), 'edit') && $userLoginRoleRank > $data->role_rank) {
+            throw new AuthorizationException();
+        }
+
         $listRole = $this->formGenerate();
         $data['roles_all'] = $listRole['roles_all'];
         return $data;
@@ -40,7 +52,12 @@ class UserRepository extends CoreRepository
 
     public function update(array $attributes, $id)
     {
-        $attributes['password'] = Hash::make($attributes['password']);
+        if (!is_null($attributes['password'])) {
+            $attributes['password'] = Hash::make($attributes['password']);
+        } else {
+            $attributes = array_except($attributes, 'password');
+        }
+
         return DB::transaction(function () use ($attributes, $id) {
             $user = parent::update(array_filter($attributes), $id);
             $user->syncRoles($attributes['roles']);

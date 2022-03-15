@@ -15,13 +15,12 @@ class LogRelease extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'user_id','user_name','deploy_server_id', 'redmine_id', 'version', 'release_type','environment'
+        'user_id','deploy_server_id', 'redmine_id', 'version', 'release_type','environment'
     ];
 
     protected $fillableColumns = [
         'id',
         'user_id',
-        'user_name',
         'deploy_server_id',
         'redmine_id',
         'version',

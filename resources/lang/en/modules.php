@@ -8,5 +8,7 @@ return [
     'role_management' => 'LMT role management',
     'version' => 'Version',
     'version_deploy' => 'Version deploy',
-    'permission_role' => 'Permission role'
+    'permission_role' => 'Permission role',
+    'laka_log'=>'Laka log',
+    'repair_data'=>'Repair data',
 ];

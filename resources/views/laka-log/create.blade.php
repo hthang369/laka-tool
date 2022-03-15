@@ -6,7 +6,7 @@
         @foreach(data_get($data,'rows') as $key=> $file)
             {!! Form::hidden('files[]', data_get($file,'name')) !!}
         @endforeach
-        {!! Form::btSubmit(__('laka_log.btn-parse-all'), 'primary', ['class' => 'btn-sm mb-2', 'icon' => "fas fa-exchange-alt",'onclick'=>"return confirm('".__('common.confirm_parse_all')."')" ])!!}
+        {!! Form::btSubmit(__('laka_log.btn-parse-all'), 'primary', ['class' => 'btn-sm mb-2', 'icon' => "fas fa-exchange-alt",'data-confirmation-msg'=>__('common.confirm_parse_all') ],'add',$sectionCode)!!}
 
     </x-form>
 @endsection

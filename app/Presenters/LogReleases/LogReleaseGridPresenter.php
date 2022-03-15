@@ -2,6 +2,7 @@
 
 namespace App\Presenters\LogReleases;
 
+use App\Models\Users\User;
 use App\Presenters\CoreGridPresenter;
 
 class LogReleaseGridPresenter extends CoreGridPresenter
@@ -15,11 +16,16 @@ class LogReleaseGridPresenter extends CoreGridPresenter
 
         return [
             [
-                'key' => 'user_name',
-                'filtering' => true,
+                'key' => 'user_id',
+                'label' => 'User name',
+                'lookup' => [
+                    'dataSource' => resolve(User::class)->all(),
+                    'displayExpr' => 'name',
+                    'valueExpr' => 'id'
+                ],
             ],
             [
-                'key'=>'server_deploy',
+                'key' => 'server_deploy',
                 'label' => 'Server Deploy',
                 'cell' => function ($item) {
                     $arrColorForServer = [
@@ -71,7 +77,7 @@ class LogReleaseGridPresenter extends CoreGridPresenter
                 }
             ],
             [
-                'label'=>'Action',
+                'label' => 'Action',
                 'sortable' => false,
                 'dataType' => 'buttons',
                 'cell' => null,

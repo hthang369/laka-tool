@@ -30,7 +30,7 @@ return [
         'user-management'       => ['view', 'add', 'edit', 'delete'],
         'laka-user-management'  => ['view', 'add', 'edit', 'delete'],
         'role-management'       => ['view', 'add', 'edit', 'delete'],
-        'version'               => ['view', 'add', 'edit', 'delete'],
+        'version'               => ['view'],
         'version-deploy'        => ['view', 'add'],
         'permission-role'       => ['view', 'edit'],
         'laka-log'              => ['view', 'add', 'delete', 'download'],

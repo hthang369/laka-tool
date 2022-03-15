@@ -8,7 +8,8 @@ define('SELF_SIGNED_SMTP_HOSTS', [
 ]);
 
 if (!function_exists('attributes_get')) {
-    function attributes_get($items, $excludes = []) {
+    function attributes_get($items, $excludes = [])
+    {
         return Attributes::get($items, $excludes);
     }
 }
@@ -32,7 +33,8 @@ if (!function_exists('user_can')) {
     }
 }
 if (!function_exists('vn_str_filter')) {
-    function vn_str_filter($str) {
+    function vn_str_filter($str)
+    {
         $unicode = [
             'a' => 'á|à|ả|ã|ạ|ă|ắ|ặ|ằ|ẳ|ẵ|â|ấ|ầ|ẩ|ẫ|ậ',
             'd' => 'đ',

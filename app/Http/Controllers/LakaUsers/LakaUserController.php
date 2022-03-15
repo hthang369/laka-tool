@@ -30,7 +30,10 @@ class LakaUserController extends CoreController
     ];
 
     protected $permissionActions = [
-        'disableUser' => 'edit'
+        'disableUser' => 'delete',
+        'checkVerificationCode'=>'delete',
+        'approvalToken'=>'edit',
+        'stopToken'=>'edit',
     ];
     protected $errorRouteName = [
         'checkVerificationCode' => 'laka-user-management.disable-user',

@@ -10,7 +10,8 @@
         {!! Form::checkbox("{$action}_{$sectionCode}", 1, (bool)$value, [
                 'class' => 'custom-control-input',
                 'id' => "{$action}_{$sectionCode}",
-                'disabled' => $user_count > 0 && str_is($action, 'view')
+                'disabled' => str_is($action, 'view') && str_is($sectionCode, 'version'),
+                'checked' => (bool)$value && str_is($action, 'view') && str_is($sectionCode, 'version')
             ]) !!}
         {!! Form::label("{$action}_{$sectionCode}", __("$action"), ['class' => 'custom-control-label']) !!}
     </div>

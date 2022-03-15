@@ -18,7 +18,8 @@ use Laka\Core\Http\Response\WebResponse;
 class DownloadLakaLogController extends CoreController
 {
     protected $permissionActions = [
-        'downloadLog' => 'download'
+        'downloadLog' => 'download',
+        'index'=>'add',
     ];
 
     protected $listViewName = [

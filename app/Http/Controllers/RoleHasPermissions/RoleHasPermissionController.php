@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\RoleHasPermissions;
 
-use Laka\Core\Http\Response\WebResponse;
 use App\Http\Controllers\Core\CoreController;
 use App\Models\Permissions\Role;
 use App\Repositories\RoleHasPermissions\RoleHasPermissionRepository;
-use App\Transformers\RoleHasPermissionsTransformer;
 use App\Validators\RoleHasPermissions\RoleHasPermissionValidator;
-use Illuminate\Http\Request;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
+use Laka\Core\Http\Response\WebResponse;
 
 /**
  * Class RoleHasPermissionController
@@ -22,7 +22,12 @@ class RoleHasPermissionController extends CoreController
         'update' => 'permission-role.show'
     ];
 
-    public function __construct(RoleHasPermissionRepository $repository, RoleHasPermissionValidator $validator) {
+    protected $permissionActions = [
+        'showByRole' => 'edit',
+    ];
+
+    public function __construct(RoleHasPermissionRepository $repository, RoleHasPermissionValidator $validator)
+    {
         parent::__construct($repository, $validator);
 
         View::share('titlePage', __('role.permission_role.page_title'));
@@ -31,10 +36,16 @@ class RoleHasPermissionController extends CoreController
 
     public function showByRole($id)
     {
+
         extract($id);
         $base = $this->repository->getDataByRole($id);
         $role = Role::find($id);
         $base = array_add($base, 'role', $role);
+
+        if (Auth::user()->roles()->min('role_rank') > $base['role']->role_rank) {
+            throw new AuthorizationException();
+        }
+
         View::share('parent_route', 'role-management.index');
 
         return WebResponse::success('role.permission', ['result' => $base]);
