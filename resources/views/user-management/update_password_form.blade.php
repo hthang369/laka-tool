@@ -25,7 +25,7 @@
     </x-form-group>
 
     <div class="form-row d-flex justify-content-center">
-        {!! Form::btSubmit(__('common.save'), 'primary', ['class' => 'btn-sm mr-2', 'icon' => "fa-save",'data-confirmation-msg'=>__('common.confirm_change_password')]) !!}
+        {!! Form::btSubmit(__('common.save'), 'primary', ['class' => 'btn-sm mr-2', 'icon' => "fa-save"]) !!}
         {!! bt_link_to_route("{$sectionCode}.index", __('common.back'), 'danger', [], ['class' => 'btn-sm', 'icon' => 'fa-undo']) !!}
     </div>
     {!! Form::close() !!}
