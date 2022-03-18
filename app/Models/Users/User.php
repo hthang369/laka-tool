@@ -4,6 +4,7 @@ namespace App\Models\Users;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -59,7 +60,17 @@ class User extends Authenticatable
         return $this->fillableColumns;
     }
 
-    public function logReleases(){
+    public function logReleases()
+    {
         return $this->hasMany(LogRelease::class);
+    }
+
+    public function getIsUserSaAttribute()
+    {
+        return Auth::user()->status == 1 ? true : false;
+    }
+    public function getHighestRoleAttribute()
+    {
+        return Auth::user()->roles()->min('role_rank');
     }
 }

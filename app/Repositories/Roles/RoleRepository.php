@@ -25,12 +25,9 @@ class RoleRepository extends CoreRepository
     public function show($id, $columns = [])
     {
         $data = parent::show($id, $columns);
-        $userLoginRoleRank = Auth::user()->roles()->min('role_rank');
-
-        if (str_is(last(request()->segments()), 'edit') && $userLoginRoleRank > $data->role_rank) {
+        if (str_is(last(request()->segments()), 'edit') && Auth::user()->highest_role > $data->role_rank) {
             throw new AuthorizationException();
         }
-        $data['userLoginRoleRank'] = $userLoginRoleRank;
         return $data;
     }
 

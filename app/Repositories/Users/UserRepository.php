@@ -38,21 +38,20 @@ class UserRepository extends CoreRepository
         $data['role_rank'] = $data->roles()->min('role_rank');
         $data['isShowBtnUpdate'] = true;
 
-        $userLoggedRoleRank = Auth::user()->roles()->min('role_rank');
-        $isUserSystemAdmin = Auth::user()->status == 1 ? true : false;
+        $isUserSystemAdmin = Auth::user()->is_user_sa;
 
         // Check role if with route edit
         if (str_is(last(request()->segments()), 'edit')) {
             if ($data['status'] == 1 && !$isUserSystemAdmin) {
                 throw new AuthorizationException();
-            } elseif ($data['status'] != 1 && $userLoggedRoleRank > $data['role_rank']) {
+            } elseif ($data['status'] != 1 && Auth::user()->highest_role > $data['role_rank']) {
                 throw new AuthorizationException();
             }
         }
         if ($data['status'] == 1 && !$isUserSystemAdmin) {
             $data['isShowBtnUpdate'] = false;
         }
-        if ($data['status'] != 1 && $userLoggedRoleRank > $data['role_rank']) {
+        if ($data['status'] != 1 && Auth::user()->highest_role  > $data['role_rank']) {
             $data['isShowBtnUpdate'] = false;
         }
 
