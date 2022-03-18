@@ -67,10 +67,10 @@ class User extends Authenticatable
 
     public function getIsUserSaAttribute()
     {
-        return Auth::user()->status == 1 ? true : false;
+        return $this->status == 1 ? true : false;
     }
     public function getHighestRoleAttribute()
     {
-        return Auth::user()->roles()->min('role_rank');
+        return $this->roles()->min('role_rank');
     }
 }

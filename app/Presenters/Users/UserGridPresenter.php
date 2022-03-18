@@ -2,6 +2,7 @@
 
 namespace App\Presenters\Users;
 
+use App\Helpers\Attributes;
 use App\Presenters\CoreGridPresenter;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Traits\HasPermissions;
@@ -65,5 +66,5 @@ class UserGridPresenter extends CoreGridPresenter
             return $item->status != 1 && $item->role_rank >= Auth::user()->highest_role && parent::visibleEdit($item);
         }
     }
-    
+
 }
