@@ -14,6 +14,11 @@ class DropColumnRoleIdTableUsers extends Migration
     public function up()
     {
         //
+        if (Schema::hasColumn('users', 'role_id')) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->dropColumn('role_id');
+            });
+        }
     }
 
     /**
@@ -24,10 +29,6 @@ class DropColumnRoleIdTableUsers extends Migration
     public function down()
     {
         //
-        if (Schema::hasColumn('users', 'role_id')) {
-            Schema::table('users', function (Blueprint $table) {
-                $table->dropColumn('role_id');
-            });
-        }
+
     }
 }
