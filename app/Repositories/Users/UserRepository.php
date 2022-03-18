@@ -6,7 +6,6 @@ use App\Models\Users\User;
 use App\Presenters\Users\UserGridPresenter;
 use App\Repositories\Core\CoreRepository;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Laka\Core\Repositories\FilterQueryString\Filters\FullTextSearchClause;
@@ -36,13 +35,23 @@ class UserRepository extends CoreRepository
         $data = parent::show($id, $columns);
         $data['roles'] = $data->roles()->get()->pluck('name', 'id');
         $data['role_rank'] = $data->roles()->min('role_rank');
+        $data['isShowBtnUpdate'] = true;
 
-        $userLoginRoleRank = Auth::user()->roles()->min('role_rank');
-        $data['userLoginRoleRank'] = $userLoginRoleRank;
+        $isUserSystemAdmin = user_get()->is_user_sa;
 
-        //Check role_rank of user login
-        if (str_is(last(request()->segments()), 'edit') && $userLoginRoleRank > $data->role_rank) {
-            throw new AuthorizationException();
+        // Check role if with route edit
+        if (str_is(last(request()->segments()), 'edit')) {
+            if ($data['status'] == 1 && !$isUserSystemAdmin) {
+                throw new AuthorizationException();
+            } elseif ($data['status'] != 1 && user_get()->highest_role > $data['role_rank']) {
+                throw new AuthorizationException();
+            }
+        }
+        if ($data['status'] == 1 && !$isUserSystemAdmin) {
+            $data['isShowBtnUpdate'] = false;
+        }
+        if ($data['status'] != 1 && user_get()->highest_role  > $data['role_rank']) {
+            $data['isShowBtnUpdate'] = false;
         }
 
         $listRole = $this->formGenerate();

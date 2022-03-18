@@ -50,7 +50,8 @@ class User extends Authenticatable
         'name',
         'email',
         'phone',
-        'address'
+        'address',
+        'status'
     ];
 
     public function getFillableColumns()
@@ -58,7 +59,17 @@ class User extends Authenticatable
         return $this->fillableColumns;
     }
 
-    public function logReleases(){
+    public function logReleases()
+    {
         return $this->hasMany(LogRelease::class);
+    }
+
+    public function getIsUserSaAttribute()
+    {
+        return $this->status == 1 ? true : false;
+    }
+    public function getHighestRoleAttribute()
+    {
+        return $this->roles()->min('role_rank');
     }
 }
