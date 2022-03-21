@@ -32,7 +32,7 @@ class RoleRepository extends CoreRepository
 
     protected function defaultOrderBy(Builder $query)
     {
-        $query->orderBy('role_rank','asc');
+        $query->orderBy('role_rank','desc');
         return $query;
     }
 }
