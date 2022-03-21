@@ -6,6 +6,7 @@ use App\Models\Roles\Role;
 use App\Presenters\Roles\RoleGridPresenter;
 use App\Repositories\Core\CoreRepository;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\Eloquent\Builder;
 use Laka\Core\Repositories\FilterQueryString\Filters\WhereLikeClause;
 
 class RoleRepository extends CoreRepository
@@ -29,5 +30,9 @@ class RoleRepository extends CoreRepository
         return $data;
     }
 
-
+    protected function defaultOrderBy(Builder $query)
+    {
+        $query->orderBy('role_rank','asc');
+        return $query;
+    }
 }
