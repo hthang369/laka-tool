@@ -38,7 +38,10 @@ class ProcessPodcast implements ShouldQueue
         event(new DownloadDataNotificationEvent(true, 'Starting download', $this->id));
 
         $file = Common::downloadFileToAws('s3_repair', $this->name, 'path_repair', false);
-        $localFile = public_path(str_replace('/', '\\', $file));
+        if (PHP_OS != 'Linux') {
+            $file = str_replace('/', '\\', $file);
+        }
+        $localFile = public_path($file);
         if (file_exists($localFile)) {
             $repository->update(['status' => 1], $this->id);
         }
