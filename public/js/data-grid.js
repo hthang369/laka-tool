@@ -407,7 +407,7 @@ var $api = $api || {};
                     var _this3 = this;
 
                     let btnFilter = $(this.opts.filterForm.btnName);
-                    var form = $(this.opts.filterForm.target).find('input');
+                    var form = $(this.opts.filterForm.target).find('.form-control');
                     let routeLink = this.opts.filterForm.routeLink;
 
                     if (form.length > 0) {

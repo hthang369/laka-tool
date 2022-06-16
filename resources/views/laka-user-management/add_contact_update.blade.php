@@ -16,7 +16,7 @@
 @endsection
 <!--    End show notification-->
 @section('body_content')
-    @foreach (['name', 'email', 'company', 'type_of_user'] as $key)
+    @foreach (['name', 'email', 'company', 'type_of_user', 'is_bot'] as $key)
         <div class="form-group row">
             {!! Form::label($key, __("users.laka.fields.{$key}"), ['class' => 'col-2 font-weight-bold']) !!}
             {!! Form::label($key, $data[$key], ['class' => 'col-10']) !!}
@@ -35,6 +35,8 @@
         <div class="form-row align-items-center justify-content-center">
             <input type="hidden" id="add-contact-option" name="add-contact-option">
             @if (user_can("edit_$sectionCode"))
+                <x-button type="button" variant="primary" size="sm" class="mr-2" id="btn-set-user-type" data-value="set-user-{{$data['user_type'] ? 'default' : 'admin'}}"
+                    text="{{ $data['user_type'] ? __('users.laka.update_user_default') : __('users.laka.update_user_admin') }}" icon="fa fa-edit" />
                 <x-button type="button" variant="primary" size="sm" class="mr-2" id="btn-add-all-contact"
                     text="{{ __('users.laka.add_all_contacts') }}" icon="fa fa-plus" />
                 <x-button type="button" id="btn-add-all-room" class="mr-2" variant="primary" size="sm"
@@ -49,22 +51,22 @@
 @endsection
 @push('scripts')
     <script>
-        let btnAddAllContact = document.getElementById('btn-add-all-contact');
-        let btnAddAllRoom = document.getElementById('btn-add-all-room');
-        let inputAddContactOption = document.getElementById('add-contact-option');
-        let form = document.getElementById('form-update-laka-user');
-        let confirmSubmit = (message) => {
-            return window.confirm('Are you sure ' + message + '?');
+        function submitForm(target, msg) {
+            let btn = $('#btn-'+target);
+            let inputOption = document.getElementById('add-contact-option');
+            let form = document.getElementById('form-update-laka-user');
+            let confirmSubmit = (message) => {
+                return window.confirm('Are you sure ' + message + '?');
+            }
+
+            btn.on('click', () => {
+                inputOption.value = btn.data('value') ? btn.data('value') : target;
+                return confirmSubmit(msg) ? form.submit() : false;
+            });
         }
 
-        btnAddAllContact.addEventListener('click', () => {
-            inputAddContactOption.value = "add-all-contact";
-            return confirmSubmit('add all contact') ? form.submit() : false;
-
-        });
-        btnAddAllRoom.addEventListener('click', () => {
-            inputAddContactOption.value = "add-all-room";
-            return confirmSubmit('add to all room') ? form.submit() : false;
-        });
+        submitForm('add-all-contact', 'add all contact');
+        submitForm('add-all-room', 'add to all room');
+        submitForm('set-user-type', 'set user type');
     </script>
 @endpush

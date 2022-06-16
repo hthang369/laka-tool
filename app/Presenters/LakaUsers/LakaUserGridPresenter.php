@@ -11,6 +11,22 @@ class LakaUserGridPresenter extends CoreGridPresenter
         'visible' => false
     ];
 
+    protected function getUserTypeData()
+    {
+        return [
+            ['id' => 0, 'name' => __('users.laka.user_default')],
+            ['id' => 1, 'name' => __('users.laka.user_admin')]
+        ];
+    }
+
+    protected function getUserBotData()
+    {
+        return [
+            ['id' => 0, 'name' => __('users.laka.user_default')],
+            ['id' => 1, 'name' => __('users.laka.is_user_bot')]
+        ];
+    }
+
     protected function setColumns()
     {
 
@@ -27,6 +43,24 @@ class LakaUserGridPresenter extends CoreGridPresenter
                 'key' => 'company',
                 'lookup' => [
                     'dataSource' => resolve(Company::class)->all(),
+                    'displayExpr' => 'name',
+                    'valueExpr' => 'id'
+                ],
+            ],
+            [
+                'key' => 'user_type',
+                'filtering' => true,
+                'lookup' => [
+                    'dataSource' => $this->getUserTypeData(),
+                    'displayExpr' => 'name',
+                    'valueExpr' => 'id'
+                ],
+            ],
+            [
+                'key' => 'is_bot',
+                'filtering' => true,
+                'lookup' => [
+                    'dataSource' => $this->getUserBotData(),
                     'displayExpr' => 'name',
                     'valueExpr' => 'id'
                 ],

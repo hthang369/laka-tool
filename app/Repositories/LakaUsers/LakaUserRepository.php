@@ -27,10 +27,13 @@ class LakaUserRepository extends CoreRepository
     protected $modelClass = LakaUser::class;
 
     protected $filters = [
-        'sort' => SortByClientClause::class,
-        'name' => WhereLikeClientClause::class,
-        'email' => WhereLikeClientClause::class,
-        'id'=>WhereLikeClientClause::class,
+        'sort'      => SortByClientClause::class,
+        'name'      => WhereLikeClientClause::class,
+        'email'     => WhereLikeClientClause::class,
+        'id'        => WhereLikeClientClause::class,
+        'company'   => WhereLikeClientClause::class,
+        'user_type' => WhereLikeClientClause::class,
+        'is_bot'    => WhereLikeClientClause::class
     ];
 
     private $cache_key = 'list_user_delete';
@@ -84,9 +87,7 @@ class LakaUserRepository extends CoreRepository
 
     public function showAllDeleteUser($allDisable = true)
     {
-        $results = Cache::remember($this->cache_key, config('constants.cache_expire'), function () {
-            return Common::callApi('get', '/api/v1/user/get-list-delete-user')->toArray();
-        });
+        $results = Common::callApi('get', '/api/v1/user/get-list-delete-user')->toArray();
         if (!$allDisable) {
             $results['data'] = array_filter($results['data'], function ($item) {
                 return $item['disabled'] === 0;
@@ -99,9 +100,8 @@ class LakaUserRepository extends CoreRepository
     public function show($id, $columns = [])
     {
         $userData = $this->getUserDetail($id);
-
-        $typeUser = data_get($userData, 'is_user_bot') == 1 ? trans('users.laka.is_user_bot') : trans('users.laka.user_default');
-        data_set($userData, 'type_of_user', $typeUser);
+        data_set($userData, 'type_of_user', $userData['user_type'] == 1 ? trans('users.laka.user_admin') : trans('users.laka.user_default'));
+        data_set($userData, 'is_bot', $userData['is_bot'] == 1 ? trans('users.laka.is_user_bot') : trans('users.laka.user_default'));
 
         $companyList = resolve(CompanyRepository::class)->pluck('company.name', 'company.id');
         data_set($userData, 'id', $id);
@@ -144,6 +144,8 @@ class LakaUserRepository extends CoreRepository
         $arrMapOption = [
             'addAllContacts' => 'add-all-contact',
             'addToAllRooms' => 'add-all-room',
+            'setUserAdmin' => 'set-user-admin',
+            'setUserDefault' => 'set-user-default'
         ];
         $addContactOption = $attributes['add-contact-option'];
         $methodName = array_search($addContactOption, $arrMapOption);
@@ -262,5 +264,21 @@ class LakaUserRepository extends CoreRepository
         if (Cache::has($this->cache_key)) {
             Cache::forget($this->cache_key);
         }
+    }
+
+    private function setUserType($data)
+    {
+        array_forget($data, 'company_id');
+        return $this->getReponseApiData(Common::callApi('post', '/api/v1/user/set-user-admin-company', $data));
+    }
+
+    public function setUserAdmin($data)
+    {
+        return $this->setUserType(array_add($data, 'admin', true)) ? 'admin' : false;
+    }
+
+    public function setUserDefault($data)
+    {
+        return $this->setUserType(array_add($data, 'admin', false)) ? 'default' : false;
     }
 }
