@@ -9,6 +9,17 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function showConfirmMessage(btnTarget) {
+    var confirmation = btnTarget.data('trigger-confirm');
+    var confirmationMessage = btnTarget.data('confirmation-msg') || 'Are you sure?';
+
+    if (confirmation) {
+        return confirm(confirmationMessage);
+    }
+
+    return true;
+}
+
 var _grids = _grids || {};
 var $api = $api || {};
 
@@ -97,7 +108,7 @@ var $api = $api || {};
                         options.beforeSend.call(this);
                     }
                     if (targetLoading) {
-                        $(targetLoading).attr('disabled', 'disabled').html('<i class="fa fa-spinner fa-spin"></i>&nbsp;' + loadingText);
+                        $(targetLoading).attr('disabled', 'disabled').addClass('disabled').html('<i class="fa fa-spinner fa-spin"></i>&nbsp;' + loadingText);
                     }
                 },
                 complete: function complete() {
@@ -105,14 +116,14 @@ var $api = $api || {};
                         options.onComplete.call(this);
                     }
                     if (targetLoading) {
-                        $(targetLoading).html(btnTarget).removeAttr('disabled');
+                        $(targetLoading).html(btnTarget).removeAttr('disabled').removeClass('disabled');
                     }
                 },
                 success: function success(data) {
                     if (_.has(options, 'onSuccess')) {
-                        options.onSuccess.call(this);
+                        options.onSuccess.call(this, data);
                     } else {
-                        if (_.has(options, 'pjaxContainer')) {
+                        if (_.has(options, 'pjaxContainer') && !_.isNil(options.pjaxContainer)) {
                             $.pjax.reload({ container: options.pjaxContainer });
                         }
                         if (typeof toastr !== 'undefined') {
@@ -124,11 +135,10 @@ var $api = $api || {};
                 },
                 error: function error(data) {
                     if (_.has(options, 'onError')) {
-                        options.onError.call(this);
+                        options.onError.call(this, data);
                     } else {
                         if (typeof toastr !== 'undefined') {
-                            let listErr = _.get(data.responseJSON, 'validation', _.get(data.responseJSON, 'errors', {}));
-                            let err = _grids.formUtils.getValidationErrors(listErr);
+                            let err = _grids.formUtils.genarateValidationErrors(data.responseJSON);
                             toastr.showError('Message', '<ul>' + err + '</ul>');
                         } else {
                             alert('An error occurred');
@@ -148,6 +158,7 @@ var $api = $api || {};
         },
         post: function (url, data, options) {
             if (url == '') return;
+            // options = Object.assign({ contentType: 'application/json' }, options);
             this._callApi('POST', url, data, options);
         },
         put: function (url, data, options) {
@@ -157,6 +168,7 @@ var $api = $api || {};
         },
         delete: function (url, data, options) {
             if (url == '') return;
+            options = Object.assign({ contentType: 'application/json' }, options);
             this._callApi('DELETE', url, data, options);
         },
     }
@@ -181,28 +193,30 @@ var $api = $api || {};
 
             element.each(function (i, obj) {
                 obj = $(obj);
-                // confirmation
-                var confirmation = obj.data('trigger-confirm');
-                var confirmationMessage = obj.data('confirmation-msg') || 'Are you sure?';
                 var pjaxContainer = obj.data('pjax-target');
                 var refresh = obj.data('refresh-page');
+                let frmTarget = obj.data('form-id') ? $('#' + obj.data('form-id')) : null;
                 var isForm = obj.is('form');
-                var ajaxMethod = isForm ? obj.attr('method') : obj.data('method') || 'POST';
-                var ajaxUrl = isForm ? obj.attr('action') : obj.attr('href');
-                var ajaxData = isForm ? obj.serialize() : (obj.data('form-id') ? $('#' + obj.data('form-id')).serialize() : null);
-                var originalRemoveBtn = obj.html()
+                var ajaxMethod = obj.data('method') || 'POST';
+                var ajaxUrl = obj.attr('href') || obj.data('action');
+                var ajaxData = null;
+                if (isForm || frmTarget) {
+                    let tmpForm = isForm ? obj : frmTarget;
+                    ajaxMethod = tmpForm.attr('method');
+                    ajaxUrl = tmpForm.attr('action');
+                    ajaxData = JSON.stringify(tmpForm.serializeObject());
+                }
 
                 obj.on(event, function (e) {
                     e.preventDefault();
-                    if (confirmation) {
-                        if (!confirm(confirmationMessage)) {
-                            return;
-                        }
+                    if (!showConfirmMessage(obj)) {
+                        return;
                     }
-                    $api._callApi(ajaxMethod, ajaxUrl, ajaxData, {
+                    $api._callApi(ajaxMethod, ajaxUrl, ajaxData, _.merge({
+                        contentType: 'application/json',
                         targetLoading: obj,
                         pjaxContainer: pjaxContainer
-                    })
+                    }, options))
                 });
             });
         },
@@ -407,7 +421,7 @@ var $api = $api || {};
                     var _this3 = this;
 
                     let btnFilter = $(this.opts.filterForm.btnName);
-                    var form = $(this.opts.filterForm.target).find('input');
+                    var form = $(this.opts.filterForm.target).find('.form-control');
                     let routeLink = this.opts.filterForm.routeLink;
 
                     if (form.length > 0) {
@@ -525,6 +539,49 @@ var $api = $api || {};
 
     _grids.formUtils = {
         /**
+         * Return html that can be used to render a bootstrap alert on the form
+         *
+         * @param type
+         * @param response
+         * @returns {string}
+         */
+        renderAlert: function renderAlert(type, response) {
+            var validTypes = ['success', 'error', 'notice'];
+            var html = '';
+            if (typeof type === 'undefined' || $.inArray(type, validTypes) < 0) {
+            type = validTypes[0];
+            }
+            if (type === 'success') {
+            html += '<div class="alert alert-success">';
+            } else if (type === 'error') {
+            html += '<div class="alert alert-danger">';
+            } else {
+            html += '<div class="alert alert-warning">';
+            }
+            html += '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
+            // add a heading
+            if (type === 'error') {
+            if (response.serverError) {
+                html += response.serverError.message || 'A server error occurred.';
+                html = '<strong>' + html + '</strong>';
+                return html;
+            } else {
+                html += response.message || 'Please fix the following errors';
+                html = '<strong>' + html + '</strong>';
+                var errs = this.genarateValidationErrors(response);
+                return html + errs + '</div>';
+            }
+            } else {
+            return html + response + '</div>';
+            }
+        },
+        genarateValidationErrors: function genarateValidationErrors(response) {
+            let listErr = response.errors || response.validation || {}
+            let errorsHtml = this.getValidationErrors(listErr);
+            this.showFormValidationErrors(listErr);
+            return errorsHtml;
+        },
+        /**
          * process validation errors from json to html
          * @param response
          * @returns {string}
@@ -532,11 +589,23 @@ var $api = $api || {};
         getValidationErrors: function getValidationErrors(response) {
             var errorsHtml = '';
             $.each(response, function (key, value) {
-                errorsHtml += '<li>' + value + '</li>';
+                if (_.isArray(value)) {
+                    errorsHtml += _.join(_.map(value, function(item) {
+                        return '<li>' + item + '</li>'
+                    }), '');
+                }
+                else
+                    errorsHtml += '<li>' + value + '</li>';
             });
             return errorsHtml;
         },
-
+        showFormValidationErrors: function showFormValidationErrors(response) {
+            $.each(response, function (key, value) {
+                let form = $('[name="'+key+'"]').parents('form');
+                form.addClass('was-validated')
+                $('[name="'+key+'"]').next().html(value)
+            });
+        },
         /**
          * Form submission from a modal dialog
          *
@@ -561,6 +630,10 @@ var $api = $api || {};
             var pjaxTarget = form.data('pjax-target');
             var notification = form.data('notification-el') || 'modal-notification';
             var _this = this;
+
+            if (!showConfirmMessage(submitButton)) {
+                return;
+            }
 
             $api._callApi(method, action, data, {
                 targetLoading: submitButton,
@@ -632,8 +705,13 @@ var $api = $api || {};
                     var btnHtml = btn.html();
                     var modalDialog = $('#bootstrap_modal');
                     var modalSize = btn.data('modal-size');
+
+                    if (!showConfirmMessage(btn)) {
+                        return;
+                    }
+
                     // show spinner as soon as user click is triggered
-                    btn.attr('disabled', 'disabled').html('<i class="fa fa-spinner fa-spin"></i>&nbsp;loading');
+                    btn.attr('disabled', 'disabled').addClass('disabled').html('<i class="fa fa-spinner fa-spin"></i>&nbsp;loading');
 
                     // load the modal into the container put on the html
                     $('.modal-content').load($(this).attr('href') || $(this).data('href'), function () {
@@ -647,12 +725,13 @@ var $api = $api || {};
 
                     // revert button to original content, once the modal is shown
                     modalDialog.on('shown.bs.modal', function (e) {
-                        $(btn).html(btnHtml).removeAttr('disabled');
+                        $(btn).html(btnHtml).removeAttr('disabled').removeClass('disabled');
                     });
 
                     // destroy the modal
                     modalDialog.on('hidden.bs.modal', function (e) {
                         $(this).modal('dispose');
+                        $('.modal-content').html('')
                     });
                 });
             }
@@ -713,13 +792,13 @@ var $api = $api || {};
         _grids.utils.tableLinks({ element: '.linkable', navigationDelay: 100 });
         // setup ajax listeners
         _grids.utils.handleAjaxRequest($('.data-remote'), 'click', {});
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
     };
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
     $(window).scroll(function () {
         if ($(this).scrollTop() > 100) {
@@ -742,7 +821,9 @@ var $api = $api || {};
     $('#navbarNavDropdown').on('show.bs.collapse', function() {
         $('.main-content').addClass('col-md-9')
     }).on('hidden.bs.collapse', function() {
-        $('.main-content').removeClass('col-md-9')
+        if (!$(this).hasClass('show')) {
+            $('.main-content').removeClass('col-md-9')
+        }
     });
 
     return _grids;

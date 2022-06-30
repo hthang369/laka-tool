@@ -1,0 +1,14 @@
+{
+    "name": "LakaManager",
+    "alias": "lakamanager",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\LakaManager\\Providers\\LakaManagerServiceProvider",
+        "Modules\\LakaManager\\Providers\\EventServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

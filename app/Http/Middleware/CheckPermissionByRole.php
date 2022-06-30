@@ -2,19 +2,18 @@
 
 namespace App\Http\Middleware;
 
-use App\Repositories\Menus\MenuRepository;
-use App\Services\Menu\MenuService;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
+use Modules\Common\Services\Menu\MenuService;
 
 class CheckPermissionByRole
 {
 
     private $menuService;
-    public function __construct(MenuService $menuService )
+    public function __construct(MenuService $menuService)
     {
         $this->menuService = $menuService;
     }

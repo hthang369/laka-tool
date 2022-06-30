@@ -25,15 +25,7 @@
     $iconBtn = $arrIcon[$data['request_approval_status']];
 
 @endphp
-{!! bt_link_to_route($urlAction, __("common.$nameBtn"), $colorBtn, ['id'=>$data['id']], ['class' => 'btn-sm', 'icon' => $iconBtn,
+{!! bt_link_to_route($urlAction, __("common.{$nameBtn}"), $colorBtn, ['id'=>$data['id']], ['class' => 'btn-sm btn-remote', 'icon' => $iconBtn,
+'data-trigger-confirm' => '1', 'data-loading' => translate('table.loading_text'),
 "data-confirmation-msg"=>__('common.are_you_sure',['message'=>"{$nameBtn}"])],'edit',$sectionCode) !!}
-
-@if(user_can("edit_$sectionCode"))
-    <a name="destroy" class="btn btn-sm btn-danger data-remote"
-       href="{{ route("{$sectionCode}.delete-token",['id'=>$data['id']])}}" title="Delete" data-loading="Loading"
-       data-trigger-confirm="1" data-confirmation-msg="Are you sure you want to delete?" data-method="DELETE"
-       data-pjax-target="#approvalApiToken-grid">
-        <i class="fa fa fa-trash"></i>
-    </a>
-@endif
 

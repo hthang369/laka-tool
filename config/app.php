@@ -227,7 +227,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'Modal' => \Laka\Core\Facades\Modal::class,
+        'Breadcrumb' => \Laka\Core\Facades\Breadcrumb::class
     ],
 
 ];
