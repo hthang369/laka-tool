@@ -22,6 +22,6 @@
             @include(layouts_path('home', 'partial.footer'))
         </div>
 
-        @include('bootstrap::components.modal.container')
+        @include(Modal::containerView())
     </div>
 @endsection

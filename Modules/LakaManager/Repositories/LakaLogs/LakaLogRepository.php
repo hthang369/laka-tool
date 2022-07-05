@@ -2,10 +2,13 @@
 
 namespace Modules\LakaManager\Repositories\LakaLogs;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Modules\LakaManager\Entities\LakaLogs\LakaLogModel;
 use Laka\Core\Repositories\CoreRepository;
+use Laka\Core\Repositories\FilterQueryString\Filters\WhereLikeClause;
 use Modules\Common\Repositories\Filters\WhereBetweenClause;
+use Modules\LakaManager\Forms\LakaLogs\LakaLogForm;
 use Modules\LakaManager\Grids\LakaLogs\LakaLogGrid;
 use Modules\LakaManager\Helpers\HttpLogParser;
 use Modules\LakaManager\Helpers\LogParser;
@@ -18,7 +21,10 @@ class LakaLogRepository extends CoreRepository
 
     protected $filters = [
         'name' => WhereClause::class,
-        'date_log' => WhereBetweenClause::class
+        'date_log' => WhereBetweenClause::class,
+        'log_level' => WhereLikeClause::class,
+        'ip' => WhereLikeClause::class,
+        'url' => WhereLikeClause::class
     ];
 
     protected $except = ['date_log'];
@@ -32,19 +38,17 @@ class LakaLogRepository extends CoreRepository
         $this->storage = Storage::disk('s3');
     }
 
-    // public function formGenerate()
-    // {
-    //     $data = $this->downLoadLogLakaRepository->paginate($limit = null, $columns = [], $method = "paginate");
-    //     return $data;
-    // }
+    public function form()
+    {
+        return LakaLogForm::class;
+    }
 
     public function create(array $attributes)
     {
         $files = $attributes['files'];
         foreach ($files as  $file) {
-
             // Get data of file from TABLE 'download_laka_log'
-            $fileDownloaded = $this->downLoadLogLakaRepository->findByField('name', $file)[0];
+            $fileDownloaded = $this->downLoadLogLakaRepository->findByField('name', $file)->first();
 
             //Check file exist and file not parse
             if ($fileDownloaded && $fileDownloaded->status == false) {
@@ -84,13 +88,16 @@ class LakaLogRepository extends CoreRepository
                 }
             }
 
-            //Change status from not parse to parsed and save to DB of file
-            $fileDownloaded->status = true;
-            $fileDownloaded->save();
-
-            //Save data log to TABLE 'laka-log'
+            // Save data log to TABLE 'laka-log'
+            // Change status from not parse to parsed and save to DB of file
             if ($dataLog != null) {
-                $this->model::insert($dataLog);
+                DB::transaction(function () use($dataLog, $fileDownloaded) {
+                    $this->model::insert($dataLog);
+
+                    // Change status from not parse to parsed and save to DB of file
+                    $fileDownloaded->status = true;
+                    $fileDownloaded->save();
+                });
             }
         };
 

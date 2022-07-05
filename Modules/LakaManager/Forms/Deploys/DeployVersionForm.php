@@ -27,7 +27,7 @@ class DeployVersionForm extends Form
             ->addRequired('deploy_version', Field::TEXT)
             ->add('deploy', Field::BUTTON_BUTTON, [
                 'label' => __('common.deploy'),
-                'attr' => ['class' => ['btn-deploy']],
+                'attr' => ['class' => ['btn-deploy'], 'data-loading' => translate('table.loading_text')],
                 'variant' => 'primary',
                 'size' => 'sm',
                 'icon' => 'fa-cogs'

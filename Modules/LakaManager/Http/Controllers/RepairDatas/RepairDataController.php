@@ -9,6 +9,8 @@ use Modules\LakaManager\Validators\RepairDatas\RepairDataValidator;
 use Laka\Core\Http\Controllers\CoreController;
 use Laka\Core\Http\Response\JsonResponse;
 use Laka\Core\Responses\BaseResponse;
+use Modules\LakaManager\Jobs\ProcessPodcast;
+use Modules\LakaManager\Jobs\RestoreRedisData;
 use Prettus\Validator\Contracts\ValidatorInterface;
 
 class RepairDataController extends CoreController
@@ -38,10 +40,14 @@ class RepairDataController extends CoreController
     public function downloadData(Request $request)
     {
         ProcessPodcast::dispatch($request->input('name'), $request->input('id'));
+
+        return JsonResponse::success(null);
     }
 
     public function restoreDataRedis(Request $request)
     {
         RestoreRedisData::dispatch($request->input('name'), $request->input('id'));
+
+        return JsonResponse::success(null);
     }
 }

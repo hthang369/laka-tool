@@ -1,1 +1,1 @@
-@extends(layouts_path('home', 'partial.list'))
+@extends(module_views_path('home', 'layouts.template.list'))

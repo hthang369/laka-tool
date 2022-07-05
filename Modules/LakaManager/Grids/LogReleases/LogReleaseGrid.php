@@ -3,7 +3,9 @@
 namespace Modules\LakaManager\Grids\LogReleases;
 
 use App\Models\Users\User;
+use Laka\Core\Facades\Common;
 use Modules\Common\Grids\BaseGrid;
+use Modules\LakaManager\Entities\Deploys\DeployModel;
 
 class LogReleaseGrid extends BaseGrid
 {
@@ -26,6 +28,17 @@ class LogReleaseGrid extends BaseGrid
     */
     public function setColumns()
     {
+        $dataSourceServer = config('lakamanager.serverList');
+        $dataSourceType = config('lakamanager.releaseTypes');
+        $dataSourceEnv = config('lakamanager.enviroments');
+        $serverListModel = DeployModel::pluck('id', 'name');
+        array_walk($dataSourceServer, function(&$item) use($serverListModel) {
+            if ($serverListModel->has($item['id'])) {
+                $id = $serverListModel->get($item['id']);
+                data_set($item, 'id', $id);
+            }
+            return $item;
+        });
         return [
             [
                 'key' => 'user_id',
@@ -37,19 +50,16 @@ class LogReleaseGrid extends BaseGrid
                 ],
             ],
             [
-                'key' => 'server_deploy',
+                'key' => 'deploy_server_id',
                 'label' => 'Server Deploy',
-                'cell' => function ($item) {
-                    $arrColorForServer = [
-                        'primary' => 'api',
-                        'secondary' => 'frontend',
-                        'dark' => 'backend',
-                        'success' => 'socket'
-                    ];
-                    $serverName = $item->deployServer->name;
-                    $color = array_search($serverName, $arrColorForServer, true);
-                    return '<span class="badge badge-' . $color . '">' . $serverName . '</span>';
-
+                'filtering' => true,
+                'lookup' => [
+                    'dataSource' => $dataSourceServer,
+                    'displayExpr' => 'name',
+                    'valueExpr' => 'id'
+                ],
+                'formatter' => function($value, $key, $item) use($dataSourceServer) {
+                    return $this->formatterDisplayText($dataSourceServer, $value);
                 }
             ],
             [
@@ -62,30 +72,25 @@ class LogReleaseGrid extends BaseGrid
             [
                 'key' => 'release_type',
                 'filtering' => true,
-                'cell' => function ($item) {
-                    $arrColorForTypeRelease = [
-                        'success' => 'New',
-                        'dark' => 'Back',
-                    ];
-                    $releaseType = $item->release_type;
-                    $color = array_search($releaseType, $arrColorForTypeRelease, true);
-
-                    return '<span class="badge badge-' . $color . '">' . $releaseType . '</span>';
+                'lookup' => [
+                    'dataSource' => $dataSourceType,
+                    'displayExpr' => 'name',
+                    'valueExpr' => 'id'
+                ],
+                'formatter' => function($value, $key, $item) use($dataSourceType) {
+                    return $this->formatterDisplayText($dataSourceType, $value);
                 }
             ],
             [
                 'key' => 'environment',
                 'filtering' => true,
-                'cell' => function ($item) {
-                    $arrColorForEnv = [
-                        'secondary' => 'development',
-                        'primary' => 'staging',
-                        'danger' => 'production',
-                    ];
-                    $env = $item->environment;
-                    $color = array_search($env, $arrColorForEnv, true);
-
-                    return '<span class="badge badge-' . $color . '">' . $env . '</span>';
+                'lookup' => [
+                    'dataSource' => $dataSourceEnv,
+                    'displayExpr' => 'name',
+                    'valueExpr' => 'id'
+                ],
+                'formatter' => function($value, $key, $item) use($dataSourceEnv) {
+                    return $this->formatterDisplayText($dataSourceEnv, $value);
                 }
             ],
             [
@@ -105,5 +110,13 @@ class LogReleaseGrid extends BaseGrid
     protected function getRefreshUrl()
     {
         return route($this->getSectionCode().'.log-release');
+    }
+
+    private function formatterDisplayText($dataSource, $value)
+    {
+        $data = head(array_where($dataSource, function($item, $key) use($value) {
+            return str_is($item['id'], $value);
+        }));
+        return Common::formatBadge(data_get($data, 'name'), data_get($data, 'color'));
     }
 }

@@ -6,16 +6,22 @@ use App\Models\Users\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Laka\Core\Permissions\Role;
-use Modules\SystemManager\Entities\Users\UserModel;
 use Laka\Core\Repositories\CoreRepository;
 use Modules\SystemManager\Forms\Users\UserForm;
 use Modules\SystemManager\Forms\Users\UserUpdatePasswordForm;
 use Modules\SystemManager\Grids\Users\UserGrid;
+use Laka\Core\Repositories\FilterQueryString\Filters\WhereLikeClause;
 
 class UserRepository extends CoreRepository
 {
     protected $presenterClass = UserGrid::class;
+
+    protected $filters = [
+        'name' => WhereLikeClause::class,
+        'email' => WhereLikeClause::class,
+        'phone' => WhereLikeClause::class,
+    ];
+
     /**
      * Specify Model class name
      *

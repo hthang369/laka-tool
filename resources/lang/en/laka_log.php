@@ -15,4 +15,5 @@ return [
     'btn-parse' => "Parse",
     'btn-parse-all' => "Parse All",
     'downloaded' => 'Downloaded',
+    'parsed_success' => 'Parsed successed!'
 ];

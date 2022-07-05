@@ -2,17 +2,15 @@
 
 namespace Modules\LakaManager\Forms\BusinessPlans;
 
-use Laka\Core\Forms\Field;
-use Laka\Core\Forms\Form;
-use Laka\Core\Permissions\Role;
+use Modules\Common\Forms\BaseForm;
 
-class BusinessPlanForm extends Form
+class BusinessPlanForm extends BaseForm
 {
     public function buildForm()
     {
         $this
-            ->addRequired('name', Field::TEXT)
-            ->addRequired('maximum_storage_file', Field::TEXT)
-            ->add('description', Field::TEXT);
+            ->addRequired('name', $this->fieldType('TEXT'))
+            ->addRequired('maximum_storage_file', $this->fieldType('TEXT'))
+            ->add('description', $this->fieldType('TEXT'));
     }
 }

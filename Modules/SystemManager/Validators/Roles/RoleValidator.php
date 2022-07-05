@@ -19,14 +19,14 @@ class RoleValidator extends BaseValidator
      */
     protected $rules = [
         ValidatorInterface::RULE_CREATE => [
-            'level' => 'required',
-            'name'  => 'required',
-            'role_rank'  => 'required'
+            'level' => 'required|min:2',
+            'name'  => 'required|min:2',
+            'role_rank'  => 'required|numeric'
         ],
         ValidatorInterface::RULE_UPDATE => [
-            'level' => 'required',
-            'name'  => 'required',
-            'role_rank'  => 'required'
+            'level' => 'required|min:2',
+            'name'  => 'required|min:2',
+            'role_rank'  => 'required|numeric'
         ],
     ];
 }

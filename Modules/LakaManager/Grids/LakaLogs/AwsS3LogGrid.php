@@ -13,6 +13,10 @@ class AwsS3LogGrid extends BaseGrid
      */
     protected $name = 'AwsS3Log';
 
+    protected $actionColumnOptions = [
+        'visible' => false,
+    ];
+
     /**
     * Set the columns to be displayed.
     *

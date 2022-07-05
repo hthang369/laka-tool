@@ -1,0 +1,17 @@
+.input-group {
+    .input-group-prepend {
+        order: 1;
+    }
+    .form-control {
+        order: 2;
+    }
+    .input-group-append {
+        order: 3;
+    }
+    .invalid-feedback {
+        order: 4;
+    }
+}
+.container-login {
+    margin-top: 6%;
+}

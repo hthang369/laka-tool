@@ -13,6 +13,10 @@ class LakaLogController extends CoreController
 {
     protected $defaultName = 'laka-log';
 
+    protected $messageResponse = [
+        'store' => 'laka_log.parsed_success'
+    ];
+
     public function __construct(LakaLogRepository $repository, LakaLogValidator $validator, BaseResponse $response)
     {
         parent::__construct($repository, $validator, $response);

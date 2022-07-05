@@ -10,7 +10,8 @@ class EnviromentDeployRule implements Rule
     protected $envVersion;
     protected $envConfig = [
         'development' => 'dev',
-        'staging' => 'stg'
+        'staging' => 'stg',
+        'production' => 'prod'
     ];
     /**
      * Create a new rule instance.
@@ -51,6 +52,6 @@ class EnviromentDeployRule implements Rule
      */
     public function message()
     {
-        return __("deploy.alert_input_environment_{$this->envVersion}");
+        return __("deploy_version.alert_input_environment_{$this->envVersion}");
     }
 }

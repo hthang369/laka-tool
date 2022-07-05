@@ -7,10 +7,18 @@ use Modules\SystemManager\Entities\Roles\RoleModel;
 use Laka\Core\Repositories\CoreRepository;
 use Modules\SystemManager\Forms\Roles\RoleForm;
 use Modules\SystemManager\Grids\Roles\RoleGrid;
+use Laka\Core\Repositories\FilterQueryString\Filters\WhereLikeClause;
 
 class RoleRepository extends CoreRepository
 {
     protected $presenterClass = RoleGrid::class;
+
+    protected $filters = [
+        'level' => WhereLikeClause::class,
+        'name' => WhereLikeClause::class,
+        'role_rank' => WhereLikeClause::class
+    ];
+
     /**
      * Specify Model class name
      *

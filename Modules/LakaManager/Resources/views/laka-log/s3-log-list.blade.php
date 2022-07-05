@@ -1,5 +1,4 @@
-@extends(layouts_path('home', 'partial.list'))
-
+@extends(module_views_path('home', 'layouts.template.list'))
 
 @section('caption_page')
     <x-form route="laka-log.s3-log-list">

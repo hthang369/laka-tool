@@ -5,6 +5,7 @@ namespace Modules\LakaManager\Repositories\LakaLogs;
 use Illuminate\Support\Facades\Storage;
 use Modules\LakaManager\Entities\LakaLogs\DownloadLakaLogModel;
 use Laka\Core\Repositories\CoreRepository;
+use Laka\Core\Repositories\FilterQueryString\Filters\WhereLikeClause;
 use Modules\LakaManager\Grids\LakaLogs\DownloadLakaLogGrid;
 
 class DownloadLakaLogRepository extends CoreRepository

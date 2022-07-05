@@ -2,6 +2,7 @@
 
 namespace Modules\LakaManager\Grids\LakaLogs;
 
+use Laka\Core\Facades\Common;
 use Modules\Common\Grids\BaseGrid;
 
 class DownloadLakaLogGrid extends BaseGrid
@@ -25,6 +26,7 @@ class DownloadLakaLogGrid extends BaseGrid
     */
     public function setColumns()
     {
+        $dataSourceParse = config('lakamanager.parseStatus');
         return [
             [
                 'key' => 'name',
@@ -32,12 +34,13 @@ class DownloadLakaLogGrid extends BaseGrid
             ],
             [
                 'key' => 'status',
-                'cell' => function ($item) {
-                    if ($item->status == true) {
-                        return '<span class="badge badge-success">' . __('laka_log.log-parsed') . '</span>';
-                    } else {
-                        return '<span class="badge badge-danger">' . __('laka_log.log-not-parsed') . '</span>';
-                    }
+                'lookup' => [
+                    'dataSource' => $dataSourceParse,
+                    'displayExpr' => 'name',
+                    'valueExpr' => 'id'
+                ],
+                'formatter' => function($value, $key, $item) use($dataSourceParse) {
+                    return $this->formatterDisplayText($dataSourceParse, boolval($value));
                 }
             ],
             [
@@ -52,5 +55,13 @@ class DownloadLakaLogGrid extends BaseGrid
     protected function visibleCreate()
     {
         return false;
+    }
+
+    private function formatterDisplayText($dataSource, $value)
+    {
+        $data = head(array_where($dataSource, function($item, $key) use($value) {
+            return str_is($item['id'], $value);
+        }));
+        return Common::formatBadge(data_get($data, 'name'), data_get($data, 'color'));
     }
 }

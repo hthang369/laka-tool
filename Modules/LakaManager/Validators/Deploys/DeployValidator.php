@@ -22,7 +22,7 @@ class DeployValidator extends BaseValidator
         ValidatorInterface::RULE_CREATE => [
         ],
         ValidatorInterface::RULE_UPDATE => [
-            'deploy_version' => 'required',
+            'deploy_version' => ['required'],
             'redmine_ticket'  => 'required',
             'environment' => 'required',
             'server' => 'required'
@@ -31,6 +31,6 @@ class DeployValidator extends BaseValidator
 
     protected function configRule(&$rule)
     {
-        $rule['deploy_version'] = new EnviromentDeployRule();
+        $rule['deploy_version'][] = new EnviromentDeployRule();
     }
 }

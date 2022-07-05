@@ -23,8 +23,8 @@ class QueryListener
      */
     public function handle(QueryExecuted $event)
     {
-        // if (preg_match('/^insert|update|delete/', $event->sql)) {
-            // QueryLogger::log($event);
-        // }
+        if (preg_match('/^insert|update|delete/', $event->sql)) {
+            QueryLogger::log($event);
+        }
     }
 }

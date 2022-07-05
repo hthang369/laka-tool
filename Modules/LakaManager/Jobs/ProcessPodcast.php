@@ -3,13 +3,13 @@
 namespace Modules\LakaManager\Jobs;
 
 use Modules\LakaManager\Events\DownloadDataNotificationEvent;
-use Modules\LakaManager\Facades\Common;
 use Modules\LakaManager\Repositories\RepairDatas\RepairDataRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Modules\Common\Facades\Common;
 
 class ProcessPodcast implements ShouldQueue
 {

@@ -199,7 +199,10 @@ var $api = $api || {};
                 var isForm = obj.is('form');
                 var ajaxMethod = obj.data('method') || 'POST';
                 var ajaxUrl = obj.attr('href') || obj.data('action');
-                var ajaxData = null;
+                var ajaxData = obj.data('value');
+                if (_.isObject(ajaxData)) {
+                    ajaxData = JSON.stringify(ajaxData);
+                }
                 if (isForm || frmTarget) {
                     let tmpForm = isForm ? obj : frmTarget;
                     ajaxMethod = tmpForm.attr('method');
@@ -600,10 +603,14 @@ var $api = $api || {};
             return errorsHtml;
         },
         showFormValidationErrors: function showFormValidationErrors(response) {
+            let formValid = $('.needs-validation');
+            formValid.find('.form-control').each(function(key, item) {
+                $(item).removeClass('is-invalid').next().html('');
+            });
             $.each(response, function (key, value) {
                 let form = $('[name="'+key+'"]').parents('form');
-                form.addClass('was-validated')
-                $('[name="'+key+'"]').next().html(value)
+                let element = form.addClass('was-validated').find('[name="'+key+'"]');
+                $(element).addClass('is-invalid').next().html(value);
             });
         },
         /**

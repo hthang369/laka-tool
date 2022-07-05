@@ -2,6 +2,7 @@
 
 namespace Modules\LakaManager\Repositories\LakaLogs\Filters;
 
+use Carbon\Carbon;
 use Modules\Common\Repositories\Filters\BaseClientClause;
 
 class WhereDateClause extends BaseClientClause
@@ -16,7 +17,7 @@ class WhereDateClause extends BaseClientClause
     {
         return $query->filter(function ($item) use ($dtFrom, $dtTo) {
             $date = str_replace('.', '-', preg_replace('/.*(\d{4}(.\d{2}){2}).*/', '$1', $item['name']));
-            return !($dtFrom > $date || $date > $dtTo);
+            return Carbon::parse($date)->between($dtFrom, $dtTo);
         })->values();
     }
 

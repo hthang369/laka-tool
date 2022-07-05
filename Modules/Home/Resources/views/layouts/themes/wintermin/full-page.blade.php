@@ -7,4 +7,6 @@
         @yield('content')
     </div>
 </div>
+
+@include(Modal::containerView())
 @endsection

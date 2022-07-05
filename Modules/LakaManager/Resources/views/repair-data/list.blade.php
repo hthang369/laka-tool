@@ -56,7 +56,7 @@
         encrypted: true
     });
     var channel = pusher.subscribe('channel-download');
-    channel.bind('Modules\LakaManager\\Events\\DownloadDataNotificationEvent', function(data) {
+    channel.bind('Modules\\LakaManager\\Events\\DownloadDataNotificationEvent', function(data) {
         if (data.success) {
             $('.progress-bar').addClass('marquee-bar');
         } else {
