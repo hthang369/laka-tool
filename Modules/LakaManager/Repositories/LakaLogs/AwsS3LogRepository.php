@@ -5,11 +5,12 @@ namespace Modules\LakaManager\Repositories\LakaLogs;
 use Modules\LakaManager\Repositories\LakaLogs\DownloadLakaLogRepository;
 use Modules\LakaManager\Repositories\LakaLogs\Filters\WhereDateClause;
 use Illuminate\Support\Facades\Storage;
-use Modules\LakaManager\Entities\LakaLogs\AwsS3LogModel;
 use Laka\Core\Repositories\CoreRepository;
 use Modules\Common\Repositories\BaseClientCriteria;
 use Modules\Common\Repositories\Filters\SortByClientClause;
 use Modules\Common\Repositories\Filters\WhereLikeClientClause;
+use Modules\LakaManager\Entities\LakaLogs\AwsS3LogModel;
+use Modules\LakaManager\Entities\LakaLogs\DownloadLakaLogModel;
 use Modules\LakaManager\Grids\LakaLogs\AwsS3LogGrid;
 
 class AwsS3LogRepository extends CoreRepository
@@ -33,9 +34,19 @@ class AwsS3LogRepository extends CoreRepository
         $this->storage = Storage::disk('s3');
     }
 
+    public function downloadLog($name)
+    {
+        Storage::disk('local')->put(
+            'public/files/' . $name,
+            $this->storage->get($name)
+        );
+
+        return env('APP_URL').Storage::disk('local')->url('public/files/' . $name);
+    }
+
     protected function paginateData($data = null, $method = "paginate", $limit = null, $columns = [])
     {
-        $listDownloadFile = resolve(DownloadLakaLogRepository::class)->pluck('name')->toArray();
+        $listDownloadFile = $this->pluck('name')->toArray();
         $pattern = '/(laravel-|laka-)/';
         $files = $this->storage->allFiles(DIRECTORY_SEPARATOR);
 

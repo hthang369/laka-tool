@@ -2,7 +2,7 @@
 
 @section('caption_page')
     @parent
-    <x-form method="POST" route="laka-log.store" id="frmParseAll">
+    <x-form method="POST" route="laka-parse-log.store" id="frmParseAll">
         @foreach(data_get($data,'rows') as $key=> $file)
             {!! Form::hidden('files', data_get($file,'name')) !!}
         @endforeach

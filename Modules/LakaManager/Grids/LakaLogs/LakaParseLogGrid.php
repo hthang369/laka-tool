@@ -5,7 +5,7 @@ namespace Modules\LakaManager\Grids\LakaLogs;
 use Laka\Core\Facades\Common;
 use Modules\Common\Grids\BaseGrid;
 
-class DownloadLakaLogGrid extends BaseGrid
+class LakaParseLogGrid extends BaseGrid
 {
     /**
      * The name of the grid

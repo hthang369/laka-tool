@@ -33,7 +33,6 @@ class RoleHasPermissionController extends CoreController
 
     public function showByRole(Request $request, $id)
     {
-        extract($id);
         list($grid, $result) = $this->repository->getDataByRole($id);
         $role = Role::find($id);
         $result = array_add($result, 'role', $role);

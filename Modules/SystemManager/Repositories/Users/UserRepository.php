@@ -11,6 +11,7 @@ use Modules\SystemManager\Forms\Users\UserForm;
 use Modules\SystemManager\Forms\Users\UserUpdatePasswordForm;
 use Modules\SystemManager\Grids\Users\UserGrid;
 use Laka\Core\Repositories\FilterQueryString\Filters\WhereLikeClause;
+use Modules\SystemManager\Entities\Roles\RoleModel;
 
 class UserRepository extends CoreRepository
 {
@@ -48,7 +49,6 @@ class UserRepository extends CoreRepository
     public function show($id, $columns = [])
     {
         $data = parent::show($id, $columns);
-        $data['roles'] = $data->roles()->get()->pluck('name', 'id');
         $data['role_rank'] = $data->roles()->min('role_rank');
         $data['isShowBtnUpdate'] = true;
 
@@ -79,10 +79,14 @@ class UserRepository extends CoreRepository
         } else {
             $attributes = array_except($attributes, 'password');
         }
+        $roles = array_pull($attributes, 'roles');
+        $roleNames = array_map(function($item) {
+            return RoleModel::findByLevel($item)->name;
+        }, $roles);
 
-        return DB::transaction(function () use ($attributes, $id) {
+        return DB::transaction(function () use ($attributes, $id, $roleNames) {
             $user = parent::update(array_filter($attributes), $id);
-            $user->syncRoles($attributes['roles']);
+            $user->syncRoles($roleNames);
             return $user;
         });
     }

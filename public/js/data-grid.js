@@ -541,6 +541,11 @@ var $api = $api || {};
     };
 
     _grids.formUtils = {
+        showAlert: function showAlert(message) {
+            if (typeof toastr !== 'undefined') {
+                toastr.showSuccess('Message', message);
+            }
+        },
         /**
          * Return html that can be used to render a bootstrap alert on the form
          *

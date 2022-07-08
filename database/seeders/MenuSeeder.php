@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Menus\Menus;
-use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Laka\Core\Database\BaseSeeder;
+use Modules\Common\Entities\Menus\Menus;
 
-class MenuSeeder extends Seeder
+class MenuSeeder extends BaseSeeder
 {
     /**
      * Run the database seeds.
@@ -16,27 +16,33 @@ class MenuSeeder extends Seeder
     public function run()
     {
         $sections = config('menu');
-
         DB::transaction(function () use($sections) {
-            $this->runMenus($sections);
+            $this->outputWithProgressBar(count(array_flatten($sections)), function($progress) use($sections) {
+                $this->runMenus($progress, $sections);
+            });
         });
+        $this->command->newLine();
     }
 
-    private function runMenus($sections, $parent = null)
+    private function runMenus($progress, $sections, $parent = null)
     {
-        foreach($sections as $section) {
+        foreach ($sections as $section) {
             $group = $section['group'];
             $data = [
                 'parent_id' => $parent ? $parent->id : null,
                 'group' => $group,
+                'section_code' => data_get($section, 'section_code'),
                 'route_name' => data_get($section, 'link', ''),
                 'link' => array_key_exists('children', $section) && count($section['children']) > 0 ? "#{$group}" : route($section['link'], [], false),
                 'lang' => $section['name'],
                 'description' => ''
             ];
             $result = $this->saveData($data, $parent);
+
+            $progress->advance();
+
             if (array_key_exists('children', $section) && is_array($section['children'])) {
-                $this->runMenus($section['children'], $result);
+                $this->runMenus($progress, $section['children'], $result);
             }
         }
     }

@@ -15,6 +15,13 @@ return [
         ['name'=> 'permission-role', 'code' => 'permission-role', 'url' => '', 'api' => ''],
         ['name'=> 'laka-log', 'code' => 'laka-log', 'url' => '', 'api' => ''],
         ['name'=> 'repair-data', 'code' => 'repair-data', 'url' => '', 'api' => ''],
+        ['name'=> 'laka-user-disable', 'code' => 'laka-user-disable', 'parent' => 'laka-user-management', 'url' => '', 'api' => ''],
+        ['name'=> 'laka-user-company', 'code' => 'laka-user-company', 'parent' => 'laka-user-management', 'url' => '', 'api' => ''],
+        ['name'=> 'deploy-development', 'code' => 'deploy-development', 'parent' => 'version-deploy', 'url' => '', 'api' => ''],
+        ['name'=> 'deploy-staging', 'code' => 'deploy-staging', 'parent' => 'version-deploy', 'url' => '', 'api' => ''],
+        ['name'=> 'deploy-production', 'code' => 'deploy-production', 'parent' => 'version-deploy', 'url' => '', 'api' => ''],
+        ['name'=> 'laka-parse-log', 'code' => 'laka-parse-log', 'parent' => 'laka-log', 'url' => '', 'api' => ''],
+        ['name'=> 'laka-log-s3', 'code' => 'laka-log-s3', 'parent' => 'laka-log', 'url' => '', 'api' => '']
     ],
     /*
      * permission actions
@@ -25,19 +32,28 @@ return [
      * Some sections only have a few actions, list them here
      */
     'section_action' => [
-        'company'               => ['view', 'add', 'edit', 'delete'],
-        'bussiness-plan'        => ['view', 'add', 'edit', 'delete'],
-        'user-management'       => ['view', 'add', 'edit', 'delete'],
-        'laka-user-management'  => ['view', 'add', 'edit', 'delete'],
-        'role-management'       => ['view', 'add', 'edit', 'delete'],
-        'version'               => ['view'],
-        'version-deploy'        => ['view', 'add'],
-        'permission-role'       => ['view', 'edit'],
-        'laka-log'              => ['view', 'add', 'delete', 'download'],
-        'repair-data'           => ['view', 'add', 'delete', 'download', 'upload']
+        'company'                   => ['view', 'add', 'edit', 'delete'],
+        'bussiness-plan'            => ['view', 'add', 'edit', 'delete'],
+        'user-management'           => ['view', 'add', 'edit', 'delete'],
+        'laka-user-management'      => ['view', 'edit', 'delete'],
+        'role-management'           => ['view', 'add', 'edit', 'delete'],
+        'version'                   => ['view'],
+        'version-deploy'            => ['view'],
+        'permission-role'           => ['view', 'edit'],
+        'laka-log'                  => ['view', 'delete'],
+        'repair-data'               => ['view', 'add', 'delete', 'download', 'upload'],
+        'laka-user-approval-token'  => ['view'],
+        'laka-user-disable'         => ['view'],
+        'laka-user-company'         => ['view', 'add'],
+        'deploy-development'        => ['view', 'add'],
+        'deploy-staging'            => ['view', 'add'],
+        'deploy-production'         => ['view', 'add'],
+        'laka-parse-log'            => ['view', 'add'],
+        'laka-log-s3'               => ['view', 'download']
     ],
 
     'custom_section_action' => [
+        'version-deploy' => ['view_deploy-development']
     ],
 
     /*

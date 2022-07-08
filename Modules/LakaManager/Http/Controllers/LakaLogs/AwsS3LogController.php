@@ -38,4 +38,15 @@ class AwsS3LogController extends CoreController
 
         return parent::index($request);
     }
+
+    public function downloadLog(Request $request)
+    {
+        // find record and create record
+        $this->repository->updateOrCreate($request->only('name'));
+
+        // download file to project folder
+        $data = $this->repository->downloadLog(request('name'));
+
+        return $this->responseAction($request, $data, 'data', '', translate('response.downloaded'));
+    }
 }

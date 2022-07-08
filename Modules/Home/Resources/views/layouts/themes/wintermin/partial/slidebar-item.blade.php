@@ -1,6 +1,6 @@
 @php
     $active = str_is(get_route_name(), $subItem->route_name) ? 'active' : '';
-    $collapseShow = starts_with(get_route_name(), $subItem->group) ? 'show' : '';
+    $collapseShow = starts_with(Route::current()->uri(), $subItem->group) ? 'show' : '';
 @endphp
 <li class="nav-item dropdown">
     @if (empty($subItem->route_name))

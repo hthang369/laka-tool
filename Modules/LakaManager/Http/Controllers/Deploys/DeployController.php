@@ -15,6 +15,8 @@ class DeployController extends CoreController
 {
     protected $defaultName = 'deploy';
 
+    protected $routeName = 'version-deploy';
+
     public function __construct(DeployRepository $repository, DeployValidator $validator, BaseResponse $response)
     {
         parent::__construct($repository, $validator, $response);
@@ -34,7 +36,7 @@ class DeployController extends CoreController
     public function doDeploy(Request $request)
     {
         $environment = $request->get('environment');
-        $routeName = route("version-deploy.{$environment}");
+        $routeName = route("deploy-{$environment}.{$environment}");
 
         try {
             $this->validator($request->all(), ValidatorInterface::RULE_UPDATE);

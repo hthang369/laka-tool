@@ -16,7 +16,7 @@ class MenuRepository extends BaseRepository
         $listCode = $sectionRepo->getDataByPermissionUserId($userId)->pluck('code')->all();
         $menus = Menus::where(function($query) use($listCode) {
             $query->whereNull('parent_id')
-                ->orWhereIn('group', $listCode);
+                ->orWhereIn('section_code', $listCode);
         })->defaultOrder()->get()->totree();
         return $menus;
     }

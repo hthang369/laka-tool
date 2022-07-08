@@ -1,7 +1,7 @@
 @extends(module_views_path('home', 'layouts.template.list'))
 
 @section('caption_page')
-    <x-form route="laka-log.s3-log-list">
+    <x-form route="laka-log-s3.s3-log-list">
         <x-form-group :inline="true">
             <div class="col-2">
                 <x-datepicker name="dtFrom" :value="$dtFrom" />
@@ -21,7 +21,7 @@
     $(document).ready(function() {
         $('.btn-download').click(function() {
             var btnTarget = $(this);
-            $api.post('{{route("laka-log.download-log")}}', JSON.stringify({name: btnTarget.data('name')}), {
+            $api.post('{{route("laka-log-s3.download-log")}}', JSON.stringify({name: btnTarget.data('name')}), {
                 contentType: 'application/json',
                 beforeSend: function() {
                     btnTarget.attr('disabled', 'disabled').html('<i class="fas fa-spinner fa-spin"></i>');
@@ -35,7 +35,7 @@
                         .done(function () { _grids.formUtils.showAlert('File download a success!'); })
                         .fail(function () { _grids.formUtils.showAlert('File download failed!'); })
                     setTimeout(function () {
-                        $.pjax.reload({ container: '#gridData' });
+                        $.pjax.reload({ container: '#awsS3Log-grid' });
                     }, 500);
                 }
             })

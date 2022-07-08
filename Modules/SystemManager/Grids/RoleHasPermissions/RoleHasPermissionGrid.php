@@ -15,7 +15,12 @@ class RoleHasPermissionGrid extends BaseGridPresenter
     {
         return [
             'no',
-            'section_name',
+            [
+                'key' => 'section_name',
+                'formatter' => function($value, $key, $item) {
+                    return str_repeat('|-- ', $item['section_depth']) . $value;
+                }
+            ],
             [
                 'key' => 'permission',
                 'label' => __('role.permission_role.permission'),
@@ -27,8 +32,8 @@ class RoleHasPermissionGrid extends BaseGridPresenter
     public function present($results)
     {
         View::share(array_only($results, ['user_count']));
-        $resultData = with(new RoleHasPermissionsTransformer())->transformList($results['data']->toArray());
-        $this->resultData = $this->parsePresent($resultData, count($resultData));
+        // $resultData = with(new RoleHasPermissionsTransformer())->transformList($results['data']->toArray());
+        $this->resultData = $this->parsePresent($results['data']->toArray(), $results['data']->count());
         return $this->resultData;
     }
 

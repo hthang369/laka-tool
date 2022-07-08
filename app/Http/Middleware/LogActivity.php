@@ -33,8 +33,8 @@ class LogActivity
             if (!is_null($action)) {
                 $text = data_get($action, 'text', $action);
                 $parent = data_get($action, 'parent');
-                // $subject = user_get('name')." access to: ".trans($action);
-            //     $this->logActivityService->addToLog($request, $subject);
+                $subject = user_get('name')." access to: ".trans($text);
+                $this->logActivityService->addToLog($request, $subject);
                 if ($parent) {
                     Breadcrumb::add(trans($parent), '');
                 }

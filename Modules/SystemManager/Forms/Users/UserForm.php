@@ -15,9 +15,11 @@ class UserForm extends BaseForm
 
         $this
             ->addRequired('email', $emailType)
-            ->add('name', $this->fieldType('TEXT'))
-            ->add('password', $this->fieldType('TEXT'))
-            ->add('phone', $this->fieldType('TEXT'))
+            ->add('name', $this->fieldType('TEXT'));
+        if (!str_is($this->getAction(), 'detail')) {
+            $this->add('password', $this->fieldType('PASSWORD'));
+        }
+        $this->add('phone', $this->fieldType('TEXT'))
             ->add('address', $this->fieldType('TEXT'));
 
         if (!str_is($this->getAction(), 'detail')) {
@@ -43,8 +45,8 @@ class UserForm extends BaseForm
 
     private function generateBadgeRoles($roles)
     {
-        return join('', array_map(function($item) {
+        return $roles->pluck('name')->map(function($item) {
             return Blade::render('<x-badge variant="primary" text="{{$name}}"></x-badge>', ['name' => $item]);
-        }, $roles->pluck('name')->toArray()));
+        })->join('');
     }
 }

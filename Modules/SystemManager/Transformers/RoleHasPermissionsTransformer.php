@@ -21,66 +21,63 @@ class RoleHasPermissionsTransformer
     protected $languageLine;
 
     /**
-     * @param array $data
+     * @param $data
      * @return array
-     * @author nhat_truong
-     * @since  2018-12-26
      */
-    public function transformList(array $data)
+    public function transformList($data)
     {
         $actions = config('permission.actions');
         $sectionAction = config('permission.section_action');
         $customSectionActions = config('permission.custom_section_action');
 
-        foreach ($data as $key => $item) {
-            $json = json_decode($item['permission']);
+        $data->transform(function($item, $key) use($data, $actions, $sectionAction, $customSectionActions) {
+            $json = json_decode($item->permission);
 
             foreach ($actions as $action) {
-                $data[$key][$action] = (bool)$json->$action;
+                $item->{$action} = (bool)$json->$action;
             }
 
-            $available_actions = collect($sectionAction[$item['section_code']] ?? $actions);
+            $available_actions = collect($sectionAction[$item->section_code] ?? $actions);
 
             foreach ($customSectionActions as $section => $customActions) {
-                if ($data[$key]['section_code'] != $section) continue;
+                if ($item->section_code != $section) continue;
 
                 foreach ($customActions as $action) {
                     list($actionKey, $sectionCode) = explode('_', $action);
-                    $idx_section = array_search($sectionCode, array_column($data, 'section_code'));
-                    if (is_null($idx_section) || empty($idx_section)) continue;
-                    $json = json_decode(array_get(array_get($data, $idx_section), 'permission'));
-                    $data[$key][$action] = (bool)$json->{$actionKey};
+                    $subItem = $data->firstWhere('section_code', $sectionCode);
+                    if (blank($subItem)) continue;
+                    $json = json_decode($subItem->permission);
+                    $item->$action = (bool)$json->{$actionKey};
                     $available_actions->push($action);
                 }
             }
 
-            $data[$key]['available_actions'] = $available_actions->toArray();
-        }
+            $item->available_actions = $available_actions->toArray();
 
-        $data = array_map(function ($item) {
-            $item['section_name'] = $this->translateSectionCode($this->menuList, $item['section_code']);
+            $item->section_name = $this->translateSectionCode($this->menuList, $item->section_code);
+
             return $item;
-        }, $data);
+        });
 
         $data = $this->filterData($data);
 
-        return $data;
+        return $data->toFlatTree(null);
     }
 
     protected function filterData($results)
     {
-        $results = array_values(array_filter($results, function ($item) {
-            return count($item['available_actions']) > 0;
-        }));
+        $results = $results->filter(function($item) {
+            return count($item->available_actions) > 0;
+        });
 
         $query = json_decode(request()->input('query'), true);
 
         foreach ($query as $key => $value) {
             $key = str_replace('__like', '', $key);
-            $results = array_values(array_filter($results, function ($item) use ($key, $value) {
+            $results = $results->filter(function ($item) use ($key, $value) {
                 $section_name = strtolower($item[$key]);
                 return (str_contains(strtolower(vn_to_str($section_name)), $value) || str_contains($section_name, $value));
-            }));
+            });
         }
 
         return $results;

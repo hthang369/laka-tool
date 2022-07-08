@@ -19,10 +19,12 @@ Route::group(['prefix' => '', 'middleware' => ['auth:web', 'permission', 'log-ac
     Route::resource('company', 'Companys\CompanyController');
 
     // laka-user-management
-    Route::resource('laka-user-management', 'LakaUsers\LakaUserController', ['except' => ['show', 'update', 'destroy', 'edit']]);
+    Route::resource('laka-user-management', 'LakaUsers\LakaUserController', ['except' => ['show', 'store', 'update', 'destroy', 'edit']]);
     Route::group(['prefix' => 'laka-user-management'], function () {
-        Route::get('user-disable', 'LakaUsers\LakaUserController@showUserDisable')->name('laka-user-management.user-disable');
-        Route::get('add-contact', 'LakaUsers\LakaUserController@showAddContact')->name('laka-user-management.add-contact');
+        Route::get('laka-user-management', 'LakaUsers\LakaUserController@create')->name('laka-user-company.create');
+        Route::post('laka-user-management', 'LakaUsers\LakaUserController@store')->name('laka-user-company.store');
+        Route::get('user-disable', 'LakaUsers\LakaUserController@showUserDisable')->name('laka-user-disable.user-disable');
+        Route::get('add-contact', 'LakaUsers\LakaUserController@showAddContact')->name('laka-user-company.add-contact');
         Route::get('update-contact/{id}', 'LakaUsers\LakaUserController@show')->name('laka-user-management.edit');
         Route::put('update-contact/{id}', 'LakaUsers\LakaUserController@update')->name('laka-user-management.update');
         Route::get('disable-user/{id}', 'LakaUsers\LakaUserController@disableUser')->name('laka-user-management.disable-user');
@@ -38,9 +40,9 @@ Route::group(['prefix' => '', 'middleware' => ['auth:web', 'permission', 'log-ac
 
     // Version deploy
     Route::group(['prefix' => 'deploy'], function () {
-        Route::get('/development', 'Deploys\DeployController@index')->name('version-deploy.development');//->middleware("log.activity:Version Deploy");
-        Route::get('/staging', 'Deploys\DeployController@index')->name('version-deploy.staging');//->middleware("log.activity:Version Deploy");
-        Route::get('/production', 'Deploys\DeployController@index')->name('version-deploy.production');//->middleware("log.activity:Version Deploy");
+        Route::get('/development', 'Deploys\DeployController@index')->name('deploy-development.development');//->middleware("log.activity:Version Deploy");
+        Route::get('/staging', 'Deploys\DeployController@index')->name('deploy-staging.staging');//->middleware("log.activity:Version Deploy");
+        Route::get('/production', 'Deploys\DeployController@index')->name('deploy-production.production');//->middleware("log.activity:Version Deploy");
         Route::post('deploy-version','Deploys\DeployController@doDeploy')->name('version-deploy.deploy');
         // Route log-release
         Route::group(['prefix' => 'log-release'], function () {
@@ -52,11 +54,11 @@ Route::group(['prefix' => '', 'middleware' => ['auth:web', 'permission', 'log-ac
 
     // laka log route
     Route::group(['prefix' => 'laka-log'], function () {
-        Route::get('/s3-log-list', 'LakaLogs\AwsS3LogController@view')->name('laka-log.s3-log-list');
-        Route::post('/download-log', 'LakaLogs\DownloadLakaLogController@downloadLog')->name('laka-log.download-log');
-        Route::get('/parse-log', 'LakaLogs\DownloadLakaLogController@index')->name('laka-log.create');
+        Route::get('/s3-log-list', 'LakaLogs\AwsS3LogController@view')->name('laka-log-s3.s3-log-list');
+        Route::post('/download-log', 'LakaLogs\AwsS3LogController@downloadLog')->name('laka-log-s3.download-log');
+        Route::resource('/parse-log', 'LakaLogs\LakaParseLogController', ['only' => ['index', 'store']])->names('laka-parse-log');
     });
-    Route::resource('laka-log', 'LakaLogs\LakaLogController', ['except' => ['create']]);
+    Route::resource('laka-log', 'LakaLogs\LakaLogController', ['except' => ['create', 'store']]);
 
     // repair data
     Route::resource('repair-data', 'RepairDatas\RepairDataController', ['except' => ['show', 'create', 'destroy']]);

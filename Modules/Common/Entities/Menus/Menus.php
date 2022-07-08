@@ -16,6 +16,7 @@ class Menus extends BaseModel
         'left',
         'right',
         'depth',
+        'section_code',
         'group',
         'route_name',
         'link',
