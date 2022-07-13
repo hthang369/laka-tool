@@ -1,0 +1,48 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::prefix('docs')->group(function() {
+
+    Route::get('/', 'DocumentsController@index');
+    Route::prefix('components')->group(function () {
+        Route::resource('alerts', 'Components\AlertController', ['only' => ['index']])->names('components.alerts');
+        Route::resource('badge', 'Components\BadgeController', ['only' => ['index']])->names('components.badge');
+        Route::resource('breadcrumb', 'Components\DocumentsController', ['only' => ['index']])->names('components.breadcrumb');
+        Route::resource('button', 'Components\DocumentsController', ['only' => ['index']])->names('components.button');
+        Route::resource('card', 'Components\CardController', ['only' => ['index']])->names('components.card');
+        Route::resource('carousel', 'Components\CarouselController', ['only' => ['index']])->names('components.carousel');
+        Route::resource('embed', 'Components\DocumentsController', ['only' => ['index']])->names('components.embed');
+        Route::resource('headline', 'DocumentsController', ['only' => ['index']])->names('components.headline');
+        Route::resource('form', 'DocumentsController', ['only' => ['index']])->names('components.form');
+        Route::resource('form-checkbox', 'DocumentsController', ['only' => ['index']])->names('components.form-checkbox');
+        Route::resource('form-datepicker', 'DocumentsController', ['only' => ['index']])->names('components.form-datepicker');
+        Route::resource('form-file', 'DocumentsController', ['only' => ['index']])->names('components.form-file');
+        Route::resource('form-group', 'DocumentsController', ['only' => ['index']])->names('components.form-group');
+        Route::resource('form-input', 'DocumentsController', ['only' => ['index']])->names('components.form-input');
+        Route::resource('form-radio', 'DocumentsController', ['only' => ['index']])->names('components.form-radio');
+        Route::resource('form-select', 'DocumentsController', ['only' => ['index']])->names('components.form-select');
+        Route::resource('form-textarea', 'DocumentsController', ['only' => ['index']])->names('components.form-textarea');
+        Route::resource('image', 'DocumentsController', ['only' => ['index']])->names('components.image');
+        Route::resource('link', 'DocumentsController', ['only' => ['index']])->names('components.link');
+        Route::resource('media', 'DocumentsController', ['only' => ['index']])->names('components.media');
+        Route::resource('modal', 'DocumentsController', ['only' => ['index']])->names('components.modal');
+        Route::resource('progress', 'DocumentsController', ['only' => ['index']])->names('components.progress');
+        Route::resource('stripe-nav', 'DocumentsController', ['only' => ['index']])->names('components.stripe-nav');
+        Route::resource('svg', 'DocumentsController', ['only' => ['index']])->names('components.svg');
+        Route::resource('toasts', 'DocumentsController', ['only' => ['index']])->names('components.toasts');
+    });
+    Route::prefix('layout')->group(function () {
+        Route::resource('row', 'DocumentsController', ['only' => ['index']])->names('layout.row');
+        Route::resource('col', 'DocumentsController', ['only' => ['index']])->names('layout.col');
+    });
+});

@@ -11,6 +11,6 @@
 |
 */
 
-Route::prefix('common')->group(function() {
-    Route::get('/', 'CommonController@index');
-});
+// Route::prefix('common')->group(function() {
+//     Route::get('/', 'CommonController@index');
+// });
