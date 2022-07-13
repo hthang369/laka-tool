@@ -3,10 +3,11 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Services\LogActivity\LogActivityService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Laka\Core\Facades\Breadcrumb;
+use Modules\Common\Services\LogActivity\LogActivityService;
 
 class LogActivity
 {
@@ -28,11 +29,19 @@ class LogActivity
     {
         if (Auth::check()) {
             $action = config('constants.'. Route::currentRouteName());
+            Breadcrumb::add('<i class="fa fa-home"></i>', url('/'));
             if (!is_null($action)) {
-                $subject = user_get('name')." access to: {$action}";
+                $text = data_get($action, 'text', $action);
+                $parent = data_get($action, 'parent');
+                $subject = user_get('name')." access to: ".trans($text);
                 $this->logActivityService->addToLog($request, $subject);
+                if ($parent) {
+                    Breadcrumb::add(trans($parent), '');
+                }
+                Breadcrumb::add(trans($text), '');
             }
         }
+
         return $next($request);
     }
 }

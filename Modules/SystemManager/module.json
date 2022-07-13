@@ -1,0 +1,13 @@
+{
+    "name": "SystemManager",
+    "alias": "systemmanager",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\SystemManager\\Providers\\SystemManagerServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

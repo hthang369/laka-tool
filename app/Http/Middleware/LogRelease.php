@@ -2,9 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use App\Repositories\LogReleases\LogReleaseRepository;
 use Closure;
 use Illuminate\Http\Request;
+use Modules\LakaManager\Repositories\LogReleases\LogReleaseRepository;
 
 class LogRelease
 {

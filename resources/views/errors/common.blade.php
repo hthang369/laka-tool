@@ -1,4 +1,4 @@
-@extends('layouts.full-page')
+@extends(layouts_path('home', 'full-page'))
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/error-page.css') }}"/>
@@ -17,3 +17,11 @@
     </div>
 
 @endsection
+
+@push('scripts')
+<script>
+    (function($) {
+        _grids.init();
+    })(jQuery);
+</script>
+@endpush

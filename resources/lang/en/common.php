@@ -21,6 +21,11 @@ return [
     'confirm_parse_all'=>'Are you sure parse all?',
     'confirm_parse_record'=>'Are you sure parse record?',
     'confirm_change_password'=>'Are you sure change password?',
+    'confirm' => [
+        'add_all_contact' => 'Are you sure add all contact?',
+        'add_all_to_room' => 'Are you sure add to all room?',
+        'set_user_type' => 'Are you sure set user type?'
+    ],
     // Action
     'list' => 'List',
     'delete' => 'Delete',
@@ -32,6 +37,7 @@ return [
     'back' => 'Back',
     'pause' => 'Pause',
     'accept' => 'Accept',
+    'deploy' => 'Deploy',
     'role_setting' => 'Role setting',
     'disable' => 'Disable',
     'go_to_home' => 'Go to homepage',

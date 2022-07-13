@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Menus\Menus;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
+use Modules\Common\Entities\Menus\Menus;
 
 class MenuCommand extends Command
 {
@@ -36,7 +36,8 @@ class MenuCommand extends Command
             $this->info('Reset menu: Done!');
         }
 
-        Artisan::call('db:seed', ['--class' => 'MenuSeeder']);
+        Artisan::call('db:seed', ['--class' => 'MenuSeeder'], $this->output);
+
         $this->info('Refresh menu: Done!');
     }
 }

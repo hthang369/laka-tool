@@ -53,5 +53,17 @@ return [
                 'supervisorctl start dbredis:*'
             ]
         ]
+    ],
+    'views' => [
+        'index'     => '%s.list',
+        'create'    => '%s.modify_modal',
+        'edit'      => '%s.modify_modal',
+        'show'      => '%s.modify_modal'
+    ],
+    'views_temp' => [
+        'index'     => 'home::layouts.template.list',
+        'create'    => 'home::layouts.template.modify_modal',
+        'edit'      => 'home::layouts.template.modify_modal',
+        'show'      => 'home::layouts.template.modify_modal'
     ]
 ];

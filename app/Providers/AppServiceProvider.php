@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use App\Emails\QueueFailed;
 use App\Exceptions\QueryExceptionHandler;
-use App\Support\CommonHelper;
 use Illuminate\Database\QueryException;
 use Illuminate\Queue\Events\JobFailed;
 use Illuminate\Queue\Events\JobProcessing;
@@ -17,7 +16,6 @@ use Illuminate\Support\ServiceProvider;
 class AppServiceProvider extends ServiceProvider
 {
     private $initFacades = [
-        'common-helper' => CommonHelper::class
     ];
 
     /**
