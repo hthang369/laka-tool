@@ -15,6 +15,14 @@ class RoleHasPermissionsTransformer
         ['sectionCode' => 'permission-role', 'text' => 'modules.permission_role'],
         ['sectionCode' => 'laka-log', 'text' => 'modules.laka_log'],
         ['sectionCode' => 'repair-data', 'text' => 'modules.repair_data'],
+        ['sectionCode' => 'log-activity', 'text' => 'modules.log_activity'],
+        ['sectionCode' => 'laka-log-s3', 'text' => 'modules.laka_log_s3'],
+        ['sectionCode' => 'laka-parse-log', 'text' => 'modules.laka_parse_log'],
+        ['sectionCode' => 'laka-user-company', 'text' => 'modules.laka_user_company'],
+        ['sectionCode' => 'laka-user-disable', 'text' => 'modules.laka_user_disable'],
+        ['sectionCode' => 'deploy-development', 'text' => 'modules.deploy_development'],
+        ['sectionCode' => 'deploy-production', 'text' => 'modules.deploy_production'],
+        ['sectionCode' => 'deploy-staging', 'text' => 'modules.deploy_staging'],
     ];
     protected $language = [
     ];

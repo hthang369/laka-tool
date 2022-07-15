@@ -20,4 +20,5 @@ return [
     'laka_log_parse' => 'Parse log',
     'laka_log_s3_list' => 'S3 log',
     'repair_data' => 'Repair data',
+    'log_activity' => 'Log Activity',
 ];

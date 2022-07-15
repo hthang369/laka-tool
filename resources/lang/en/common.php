@@ -11,6 +11,10 @@ return [
     'action_question_delete' => 'Are you sure you want to delete?',
     'dialog_confirm_title' => 'Notification',
     'pages' => 'Showing pages',
+    'log_activity' => [
+        'page_title' => 'Log Activity',
+        'page_header' => 'Log Activity'
+    ],
 
     //Confirm
     'confirm_submit_verification_code' => 'Are you sure submit verification code?',

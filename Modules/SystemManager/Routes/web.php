@@ -23,4 +23,5 @@ Route::group(['prefix' => '', 'middleware' => ['auth:web', 'permission', 'log-ac
         Route::put('update-password', 'Users\UserController@updatePassword')->name('user-management.update-password');
     });
     Route::resource('user-management', 'Users\UserController');
+    Route::resource('log-activity', 'LogActivity\LogActivityController');
 });

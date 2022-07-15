@@ -78,5 +78,8 @@ return [
     ],
     'repair-data' => [
         'index' => 'breadcrumb.repair_data'
-    ]
+    ],
+    'log-activity' => [
+        'index' => 'breadcrumb.log_activity'
+    ],
 ];
