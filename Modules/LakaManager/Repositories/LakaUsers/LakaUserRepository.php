@@ -1,67 +1,88 @@
 <?php
 
-namespace Modules\LakaManager\Repositories\LakaUsers;
+namespace App\Repositories\LakaUsers;
 
+use App\Events\sendConfirmEmail;
+use App\Facades\Common;
+use App\Models\Companys\Company;
+use App\Models\LakaUsers\LakaUser;
+use App\Presenters\LakaUsers\LakaUserApprovalApiToken;
+use App\Presenters\LakaUsers\LakaUserGridPresenter;
+use App\Repositories\Companys\CompanyRepository;
+use App\Repositories\Core\BaseClientCriteria;
+use App\Repositories\Core\CoreRepository;
+use App\Repositories\Core\Filters\SortByClientClause;
+use App\Repositories\Core\Filters\WhereLikeClientClause;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\MessageBag;
-use Modules\LakaManager\Entities\LakaUsers\LakaUserModel;
-use Laka\Core\Repositories\CoreRepository;
 use Laka\Core\Traits\Pagination\BuildPaginator;
-use Modules\Common\Facades\Common;
-use Modules\Common\Repositories\BaseClientCriteria;
-use Modules\Common\Repositories\Filters\SortByClientClause;
-use Modules\Common\Repositories\Filters\WhereLikeClientClause;
-use Modules\LakaManager\Entities\Companys\CompanyModel;
-use Modules\LakaManager\Events\SendConfirmEmail;
-use Modules\LakaManager\Forms\LakaUsers\LakaUserDisableForm;
-use Modules\LakaManager\Forms\LakaUsers\LakaUserForm;
-use Modules\LakaManager\Grids\LakaUsers\LakaUserApprovalApiTokenGrid;
-use Modules\LakaManager\Grids\LakaUsers\LakaUserGrid;
-use Modules\LakaManager\Repositories\Companys\CompanyRepository;
 use Prettus\Validator\Exceptions\ValidatorException;
 
 class LakaUserRepository extends CoreRepository
 {
-    use BaseClientCriteria;
+    use BuildPaginator, BaseClientCriteria;
 
-    protected $modelClass = LakaUserModel::class;
+    protected $modelClass = LakaUser::class;
 
     protected $filters = [
-        'sort' => SortByClientClause::class,
-        'name' => WhereLikeClientClause::class,
-        'email' => WhereLikeClientClause::class,
-        'company' => WhereLikeClientClause::class,
-        'id'    => WhereLikeClientClause::class,
-        'user_type'    => WhereLikeClientClause::class,
-        'is_bot'    => WhereLikeClientClause::class,
+        'sort'      => SortByClientClause::class,
+        'name'      => WhereLikeClientClause::class,
+        'email'     => WhereLikeClientClause::class,
+        'id'        => WhereLikeClientClause::class,
+        'company'   => WhereLikeClientClause::class,
+        'user_type' => WhereLikeClientClause::class,
+        'is_bot'    => WhereLikeClientClause::class
     ];
 
     private $cache_key = 'list_user_delete';
 
     public function bootPresenterDataGrid()
     {
-        if (str_is(get_route_name(), 'laka-user-management.index')) {
-            $this->presenterClass = LakaUserApprovalApiTokenGrid::class;
+        if (str_is(last(request()->segments()), 'laka-user-management')) {
+            $this->presenterClass = LakaUserApprovalApiToken::class;
         } else {
-            $this->presenterClass = LakaUserGrid::class;
+            $this->presenterClass = LakaUserGridPresenter::class;
         }
         parent::bootPresenterDataGrid();
     }
 
-    public function form()
+    public function formGenerate()
     {
-        if (str_is(get_route_name(), 'laka-user-management.disable-user'))
-            return LakaUserDisableForm::class;
-        else
-            return LakaUserForm::class;
+        $companyList = resolve(CompanyRepository::class)->pluck('company.name', 'company.id');
+        return ['company_list' => $companyList->toArray()];
     }
 
-    protected function paginateData($data = null, $method = "paginate", $limit = null, $columns = [])
+    public function paginate($limit = null, $columns = [], $method = "paginate")
     {
         $results = Common::callApi('get', '/api/v1/api-token/get-list-approval')->toArray();
         $results['data'] = $this->filterByRequest($results['data']);
-        return parent::paginateData($this->getReponseApiData($results), 'paginateClient', $limit, $columns);
+        return $this->parserResult($results);
+    }
+
+    public function approvalToken($id)
+    {
+        $data = ['id' => $id];
+        $result = Common::callApi('post', ' /api/v1/api-token/approve-token', $data)->toArray();
+        $this->resetCacheData();
+        return $result;
+    }
+
+    public function stopToken($id)
+    {
+        $data = ['id' => $id];
+        $result = Common::callApi('post', '/api/v1/api-token/stop-token', $data)->toArray();
+        $this->resetCacheData();
+        return $result;
+    }
+
+    public function delete($id)
+    {
+        $data = ['id' => $id,];
+        $result = Common::callApi('post', '/api/v1/api-token/delete-token', $data)->toArray();
+        $this->resetCacheData();
+        return $result;
     }
 
     public function showAllDeleteUser($allDisable = true)
@@ -73,24 +94,19 @@ class LakaUserRepository extends CoreRepository
             });
         }
         $results['data'] = $this->filterByRequest($results['data']);
-        $results = parent::paginateData($this->getReponseApiData($results), 'paginateClient');
         return $this->parserResult($results);
     }
 
     public function show($id, $columns = [])
     {
         $userData = $this->getUserDetail($id);
-        data_set($userData, 'btn_user_type', [
-            'value' => ($userData['user_type'] == 0 ? 'admin' : 'default'),
-            'text' => ($userData['user_type'] == 0 ? trans('users.laka.update_user_admin') : trans('users.laka.update_user_default'))
-        ]);
-        data_set($userData, 'user_type', $userData['user_type'] == 1 ? trans('users.laka.user_admin') : trans('users.laka.user_default'));
+        data_set($userData, 'type_of_user', $userData['user_type'] == 1 ? trans('users.laka.user_admin') : trans('users.laka.user_default'));
         data_set($userData, 'is_bot', $userData['is_bot'] == 1 ? trans('users.laka.is_user_bot') : trans('users.laka.user_default'));
 
         $companyList = resolve(CompanyRepository::class)->pluck('company.name', 'company.id');
         data_set($userData, 'id', $id);
         data_set($userData, 'company_list', $companyList);
-        $company = CompanyModel::find(data_get($userData, 'company'), ['id', 'name']);
+        $company = Company::find(data_get($userData, 'company'), ['id', 'name']);
 
         data_set($userData, 'company_id', data_get($company, 'id'));
         data_set($userData, 'company', data_get($company, 'name'));
@@ -98,31 +114,12 @@ class LakaUserRepository extends CoreRepository
         return $userData;
     }
 
-    public function disableUser($id, $attributes)
-    {
-        $typeAction = $attributes['type'];
-        $arrayAction = ['sent-mail', 'resent'];
-        $userDisabled = $this->getUserDetail($id);
-        data_set($userDisabled, 'id', $id);
-
-        if (in_array($typeAction, $arrayAction)) {
-            $dataContentConfirm = array();
-            $dataContentConfirm = $this->getConfirmDeleteUser($id);
-            $warningExpired = $this->warningExpired(config('laka.time_expired_code'));
-
-            data_set($dataContentConfirm, 'warningExpired', $warningExpired);
-            (event(new SendConfirmEmail($userDisabled, $dataContentConfirm)));
-        }
-
-        return $userDisabled;
-    }
-
     public function create(array $attributes)
     {
         if (is_null($attributes['is_user_bot'])) {
             $attributes['is_user_bot'] = 0;
         }
-        $company = CompanyModel::find($attributes['company_id'], ['name', 'id']);
+        $company = Company::find($attributes['company_id'], ['name', 'id']);
         $attributes['company'] = $company->id;
         $data = array_except($attributes, ['_token', 'company_id', 'add_all_contacts', 'add_to_all_rooms']);
 
@@ -133,6 +130,7 @@ class LakaUserRepository extends CoreRepository
         }
         $userId = data_get($dataResponse, 'data.id');
         $this->addContactOption($attributes, $userId);
+        $this->resetCacheData();
 
         return true;
     }
@@ -154,6 +152,7 @@ class LakaUserRepository extends CoreRepository
         if ($methodName) {
             $result = $this->$methodName(['user_id' => $id, 'company_id' => $attributes['company_id']]);
         }
+        $this->resetCacheData();
 
         return $result;
     }
@@ -188,43 +187,6 @@ class LakaUserRepository extends CoreRepository
         return $this->getReponseApiData(Common::callApi('post', '/api/v1/contact/add-to-all-rooms-by-company', $data));
     }
 
-    private function setUserType($data)
-    {
-        array_forget($data, 'company_id');
-        return $this->getReponseApiData(Common::callApi('post', '/api/v1/user/set-user-admin-company', $data));
-    }
-
-    public function setUserAdmin($data)
-    {
-        return $this->setUserType(array_add($data, 'admin', true)) ? 'admin' : false;
-    }
-
-    public function setUserDefault($data)
-    {
-        return $this->setUserType(array_add($data, 'admin', false)) ? 'default' : false;
-    }
-
-    public function approvalToken($id)
-    {
-        $data = ['id' => $id];
-        $result = Common::callApi('post', ' /api/v1/api-token/approve-token', $data)->toArray();
-        return $result;
-    }
-
-    public function stopToken($id)
-    {
-        $data = ['id' => $id];
-        $result = Common::callApi('post', '/api/v1/api-token/stop-token', $data)->toArray();
-        return $result;
-    }
-
-    public function delete($id)
-    {
-        $data = ['id' => $id,];
-        $result = Common::callApi('post', '/api/v1/api-token/delete-token', $data)->toArray();
-        return $result;
-    }
-
     public function checkVerificationCode($id, $attributes)
     {
         $codeDisableUser = Cache::get('codeDisableUser');
@@ -232,10 +194,28 @@ class LakaUserRepository extends CoreRepository
 
         if ($codeDisableUser === $codeInput) {
             Common::callApi('post', '/api/v1/user/delete-user', ['user_id' => $id]);
-            $this->resetCacheData('codeDisableUser');
+            $this->resetCacheData();
             return true;
         }
         return false;
+    }
+
+    public function disableUser($id, $attributes)
+    {
+        $typeAction = $attributes['type'];
+        $arrayAction = ['sent-mail', 'resent'];
+        $userDisabled = $this->getUserDetail($id);
+
+        if (in_array($typeAction, $arrayAction)) {
+            $dataContentConfirm = array();
+            $dataContentConfirm = $this->getConfirmDeleteUser($id);
+            $warningExpired = $this->warningExpired(config('laka.time_expired_code'));
+
+            data_set($dataContentConfirm, 'warningExpired', $warningExpired);
+            (event(new sendConfirmEmail($userDisabled, $dataContentConfirm)));
+        }
+
+        return $userDisabled;
     }
 
     public function getConfirmDeleteUser($id)
@@ -255,6 +235,20 @@ class LakaUserRepository extends CoreRepository
         return $data->toArray();
     }
 
+    protected function parserResult($result)
+    {
+        $data = $this->getReponseApiData($result);
+        $total = count($data);
+        $perPage = $this->getLimitForPagination();
+        if (count($data) > 0) {
+            $page = Paginator::resolveCurrentPage('page');
+            $data = collect($data)->forPage($page, $perPage)->values();
+        }
+        $pagination = $this->paginator($data, $total, $perPage, null, []);
+        $pagination->appends(request()->all());
+        return parent::parserResult($pagination);
+    }
+
     private function getReponseApiData($result)
     {
         if (!data_get($result, 'error_code')) {
@@ -265,10 +259,26 @@ class LakaUserRepository extends CoreRepository
         return [];
     }
 
-    private function resetCacheData($cacheKey)
+    private function resetCacheData()
     {
-        if (Cache::has($cacheKey)) {
-            Cache::forget($cacheKey);
+        if (Cache::has($this->cache_key)) {
+            Cache::forget($this->cache_key);
         }
+    }
+
+    private function setUserType($data)
+    {
+        array_forget($data, 'company_id');
+        return $this->getReponseApiData(Common::callApi('post', '/api/v1/user/set-user-admin-company', $data));
+    }
+
+    public function setUserAdmin($data)
+    {
+        return $this->setUserType(array_add($data, 'admin', true)) ? 'admin' : false;
+    }
+
+    public function setUserDefault($data)
+    {
+        return $this->setUserType(array_add($data, 'admin', false)) ? 'default' : false;
     }
 }

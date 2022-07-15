@@ -15,3 +15,4 @@ mix
     // .js('resources/js/app.js', 'public/js')
 //    .sass('resources/sass/app.scss', 'public/css');
    .sass('resources/sass/system-admin.scss', 'public/css');
+//    .sass('resources/sass/site.scss', 'public/css');
