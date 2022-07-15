@@ -2,11 +2,13 @@
 
 namespace Modules\Documents\Entities\Components;
 
-use Laka\Core\Entities\BaseModel;
+use Modules\Documents\Entities\BaseDocsModel;
 
-class EmbedModel extends BaseModel
+class EmbedModel extends BaseDocsModel
 {
     protected $table = 'embed';
+
+    protected $parentTable = 'components';
 
     protected $fillable = [];
 }

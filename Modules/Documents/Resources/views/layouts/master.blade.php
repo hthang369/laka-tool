@@ -8,13 +8,19 @@
 
        {{-- Laravel Mix - CSS File --}}
        <link rel="stylesheet" href="{{asset('css/app.css')}}" />
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+       <link rel="stylesheet" href="{{asset('css/docs.css')}}" />
 
     </head>
     <body>
+        @include('documents::layouts.partial.header')
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-3">@include('documents::layouts.partial.slidebar')</div>
-                <div class="col-md-9">@yield('content')</div>
+                <div class="col-md-9">
+
+                    @yield('content')
+                </div>
             </div>
         </div>
         {{-- Laravel Mix - JS File --}}

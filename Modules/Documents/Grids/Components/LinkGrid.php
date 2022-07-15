@@ -12,15 +12,4 @@ class LinkGrid extends BaseDocsGrid
      * @var string
      */
     protected $name = 'Link';
-
-    /**
-    * Set the columns to be displayed.
-    *
-    * @return void
-    * @throws \Exception if an error occurs during parsing of the data
-    */
-    public function setColumns()
-    {
-        return [];
-    }
 }

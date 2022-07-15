@@ -27,7 +27,10 @@ class BaseDocsGrid extends BaseGridPresenter
 
     public function present($results)
     {
-        data_set($results, 'properties', parent::present($results['properties']));
+        $results['properties'] = array_map(function($item) {
+            return parent::present($item);
+        }, $results['properties']);
+
         return $results;
     }
 }

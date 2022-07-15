@@ -2,11 +2,13 @@
 
 namespace Modules\Documents\Entities\Components;
 
-use Laka\Core\Entities\BaseModel;
+use Modules\Documents\Entities\BaseDocsModel;
 
-class CardModel extends BaseModel
+class CardModel extends BaseDocsModel
 {
     protected $table = 'card';
+
+    protected $parentTable = 'components';
 
     protected $fillable = [];
 }

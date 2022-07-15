@@ -2,11 +2,13 @@
 
 namespace Modules\Documents\Entities\Components;
 
-use Laka\Core\Entities\BaseModel;
+use Modules\Documents\Entities\BaseDocsModel;
 
-class CarouselModel extends BaseModel
+class CarouselModel extends BaseDocsModel
 {
     protected $table = 'carousel';
+
+    protected $parentTable = 'components';
 
     protected $fillable = [];
 }
