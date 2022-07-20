@@ -25,6 +25,7 @@
     "dependencies": {
         "bootstrap-icons": "^1.7.2",
         "jquery-file-download": "^1.4.6",
-        "jquery-pjax": "^2.0.1"
+        "jquery-pjax": "^2.0.1",
+        "lazysizes": "^5.3.2"
     }
 }
