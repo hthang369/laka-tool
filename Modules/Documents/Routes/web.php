@@ -13,9 +13,9 @@
 
 Route::prefix('docs')->group(function() {
 
-    Route::get('/', 'DocumentsController@index');
+    Route::get('/', 'DocumentsController@index')->name('docs.index');
     Route::prefix('components')->group(function () {
-        Route::get('/', 'DocumentsController@index')->name('components.index');
+        Route::get('/', 'Components\ComponentsController@index')->name('components.index');
         Route::resource('alerts', 'Components\AlertController', ['only' => ['index']])->names('components.alerts');
         Route::resource('badge', 'Components\BadgeController', ['only' => ['index']])->names('components.badge');
         Route::resource('breadcrumb', 'Components\BreadcrumbController', ['only' => ['index']])->names('components.breadcrumb');

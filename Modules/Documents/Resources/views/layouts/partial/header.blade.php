@@ -8,7 +8,7 @@
         <x-navbar-toggle target="navbarNavDropdown" />
 
         <x-navbar-nav>
-            <x-nav-item href="#">Docs</x-nav-item>
+            <x-nav-item to="docs.index">Docs</x-nav-item>
             <x-nav-item to="components.index">Components</x-nav-item>
         </x-navbar-nav>
     </div>
