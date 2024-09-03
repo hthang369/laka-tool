@@ -3,5 +3,7 @@
     "SystemManager": true,
     "Home": true,
     "LakaManager": true,
-    "Documents": true
+    "Documents": false,
+    "Api": true,
+    "SiteManager": true
 }

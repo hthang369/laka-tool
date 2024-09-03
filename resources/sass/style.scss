@@ -1,0 +1,103 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+
+@include media-breakpoint-up('lg') {
+    .container-lg {
+        max-width: calc(85% + 30px);
+    }
+    #ilogo img {
+        height: 170px;
+        width: 200px;
+    }
+    .w-sm-75 {
+        width: 75%;
+    }
+    .nav-sm-fill .nav-item {
+        flex: 1 1 auto;
+        text-align: center;
+    }
+}
+
+@include media-breakpoint-only('sm') {
+    #ilogo img {
+        height: 105px;
+    }
+}
+
+#ibanner {
+    background-image:url(../images/bannersmtvnn.png);
+	width:100%;
+	background-repeat:no-repeat;
+	position:relative;
+    background-size: contain;
+    min-height: 80px;
+}
+#dmbv {
+    .list-group-item {
+        background-image:url(../images/bg_menu.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        padding: 0.4rem 0.75rem;
+        font-size: 0.75rem;
+        .dropdown-item {
+            background-image:url(../images/bg_menu.png);
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding: 0.4rem 0.75rem;
+            font-size: 0.75rem;
+        }
+        a {
+            color: #000;
+            font-weight: bold;
+        }
+        .dropdown-menu {
+            top: 0;
+            padding: 0;
+        }
+        &:hover {
+            &>.dropdown-menu {
+                display: block;
+            }
+        }
+    }
+    .list-item-sp {
+        display: block;
+    }
+}
+#iLeftmenu {
+    #dmbv {
+        .list-group-item {
+            .dropdown-menu {
+                left: 220px;
+            }
+        }
+    }
+}
+#iRightmenu {
+    #dmbv {
+        .list-group-item {
+            .dropdown-menu {
+                right: 220px;
+                left: inherit;
+            }
+        }
+    }
+}
+.itemsptb {
+    max-width: 190px;
+    a {
+        color: #000;
+    }
+}
+.text-red,
+.text-red a {
+    color: red !important;
+}
+#iMain .card .card-header {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+.container-footer {
+    background-image: url(../images/bg_foot_panel_2.gif);
+}

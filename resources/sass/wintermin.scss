@@ -129,6 +129,7 @@ $progress-translateX: calc(100% * calc(100% / $progress-bar-width));
     }
 }
 .table-wrapper {
+    margin-bottom: 1rem;
     .sticky-table {
         top: $header-height;
         overflow-x: hidden;
@@ -137,6 +138,7 @@ $progress-translateX: calc(100% * calc(100% / $progress-bar-width));
         }
     }
     .content-table {
+        margin-bottom: 0;
         thead {
             tr {
                 &:first-child {
@@ -212,4 +214,75 @@ form {
     -moz-animation: scroll-right 5s linear infinite;
     -webkit-animation: scroll-right 5s linear infinite;
     animation: scroll-right 5s linear infinite;
+}
+
+/*!
+* Loading
+*/
+$bg_color_theme_loader: #fff;
+$border-right-color_1: #01a9ac;
+$border-right-color_2: #0ac282;
+$border-left-color_1: #01a9ac;
+$border-left-color_2: #0ac282;
+
+@-webkit-keyframes round-rotate {
+	100% {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+@keyframes round-rotate {
+	100% {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+.dark-mode {
+  .theme-loader {
+    background-color: rgba($color: $bg_color_theme_loader, $alpha: 0.8) !important;
+  }
+}
+.theme-loader {
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	z-index: 999999;
+	top: 0;
+	.ball-scale {
+		left: 50%;
+		top: 50%;
+		position: absolute;
+		height: 50px;
+		width: 50px;
+		margin: -25px 0 0 -25px;
+		.contain {
+			height: 100%;
+			width: 100%;
+			.ring {
+				display: none;
+				&:first-child {
+					display: block;
+					height: 100%;
+					width: 100%;
+					border-radius: 50%;
+					padding: 10px;
+					border: 3px solid transparent;
+					border-left-color: $border-left-color_1;
+					border-right-color: $border-right-color_1;
+					-webkit-animation: round-rotate 1.5s ease-in-out infinite;
+					animation: round-rotate 1.5s ease-in-out infinite;
+					.frame {
+						height: 100%;
+						width: 100%;
+						border-radius: 50%;
+						border: 3px solid transparent;
+						border-left-color: $border-left-color_2;
+						border-right-color: $border-right-color_2;
+						-webkit-animation: round-rotate 1.5s ease-in-out infinite;
+						animation: round-rotate 1.5s ease-in-out infinite;
+					}
+				}
+			}
+		}
+	}
 }

@@ -1,0 +1,100 @@
+@media (min-width: 992px) {
+  .container-lg {
+    max-width: calc(85% + 30px);
+  }
+
+  #ilogo img {
+    height: 170px;
+    width: 200px;
+  }
+
+  .w-sm-75 {
+    width: 75%;
+  }
+
+  .nav-sm-fill .nav-item {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  #ilogo img {
+    height: 105px;
+  }
+}
+
+#ibanner {
+  background-image: url(/images/bannersmtvnn.png?f553fe9c91fec4c9631a54545e531668);
+  width: 100%;
+  background-repeat: no-repeat;
+  position: relative;
+  background-size: contain;
+  min-height: 80px;
+}
+
+#dmbv .list-group-item {
+  background-image: url(/images/bg_menu.png?b832ae6c6be90d142f92cd7a81e1afd6);
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.75rem;
+}
+
+#dmbv .list-group-item .dropdown-item {
+  background-image: url(/images/bg_menu.png?b832ae6c6be90d142f92cd7a81e1afd6);
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.75rem;
+}
+
+#dmbv .list-group-item a {
+  color: #000;
+  font-weight: bold;
+}
+
+#dmbv .list-group-item .dropdown-menu {
+  top: 0;
+  padding: 0;
+}
+
+#dmbv .list-group-item:hover > .dropdown-menu {
+  display: block;
+}
+
+#dmbv .list-item-sp {
+  display: block;
+}
+
+#iLeftmenu #dmbv .list-group-item .dropdown-menu {
+  left: 220px;
+}
+
+#iRightmenu #dmbv .list-group-item .dropdown-menu {
+  right: 220px;
+  left: inherit;
+}
+
+.itemsptb {
+  max-width: 190px;
+}
+
+.itemsptb a {
+  color: #000;
+}
+
+.text-red,
+.text-red a {
+  color: red !important;
+}
+
+#iMain .card .card-header {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.container-footer {
+  background-image: url(/images/bg_foot_panel_2.gif?b59cd98e7c8b5e42876ca16f106f188d);
+}
+

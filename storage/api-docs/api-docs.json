@@ -1,0 +1,217 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "My First API",
+        "description": "Api db tool for application",
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/v1/configs/": {
+            "get": {
+                "tags": [
+                    "Config"
+                ],
+                "description": "Get all config data",
+                "operationId": "GetAllConfigData",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Status",
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "description": "Message",
+                                            "type": "string",
+                                            "example": "Success!"
+                                        },
+                                        "data": {
+                                            "description": "Data",
+                                            "type": "object",
+                                            "example": "{...}"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/servers/list-data/{name}": {
+            "get": {
+                "tags": [
+                    "Servers"
+                ],
+                "description": "Get all server by service type",
+                "operationId": "getListData",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Service type mysql|sql server|...",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "examples": {
+                            "array": {
+                                "summary": "[mysql,sql_server]",
+                                "value": "mysql"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Status",
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "description": "Message",
+                                            "type": "string",
+                                            "example": "Success!"
+                                        },
+                                        "data": {
+                                            "description": "Data",
+                                            "type": "object",
+                                            "example": "{...}"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/servers/list-type": {
+            "get": {
+                "tags": [
+                    "Servers"
+                ],
+                "description": "Get all servers",
+                "operationId": "getListType",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Status",
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "description": "Message",
+                                            "type": "string",
+                                            "example": "Success!"
+                                        },
+                                        "data": {
+                                            "description": "Data",
+                                            "type": "object",
+                                            "example": "{...}"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/servers/list-db": {
+            "post": {
+                "tags": [
+                    "Servers"
+                ],
+                "description": "Get all database by server name",
+                "operationId": "getListDB",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Status",
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "description": "Message",
+                                            "type": "string",
+                                            "example": "Success!"
+                                        },
+                                        "data": {
+                                            "description": "Data",
+                                            "type": "object",
+                                            "example": "{...}"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/servers/list-table": {
+            "get": {
+                "tags": [
+                    "Servers"
+                ],
+                "description": "Get all table by database",
+                "operationId": "getListTable",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Status",
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "description": "Message",
+                                            "type": "string",
+                                            "example": "Success!"
+                                        },
+                                        "data": {
+                                            "description": "Data",
+                                            "type": "object",
+                                            "example": "{...}"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

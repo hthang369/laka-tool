@@ -1,0 +1,1 @@
+require('@coreui/coreui-pro');

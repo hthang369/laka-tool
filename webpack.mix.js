@@ -12,6 +12,12 @@ const mix = require('laravel-mix');
  */
 
 mix
-    .js('resources/js/app.js', 'public/js');
-//    .sass('resources/sass/app.scss', 'public/css');
+    // .js('resources/js/app.js', 'public/js');
+    // .js('resources/js/core-ui.js', 'public/js');
+    // .js('resources/js/codemirror.js', 'public/js')
+//    .sass('resources/sass/style.scss', 'public/css');
+//    .sass('resources/sass/codemirror.scss', 'public/css');
+//    .sass('resources/sass/core-ui.scss', 'public/css');
 //    .sass('resources/sass/system-admin.scss', 'public/css');
+   .sass('resources/sass/wintermin.scss', 'public/css');
+// .scripts('resources/js/data-grid.js', 'public/js/data-grid.js');

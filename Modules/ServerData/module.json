@@ -1,0 +1,13 @@
+{
+    "name": "ServerData",
+    "alias": "serverdata",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\ServerData\\Providers\\ServerDataServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

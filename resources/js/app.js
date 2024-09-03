@@ -6,8 +6,9 @@
 
 require('./bootstrap');
 require('jquery-pjax');
-require('lodash');
-require('jquery-file-download');
+require('moment');
+// require('lodash');
+// require('jquery-file-download');
 require('lazysizes');
 // window.Vue = require('vue');
 
