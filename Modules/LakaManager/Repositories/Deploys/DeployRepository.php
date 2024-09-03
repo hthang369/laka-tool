@@ -27,7 +27,7 @@ class DeployRepository extends CoreRepository
         return DeployVersionForm::class;
     }
 
-    public function show($environment, $columns = [])
+    public function show($environment, $columns = [], $with = [])
     {
         $serverArray = collect();
         foreach (config("laka.deploy.list_environment.{$environment}") as $server => $value) {

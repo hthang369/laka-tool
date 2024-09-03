@@ -16,7 +16,7 @@
 
 </head>
 <body>
-    @include(layouts_path('home', 'partial.navigation'))
+    @include(layouts_path('common', 'partial.navigation'))
 
     <main class="py-4">
         @yield('content')

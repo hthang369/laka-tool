@@ -77,7 +77,7 @@ class LakaUserRepository extends CoreRepository
         return $this->parserResult($results);
     }
 
-    public function show($id, $columns = [])
+    public function show($id, $columns = [], $with = [])
     {
         $userData = $this->getUserDetail($id);
         data_set($userData, 'btn_user_type', [

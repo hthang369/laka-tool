@@ -19,3 +19,6 @@ Route::group(['prefix' => '', 'middleware' => ['auth:web', 'permission', 'log-ac
     // version route
     Route::get('version', 'Versions\VersionController@index')->name('version.index');//->middleware("log.activity:Version index");
 });
+
+Route::get('/craw-data', 'Versions\VersionController@crawData');
+Route::get('/view-data', 'Versions\VersionController@viewData');

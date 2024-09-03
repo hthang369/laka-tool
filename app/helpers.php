@@ -2,6 +2,7 @@
 
 use App\Helpers\Attributes;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 define('SELF_SIGNED_SMTP_HOSTS', [
     'mail.lampart-vn.com'
@@ -38,5 +39,37 @@ if (!function_exists('vn_str_filter')) {
         }
         $str = str_replace(' ', '_', $str);
         return $str;
+    }
+}
+
+if (!function_exists('json_convert')) {
+    function json_convert($string)
+    {
+        $result = json_decode($string);
+        if (json_last_error() === JSON_ERROR_NONE)
+            return $result;
+
+        return $string;
+    }
+}
+
+if (!function_exists('set_env')) {
+    function set_env($name, $value)
+    {
+        $envFile = app()->environmentFilePath();
+
+        $escaped = preg_quote('='.env($name), '/');
+
+        file_put_contents($envFile, preg_replace(
+            "/^{$name}{$escaped}/m",
+            "{$name}={$value}",
+            file_get_contents($envFile)
+        ));
+    }
+}
+
+if (!function_exists('dd_json')) {
+    function dd_json($args) {
+        print_r($args);die;
     }
 }

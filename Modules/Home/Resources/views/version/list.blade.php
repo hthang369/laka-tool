@@ -1,4 +1,4 @@
-@extends(layouts_path('home', 'main-page'))
+@extends(layouts_path('common', 'main-page'))
 
 @section('content')
     <div class="card-body px-0">
@@ -16,11 +16,3 @@
         @endforeach
     </div>
 @endsection
-
-@push('scripts')
-<script>
-    (function($) {
-        _grids.init();
-    })(jQuery);
-</script>
-@endpush

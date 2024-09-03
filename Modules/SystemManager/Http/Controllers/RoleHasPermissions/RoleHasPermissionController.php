@@ -37,7 +37,7 @@ class RoleHasPermissionController extends CoreController
         $role = Role::find($id);
         $result = array_add($result, 'role', $role);
         $result['modal'] = [
-            'route' => route('permission-role.update', $id),
+            'route' => ['permission-role.update', $id],
             'pjaxContainer' => $request->get('ref'),
             'title' => __('role.permission_role.page_header').': '.$role['name']
         ];

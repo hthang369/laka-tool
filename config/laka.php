@@ -14,7 +14,8 @@ return [
         'infoText' => 'table.show_result'
     ],
     'table' => [
-        'sticky_header' => false
+        'sticky_header' => false,
+        'header_variant' => 'dark'
     ],
     'time_expired_code' => 300,
     'api_token'         => env('API_TOKEN','7a79f1243f25a3bf9c66043aceebc6eb'),
@@ -61,9 +62,9 @@ return [
         'show'      => '%s.modify_modal'
     ],
     'views_temp' => [
-        'index'     => 'home::layouts.template.list',
-        'create'    => 'home::layouts.template.modify_modal',
-        'edit'      => 'home::layouts.template.modify_modal',
-        'show'      => 'home::layouts.template.modify_modal'
+        'index'     => 'common::layouts.template.list',
+        'create'    => 'common::layouts.template.modify_modal',
+        'edit'      => 'common::layouts.template.modify_modal',
+        'show'      => 'common::layouts.template.modify_modal'
     ]
 ];

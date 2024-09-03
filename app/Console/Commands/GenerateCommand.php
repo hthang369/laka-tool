@@ -11,7 +11,7 @@ class GenerateCommand extends BaseCommand
      *
      * @var string
      */
-    protected $signature = 'make:generate {name} {folder?}';
+    protected $signature = 'make:generate12 {name} {folder?}';
 
     /**
      * The console command description.

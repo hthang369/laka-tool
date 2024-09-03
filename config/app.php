@@ -177,6 +177,7 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         App\Providers\ComponentsScopedSlotsServiceProvider::class,
         Laka\Core\LakaCoreServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
     ],
 
     /*
@@ -228,7 +229,10 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Modal' => \Laka\Core\Facades\Modal::class,
-        'Breadcrumb' => \Laka\Core\Facades\Breadcrumb::class
+        'Breadcrumb' => \Laka\Core\Facades\Breadcrumb::class,
+        'Socialite' => \Laravel\Socialite\Facades\Socialite::class,
+        'SocialAuth' => \Laka\Core\Plugins\SocialAuth\Facades\SocialAuth::class,
+        'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
     ],
 
 ];

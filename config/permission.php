@@ -21,7 +21,11 @@ return [
         ['name'=> 'deploy-staging', 'code' => 'deploy-staging', 'parent' => 'version-deploy', 'url' => '', 'api' => ''],
         ['name'=> 'deploy-production', 'code' => 'deploy-production', 'parent' => 'version-deploy', 'url' => '', 'api' => ''],
         ['name'=> 'laka-parse-log', 'code' => 'laka-parse-log', 'parent' => 'laka-log', 'url' => '', 'api' => ''],
-        ['name'=> 'laka-log-s3', 'code' => 'laka-log-s3', 'parent' => 'laka-log', 'url' => '', 'api' => '']
+        ['name'=> 'laka-log-s3', 'code' => 'laka-log-s3', 'parent' => 'laka-log', 'url' => '', 'api' => ''],
+        ['name'=> 'sites', 'code' => 'sites', 'url' => '', 'api' => ''],
+        ['name'=> 'servers', 'code' => 'servers', 'url' => '', 'api' => ''],
+        ['name'=> 'hosts', 'code' => 'hosts', 'url' => '', 'api' => ''],
+        ['name'=> 'route-list', 'code' => 'route-list', 'url' => '', 'api' => '']
     ],
     /*
      * permission actions
@@ -49,7 +53,11 @@ return [
         'deploy-staging'            => ['view', 'add'],
         'deploy-production'         => ['view', 'add'],
         'laka-parse-log'            => ['view', 'add'],
-        'laka-log-s3'               => ['view', 'download']
+        'laka-log-s3'               => ['view', 'download'],
+        'sites'                     => ['view', 'add', 'edit', 'delete'],
+        'servers'                   => ['view', 'add', 'edit', 'delete'],
+        'hosts'                     => ['view', 'add', 'edit'],
+        'route-list'                => ['view'],
     ],
 
     'custom_section_action' => [

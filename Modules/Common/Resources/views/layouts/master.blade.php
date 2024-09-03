@@ -3,16 +3,20 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="referrer" content="strict-origin"/>
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Module Common</title>
 
+        <title>@yield('title')</title>
+        @yield('styles_master')
        {{-- Laravel Mix - CSS File --}}
        {{-- <link rel="stylesheet" href="{{ mix('css/common.css') }}"> --}}
 
     </head>
     <body>
-        @yield('content')
+        @yield('content_master')
 
+        @yield('scripts_master')
         {{-- Laravel Mix - JS File --}}
         {{-- <script src="{{ mix('js/common.js') }}"></script> --}}
     </body>

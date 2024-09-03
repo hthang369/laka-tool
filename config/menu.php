@@ -22,6 +22,12 @@ return [
                 'section_code' => 'version',
                 'name' => 'menu.version',
                 'link' => 'version.index'
+            ],
+            [
+                'group' => 'route-list',
+                'section_code' => 'route-list',
+                'name' => 'menu.route-list',
+                'link' => 'route-list.index'
             ]
         ]
     ],
@@ -127,6 +133,30 @@ return [
                 'section_code' => 'repair-data',
                 'name' => 'menu.repair_data',
                 'link' => 'repair-data.index'
+            ]
+        ]
+    ],
+    [
+        'group' => 'site-management',
+        'name' => 'menu.site_management',
+        'children' => [
+            [
+                'group' => 'sites',
+                'section_code' => 'sites',
+                'name' => 'menu.site_group.sites',
+                'link' => 'sites.index'
+            ],
+            [
+                'group' => 'servers',
+                'section_code' => 'servers',
+                'name' => 'menu.site_group.servers',
+                'link' => 'servers.index'
+            ],
+            [
+                'group' => 'hosts',
+                'section_code' => 'hosts',
+                'name' => 'menu.site_group.hosts',
+                'link' => 'hosts.index'
             ]
         ]
     ]

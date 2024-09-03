@@ -11,6 +11,7 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
@@ -21,6 +22,7 @@ Route::get('/storage/files/{folder}/{name}', function ($folder, $name) {
     return Storage::disk('local')->download('public/files/' . $folder . '/' . $name);
 });
 
-Route::group(['middleware' => ['log-activity']], function () {
+Route::group(['middleware' => ['log-activity'], 'prefix' => 'auth'], function () {
     Auth::routes();
+    SocialAuth::routes();
 });

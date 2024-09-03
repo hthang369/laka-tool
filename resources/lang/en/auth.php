@@ -15,5 +15,10 @@ return [
 
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-    'login_title' => 'Laka management tool - Login'
+    'login_title' => 'Laka management tool - Login',
+    'login_social' => [
+        'facebook' => 'Login for facebook',
+        'google' => 'Login for google',
+        'github' => 'Login for github',
+    ]
 ];

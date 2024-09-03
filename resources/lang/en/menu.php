@@ -23,6 +23,8 @@ return [
     'version_deploy' => 'Deploy version',
     'laka_log' => 'Laka log',
     'repair_data' => 'Repair data',
+    'site_management' => 'Sites manager',
+    'route-list' => 'Route list',
 
     // left menu
     'laka_user_management_group' => [
@@ -40,5 +42,10 @@ return [
         'local_log' => 'Laka log report',
         'log_parse' => 'Laka log parse',
         's3_log' => 'Laka log S3',
+    ],
+    'sites_group' => [
+        'sites' => 'Sites',
+        'servers' => 'Servers',
+        'hosts' => 'Hosts',
     ]
 ];

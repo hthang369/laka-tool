@@ -1,1 +1,1 @@
-@extends(module_views_path('home', 'layouts.template.list'))
+@extends(module_views_path('common', 'layouts.template.list'))

@@ -46,7 +46,7 @@ class UserRepository extends CoreRepository
         return UserForm::class;
     }
 
-    public function show($id, $columns = [])
+    public function show($id, $columns = [], $with = [])
     {
         $data = parent::show($id, $columns);
         $data['role_rank'] = $data->roles()->min('role_rank');

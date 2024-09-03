@@ -8,7 +8,7 @@ class BaseGrid extends BaseGridPresenter
 {
     protected function getHeaderInfoView()
     {
-        return layouts_path('home', 'partial.header-info');
+        return layouts_path('common', 'partial.header-info');
     }
 
     /**

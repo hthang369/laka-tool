@@ -4,6 +4,8 @@ namespace Modules\Home\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Home\Console\CrawlDataTruyen;
+use Modules\Home\Console\CrawlData;
 
 class HomeServiceProvider extends ServiceProvider
 {
@@ -38,6 +40,10 @@ class HomeServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+        $this->commands([
+            CrawlDataTruyen::class,
+            CrawlData::class
+        ]);
     }
 
     /**

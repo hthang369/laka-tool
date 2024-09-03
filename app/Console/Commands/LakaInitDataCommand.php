@@ -2,12 +2,13 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Menus\Menus;
 use Illuminate\Console\Command;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Modules\Common\Entities\Menus\Menus;
 
 class LakaInitDataCommand extends Command
 {
@@ -42,6 +43,10 @@ class LakaInitDataCommand extends Command
      */
     public function handle()
     {
+        // $config = config('database.connections.mysql');
+        // Config::set('database.connections.mariadb_mac', $config);
+        // dd(config('database.connections'));
+
         if ($this->option('reset')) {
             $this->info('Reset database ...');
             Schema::dropIfExists('feature_api');

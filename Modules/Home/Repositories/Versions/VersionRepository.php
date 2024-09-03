@@ -20,7 +20,7 @@ class VersionRepository extends BaseRepository
         return $this->all();
     }
 
-    public function all($columns = [])
+    public function all($columns = [], $with = [])
     {
         $json = Common::callApi('get', 'https://laka.lampart-vn.com:9443/api/v1/get-version');
         return ['versions' => $json['data']];

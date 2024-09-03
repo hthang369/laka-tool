@@ -1,4 +1,4 @@
-@extends(layouts_path('home', 'full-page'))
+@extends(layouts_path('common', 'full-page'))
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/error-page.css') }}"/>
@@ -21,7 +21,7 @@
 @push('scripts')
 <script>
     (function($) {
-        _grids.init();
+        DataGrid.init();
     })(jQuery);
 </script>
 @endpush

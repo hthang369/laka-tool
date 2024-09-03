@@ -27,7 +27,7 @@ class UserController extends CoreController
 
     public function showUpdatePassword(Request $request)
     {
-        list($modal, $form) = $this->formGenerateConfig(route($this->routeName.'.update-password'), 'update', ['method' => 'put', 'title' => __('users.page_header_update_password')]);
+        list($modal, $form) = $this->formGenerateConfig($this->routeName.'.update-password', 'update', ['method' => 'put', 'title' => __('users.page_header_update_password')]);
 
         return $this->responseView($request, compact('modal', 'form'), $this->getViewName(__FUNCTION__), $this->getMessageResponse(__FUNCTION__));
     }
